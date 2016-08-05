@@ -1,0 +1,167 @@
+cmake_minimum_required(VERSION 3.5)
+project(Tizen_GLES_Sample)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+set(SBI_SYSROOT C:/tizen-sdk-2.4-rev3/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-device.core)
+
+set(SDK_PATH C:/tizen-sdk-2.4-rev3)
+
+include_directories(${SBI_SYSROOT}/usr/include/libxml2)
+include_directories(${SBI_SYSROOT}/usr/include)
+include_directories(${SBI_SYSROOT}/usr/include/appcore-agent)
+include_directories(${SBI_SYSROOT}/usr/include/appfw)
+include_directories(${SBI_SYSROOT}/usr/include/attach-panel)
+include_directories(${SBI_SYSROOT}/usr/include/badge)
+include_directories(${SBI_SYSROOT}/usr/include/base)
+include_directories(${SBI_SYSROOT}/usr/include/cairo)
+include_directories(${SBI_SYSROOT}/usr/include/calendar-service2)
+include_directories(${SBI_SYSROOT}/usr/include/ckm)
+include_directories(${SBI_SYSROOT}/usr/include/contacts-svc)
+include_directories(${SBI_SYSROOT}/usr/include/content)
+include_directories(${SBI_SYSROOT}/usr/include/context-service)
+include_directories(${SBI_SYSROOT}/usr/include/dali)
+include_directories(${SBI_SYSROOT}/usr/include/dali-toolkit)
+include_directories(${SBI_SYSROOT}/usr/include/dbus-1.0)
+include_directories(${SBI_SYSROOT}/usr/include/device)
+include_directories(${SBI_SYSROOT}/usr/include/dlog)
+include_directories(${SBI_SYSROOT}/usr/include/ecore-1)
+include_directories(${SBI_SYSROOT}/usr/include/ecore-con-1)
+include_directories(${SBI_SYSROOT}/usr/include/ecore-evas-1)
+include_directories(${SBI_SYSROOT}/usr/include/ecore-file-1)
+include_directories(${SBI_SYSROOT}/usr/include/ecore-imf-1)
+include_directories(${SBI_SYSROOT}/usr/include/ecore-imf-evas-1)
+include_directories(${SBI_SYSROOT}/usr/include/ecore-input-1)
+include_directories(${SBI_SYSROOT}/usr/include/ecore-input-evas-1)
+include_directories(${SBI_SYSROOT}/usr/include/ecore-ipc-1)
+include_directories(${SBI_SYSROOT}/usr/include/ecore-x-1)
+include_directories(${SBI_SYSROOT}/usr/include/e_dbus-1)
+include_directories(${SBI_SYSROOT}/usr/include/edje-1)
+include_directories(${SBI_SYSROOT}/usr/include/eet-1)
+include_directories(${SBI_SYSROOT}/usr/include/efl-1)
+include_directories(${SBI_SYSROOT}/usr/include/efl-extension)
+include_directories(${SBI_SYSROOT}/usr/include/efreet-1)
+include_directories(${SBI_SYSROOT}/usr/include/eina-1)
+include_directories(${SBI_SYSROOT}/usr/include/eina-1/eina)
+include_directories(${SBI_SYSROOT}/usr/include/eio-1)
+include_directories(${SBI_SYSROOT}/usr/include/eldbus-1)
+include_directories(${SBI_SYSROOT}/usr/include/elementary-1)
+include_directories(${SBI_SYSROOT}/usr/include/embryo-1)
+include_directories(${SBI_SYSROOT}/usr/include/eo-1)
+include_directories(${SBI_SYSROOT}/usr/include/eom)
+include_directories(${SBI_SYSROOT}/usr/include/ethumb-1)
+include_directories(${SBI_SYSROOT}/usr/include/ethumb-client-1)
+include_directories(${SBI_SYSROOT}/usr/include/evas-1)
+include_directories(${SBI_SYSROOT}/usr/include/ewebkit2-0)
+include_directories(${SBI_SYSROOT}/usr/include/feedback)
+include_directories(${SBI_SYSROOT}/usr/include/fontconfig)
+include_directories(${SBI_SYSROOT}/usr/include/freetype2)
+include_directories(${SBI_SYSROOT}/usr/include/geofence)
+include_directories(${SBI_SYSROOT}/usr/include/gio-unix-2.0)
+include_directories(${SBI_SYSROOT}/usr/include/glib-2.0)
+include_directories(${SBI_SYSROOT}/usr/include/harfbuzz)
+include_directories(${SBI_SYSROOT}/usr/include/json-glib-1.0)
+include_directories(${SBI_SYSROOT}/usr/include/location)
+include_directories(${SBI_SYSROOT}/usr/include/maps)
+include_directories(${SBI_SYSROOT}/usr/include/media)
+include_directories(${SBI_SYSROOT}/usr/include/media-content)
+include_directories(${SBI_SYSROOT}/usr/include/messaging)
+include_directories(${SBI_SYSROOT}/usr/include/metadata-editor)
+include_directories(${SBI_SYSROOT}/usr/include/minicontrol)
+include_directories(${SBI_SYSROOT}/usr/include/minizip)
+include_directories(${SBI_SYSROOT}/usr/include/network)
+include_directories(${SBI_SYSROOT}/usr/include/notification)
+include_directories(${SBI_SYSROOT}/usr/include/phonenumber-utils)
+include_directories(${SBI_SYSROOT}/usr/include/sensor)
+include_directories(${SBI_SYSROOT}/usr/include/shortcut)
+include_directories(${SBI_SYSROOT}/usr/include/storage)
+include_directories(${SBI_SYSROOT}/usr/include/system)
+include_directories(${SBI_SYSROOT}/usr/include/telephony)
+include_directories(${SBI_SYSROOT}/usr/include/ui)
+include_directories(${SBI_SYSROOT}/usr/include/web)
+include_directories(${SBI_SYSROOT}/usr/include/widget_service)
+include_directories(${SBI_SYSROOT}/usr/include/widget_viewer_evas)
+include_directories(${SBI_SYSROOT}/usr/include/wifi-direct)
+include_directories(${SBI_SYSROOT}/usr/lib/dbus-1.0/include)
+include_directories(${SBI_SYSROOT}/usr/lib/glib-2.0/include)
+
+include_directories(inc)
+include_directories(src/common/include)
+include_directories(src/sample)
+
+add_definitions("-DBASIC_TIZEN")
+
+set(SOURCE_FILES
+    inc/basic/mgr/basic_light_mgr.h
+    inc/basic/mgr/basic_object_mgr.h
+    inc/basic/mgr/basic_shader_mgr.h
+    inc/basic/mgr/basic_texture_mgr.h
+    inc/basic/obj/basic_camera.h
+    inc/basic/obj/basic_light.h
+    inc/basic/obj/basic_object.h
+    inc/basic/obj/basic_pointlight.h
+    inc/basic/obj/basic_timer.h
+    inc/basic/obj/instanced_object.h
+    inc/basic/obj/phong_object.h
+        inc/basic/tex/tex_container.h
+    inc/basic/tex/basic_texture.h
+    inc/basic/basic_container.h
+    inc/basic/basic_file_loader.h
+    inc/basic/basic_gl_set.h
+    inc/basic/basic_renderer.h
+    inc/basic/basic_shader.h
+    inc/basic/basic_singleton.hpp
+    inc/basic/basic_type.h
+    inc/basic/basic_utils.h
+        inc/sample/view/coloring_view.h
+        inc/sample/view/dyn_env_mapping_view.h
+        inc/sample/view/env_mapping_view.h
+        inc/sample/view/frag_lighting_view.h
+        inc/sample/view/instance_view.h
+    inc/sample/launcher_interface.h
+    inc/sample/noise.h
+        inc/sample/view/normal_mapping_view.h
+    inc/sample/sample_launcher.h
+    inc/sample/sample_view.h
+        inc/sample/view/shadow_view.h
+        inc/sample/view/texture_array_view.h
+        inc/sample/view/texturing_view.h
+        inc/sample/view/transformfeedback_view.h
+        inc/sample/view/vertex_lighting_view.h
+    inc/gles_sample.h
+    src/obj/basic_light.cpp
+    src/obj/basic_object.cpp
+    src/obj/basic_texture.cpp
+    src/obj/instanced_object.cpp
+    src/obj/phong_object.cpp
+    src/renderer/platform/tizen/basic_file_loader_tizen.cpp
+    src/renderer/platform/win/basic_file_loader_win.cpp
+    src/renderer/basic_camera.cpp
+    src/renderer/basic_light_mgr.cpp
+    src/renderer/basic_object_mgr.cpp
+    src/renderer/basic_pointlight.cpp
+    src/renderer/basic_renderer.cpp
+        src/renderer/basic_shader.cpp
+    src/renderer/basic_shader_mgr.cpp
+        src/renderer/tex_container.cpp
+    src/renderer/basic_texture_mgr.cpp
+    src/renderer/basic_timer.cpp
+    src/renderer/basic_utils.cpp
+    src/sample/view/coloring_view.cpp
+    src/sample/view/dyn_env_mapping_view.cpp
+    src/sample/view/env_mapping_view.cpp
+    src/sample/view/frag_lighting_view.cpp
+    src/sample/view/instance_view.cpp
+        src/sample/noise.cpp
+    src/sample/view/normal_mapping_view.cpp
+    src/sample/view/shadow_view.cpp
+    src/sample/view/texture_array_view.cpp
+    src/sample/view/texturing_view.cpp
+    src/sample/view/transformfeedback_view.cpp
+    src/sample/view/vertex_lighting_view.cpp
+    src/sample/launcher_interface.cpp
+    src/sample/sample_launcher.cpp
+    src/sample/sample_view.cpp
+    src/gles_sample.c)
+
+add_executable(Tizen_GLES_Sample ${SOURCE_FILES})

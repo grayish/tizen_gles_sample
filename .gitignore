@@ -1,0 +1,7 @@
+Debug/
+.idea/
+.sign/
+/SA_Report
+*.VC.opendb
+.rds_delta
+.sdk_delta.info
