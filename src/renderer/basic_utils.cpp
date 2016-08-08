@@ -30,13 +30,13 @@ char *util_strtok(char *str, const char *delim, char **nextp) {
 
 void print_gl_string(const char *name, unsigned int s) {
 	const char *v = reinterpret_cast<const char *>(glGetString(s));
-	LOGI("GL %s = %s\n", name, v);
+	LOGI("GL %s = %s", name, v);
 }
 
 void check_gl_error(const char *op) {
 	for (GLint error = glGetError(); error; error
 													= glGetError()) {
-		LOGE("after %s() glError (0x%x)\n", op, error);
+		LOGE("after %s() glError (0x%x)", op, error);
 	}
 }
 

@@ -83,7 +83,7 @@ list_item_select_cb(void *data, Evas_Object *obj, void *event_info) {
 	Elm_Object_Item *iter = it;
 	for (; iter != NULL; iter = elm_list_item_prev(iter))
 		cnt++;
-	LOGI("Sample num: %d\n", cnt);
+	LOGI("Sample num: %d", cnt);
 	ad->cur_sample_num = cnt;
 
 	// create glview for each menu

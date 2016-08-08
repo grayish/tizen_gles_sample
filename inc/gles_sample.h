@@ -34,16 +34,16 @@
 #endif
 #define LOGI(fmt, arg...) \
     ({ do { \
-        dlog_print(DLOG_INFO, LOG_TAG, "%s(%d)>> " fmt " |%s", \
+        dlog_print(DLOG_INFO, LOG_TAG, "%s(%d)>> " fmt " <<%s", \
                 __func__, __LINE__, ##arg, __FILE__); \
     } while (0); })
 #define LOGE(fmt, arg...) \
     ({ do { \
-        dlog_print(DLOG_ERROR, LOG_TAG, "%s(%d)>> " fmt " |%s", \
+        dlog_print(DLOG_ERROR, LOG_TAG, "%s(%d)>> " fmt " <<%s", \
                 __func__, __LINE__, ##arg, __FILE__); \
     } while (0); })
 
-#define LOGI_ENTRY LOGI("func entry\n")
+#define LOGI_ENTRY LOGI("func entry")
 #define LOGI_EXIT LOGI("func exit")
 
 typedef struct appdata {

@@ -61,6 +61,7 @@ std::string FileLoader::ReadTxtFile(const std::string &filename) const {
 	in.read(&ret.at(0), ret.size());     // Read file to string
 	in.close();
 
+//	log_string(ret.c_str());
 	return ret;
 
 }

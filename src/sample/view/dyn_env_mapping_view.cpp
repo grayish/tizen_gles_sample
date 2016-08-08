@@ -34,7 +34,7 @@ public:
 	}
 
 	void InitDynamicCubemap(const Buint &cubeTexId, const Buint &size) {
-		LOGI("cube texture id : %d\n", cubeTexId);
+		LOGI("cube texture id : %d", cubeTexId);
 		mDynCubeSize = size;
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeTexId);
 
@@ -56,7 +56,7 @@ public:
 
 			// Check FBO is ready to draw
 			if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-				LOGE("FrameBufferObject is not complete!\n");
+				LOGE("FrameBufferObject is not complete!");
 			}
 		}
 		check_gl_error("glFramebufferTexture2D");

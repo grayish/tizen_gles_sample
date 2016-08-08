@@ -16,13 +16,13 @@ TexContainer::TexContainer() :
 }
 
 TexContainer::~TexContainer() {
-	LOGI("w:h[%d,%d]f[%d]\n", width, height, format);
+	LOGI("w:h[%d,%d]f[%d]", width, height, format);
 	if (pixels) delete pixels;
 }
 
 void TexContainer::SetData(int size, const Bubyte *source,
 						   unsigned int w, unsigned int h, int fm) {
-	LOGI("w:h[%d,%d]fm[%d]\n", w, h, fm);
+	LOGI("w:h[%d,%d]fm[%d]", w, h, fm);
 	//if(pixels) delete pixels;
 	int channels(4);
 	//if (fm == GL_RGBA || fm == GL_BGRA )	 { channels = 4; }

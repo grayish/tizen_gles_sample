@@ -33,7 +33,7 @@ void BasicShaderMgr::DeleteAll() {
 
 BasicShader *
 BasicShaderMgr::GetNewShader(const std::string &vert_sh, const std::string &frag_sh, const std::string &name) {
-	LOGI("Get the shader, %s\n", name.c_str());
+	LOGI("Get the shader, %s", name.c_str());
 	BasicShader *ret = nullptr;
 
 	if (mShaderList.find(name) != mShaderList.end()) {
@@ -45,7 +45,7 @@ BasicShaderMgr::GetNewShader(const std::string &vert_sh, const std::string &frag
 	ret->CreateProgram(vert_sh, frag_sh);
 
 	if (!ret->GetProgram()) {
-		LOGE("Could not create program.\n");
+		LOGE("Could not create program.");
 		delete ret;
 		return nullptr;
 	}

@@ -39,13 +39,13 @@ BasicObject *InstObject::ImportObj(const std::string &objSource, const float &sc
 
 	BasicObject *ret = ImporterScale(buffer, scale);
 
-	delete (buffer);
+	delete buffer;
 
 	return ret;
 }
 
 BasicObject *InstObject::ImporterScale(char *objSource, const float &scale) {
-	LOGI("%s\n", mName.c_str());
+	LOGI("%s", mName.c_str());
 
 	vec3 sVec = vec3(scale);
 
@@ -126,7 +126,7 @@ BasicObject *InstObject::ImporterScale(char *objSource, const float &scale) {
 				break;
 
 			case 'g':
-				LOGI("obj name : %s\n", util_strtok(nullptr, " ", &wordPtr));
+				LOGI("obj name : %s", util_strtok(nullptr, " ", &wordPtr));
 				break;
 
 			default:
@@ -134,6 +134,7 @@ BasicObject *InstObject::ImporterScale(char *objSource, const float &scale) {
 		}
 		line = util_strtok(nullptr, "\r\n", &linePtr);
 	}
+	LOGI("vert, idx = %d, %d",mVertices.size(), mIndices.size());
 
 	return this;
 }

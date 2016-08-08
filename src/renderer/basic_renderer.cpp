@@ -64,7 +64,7 @@ void BasicRenderer::ComputeTick() {
 	mDeltaTime = currTick - lastTick;
 	lastTick = currTick;
 	mTotalTime += mDeltaTime;
-	//LOGI("Tick: %f\n", mDeltaTime);
+	//LOGI("Tick: %f", mDeltaTime);
 }
 
 vec3 BasicRenderer::GetArcballVector(const vec2 &point) const {
@@ -94,7 +94,7 @@ glm::quat BasicRenderer::CalculateRot() {
 		if (!isUpdateAnc) {
 			ancPts = mTouchPoint;
 			isUpdateAnc = true;
-			LOGI("CalculateRot() Anchor Pts Updated\n");
+			LOGI("CalculateRot() Anchor Pts Updated");
 		}
 		else {
 			if (ancPts.x != mTouchPoint.x || ancPts.y != mTouchPoint.y) {
@@ -127,7 +127,7 @@ glm::quat BasicRenderer::CalculateRot() {
  **** Interface functions ***
  ****************************/
 void BasicRenderer::Initialize() {
-	LOGI("BasicRenderer is initialized.\n");
+	LOGI("BasicRenderer is initialized.");
 	LogInfo();
 	mTimer->InitTimer();
 	SetStates();
@@ -140,7 +140,7 @@ void BasicRenderer::Initialize() {
 }
 
 void BasicRenderer::SetViewPort(int w, int h) {
-	LOGI("%d, %d\n", w, h);
+	LOGI("%d, %d", w, h);
 	mWidth = w;
 	mHeight = h;
 	glViewport(0, 0, w, h);

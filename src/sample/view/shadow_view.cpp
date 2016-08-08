@@ -54,7 +54,7 @@ public:
 
 		// Check FBO is ready to draw
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-			LOGE("FrameBufferObject is not complete!\n");
+			LOGE("FrameBufferObject is not complete!");
 		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

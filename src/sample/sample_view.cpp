@@ -78,7 +78,7 @@ init_glview(Evas_Object *obj) {
 	LOGI_ENTRY;
 	SampleView *sv = static_cast<SampleView *>(evas_object_data_get(obj, "sv"));
 	if (sv == nullptr) {
-		LOGE("[sv] has null ptr!\n");
+		LOGE("[sv] has null ptr!");
 		return;
 	}
 
