@@ -45,15 +45,17 @@ BasicObject *BasicObject::AttachLight(const std::string &name) {
 }
 
 BasicObject *
-BasicObject::AttachTexture(const TexContainer &tex, const GLenum &target, const std::string &uniform_name) {
-	Texture_Mgr.SetObjectTexture(this, tex, target, uniform_name);
+BasicObject::AttachTexture(const TexProp &tex, const std::string &uniform_name) {
+	Texture_Mgr.SetObjectTexture(this, tex, uniform_name);
 	return this;
 }
 
-BasicObject *BasicObject::AttachCubeTex(const TexContainer *cubeTex, const std::string &uniform_name) {
+/*
+BasicObject *BasicObject::AttachCubeTex(const TexProp *cubeTex, const std::string &uniform_name) {
 	Texture_Mgr.SetObjectCubeTex(this, cubeTex, uniform_name);
 	return this;
 }
+*/
 
 void BasicObject::CreateBuffer(GLenum target, GLuint *id, GLsizeiptr size, const GLvoid *data, GLenum usage) {
 	glGenBuffers(1, id);

@@ -103,7 +103,7 @@ set(SOURCE_FILES
     inc/basic/obj/basic_timer.h
     inc/basic/obj/instanced_object.h
     inc/basic/obj/phong_object.h
-        inc/basic/tex/tex_container.h
+        inc/basic/tex/tex_prop.h
     inc/basic/tex/basic_texture.h
     inc/basic/basic_container.h
     inc/basic/basic_file_loader.h
@@ -143,7 +143,7 @@ set(SOURCE_FILES
     src/renderer/basic_renderer.cpp
         src/renderer/basic_shader.cpp
     src/renderer/basic_shader_mgr.cpp
-        src/renderer/tex_container.cpp
+        src/renderer/tex_prop.cpp
     src/renderer/basic_texture_mgr.cpp
     src/renderer/basic_timer.cpp
     src/renderer/basic_utils.cpp
@@ -162,6 +162,6 @@ set(SOURCE_FILES
     src/sample/launcher_interface.cpp
     src/sample/sample_launcher.cpp
     src/sample/sample_view.cpp
-    src/gles_sample.c)
+    src/gles_sample.c src/obj/transform_particles.cpp inc/basic/obj/transform_particles.h src/sample/view/mrt_view.cpp inc/sample/view/mrt_view.h)
 
 add_executable(Tizen_GLES_Sample ${SOURCE_FILES})

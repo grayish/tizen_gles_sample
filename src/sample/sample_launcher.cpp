@@ -12,6 +12,7 @@
 #include "sample/view/dyn_env_mapping_view.h"
 #include "sample/view/shadow_view.h"
 #include "sample/view/transformfeedback_view.h"
+#include "sample/view/mrt_view.h"
 
 SampleLauncher *SampleLauncher::instance = nullptr;
 
@@ -94,6 +95,9 @@ Evas_Object *SampleLauncher::InitSampleView(void *data) {
 			break;
 		case 11:
 			curView = new TransformFeedbackView(ad);
+			break;
+		case 12:
+			curView = new MrtView(ad);
 			break;
 		default:
 			break;

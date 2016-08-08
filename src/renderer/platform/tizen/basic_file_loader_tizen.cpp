@@ -8,8 +8,8 @@
 #include "basic/basic_utils.h"
 #include "sample/sample_launcher.h"
 
-void FileLoader::ReadTexture(const char *filename, TexContainer &out) const {
-
+void FileLoader::ReadTexImage2D(GLenum target, const char *filename) const {
+	LOGI("file name[%s]", filename);
 	Evas_Object *parent = SampleLauncher::GetInstance()->GetParent();
 
 	int w, h;
@@ -35,12 +35,15 @@ void FileLoader::ReadTexture(const char *filename, TexContainer &out) const {
 
 	elm_win_render(inline_buffer);
 
-	GLubyte *pixels;
-	pixels = static_cast<GLubyte *>(evas_object_image_data_get(image, EINA_FALSE));
+	GLubyte *pixels = static_cast<GLubyte *>(evas_object_image_data_get(image, EINA_FALSE));
 
-	out.SetData(w * h, pixels, w, h, GL_BGRA_EXT);
-	out.filename = filename;
+	glTexImage2D(target, 0, GL_BGRA_EXT,
+				 w, h, 0,
+				 (GLenum) GL_BGRA_EXT, GL_UNSIGNED_BYTE,
+				 (void *) pixels);
+	check_gl_error("glTexImage2D");
 
+	evas_object_del(image);
 	evas_object_del(inline_buffer);
 
 }
@@ -64,5 +67,6 @@ std::string FileLoader::ReadTxtFile(const std::string &filename) const {
 	return ret;
 
 }
+
 
 #endif

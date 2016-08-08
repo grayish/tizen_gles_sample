@@ -86,7 +86,7 @@ BasicObject *PhongObject::ImporterScale(char *objSource, const float &scale) {
 						x = static_cast<float>(atof(word));
 						word = util_strtok(nullptr, " ", &wordPtr);
 						y = static_cast<float>(atof(word));
-						texCoords.push_back(vec2(x, y));
+						texCoords.push_back(vec2(x, 1.0f - y));
 						break;
 					default: //vertex position
 						word = util_strtok(nullptr, " ", &wordPtr);
@@ -200,6 +200,7 @@ void PhongObject::SetupAttribs() {
 		glGenVertexArrays(1, &mVertexArrayObject);
 		check_gl_error("glGenVertexArrays");
 		glBindVertexArray(mVertexArrayObject);
+		check_gl_error("glBindVertexArray");
 
 		std::vector<VertexAttrib> att;
 		att.push_back(VertexAttrib{BASIC_ATTRIB_POS, 3, GL_FLOAT,

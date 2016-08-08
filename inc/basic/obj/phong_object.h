@@ -21,12 +21,12 @@ private:
 
 	// vertex data array and indices
 	std::vector<PhongVertex> mVertices;
-	std::vector<Bushort> mIndices;
+	std::vector<GLushort> mIndices;
 
 	// gl buffer obj and VAO
-	Buint mBufferVertices;
-	Buint mBufferIndices;
-	Buint mVertexArrayObject;
+	GLuint mBufferVertices;
+	GLuint mBufferIndices;
+	GLuint mVertexArrayObject;
 	PhongObj_U_Str mUniformList;
 	BasicCamera *mCamera;
 

@@ -9,8 +9,7 @@ void FragLightingView::OnInit() {
 	string fs = File_Loader.ReadTxtFile("shader/view_f_lit/f_lit.fs");
 	string teapot = File_Loader.ReadTxtFile("obj3d/teapot");
 
-	TexContainer tizenTex;
-	File_Loader.ReadTexture("tex/tizen_black.png", tizenTex);
+	TexProp tizenTex(TEX_2D_FILE, "tex/tizen_black.png");
 
 	BasicMap<PhongObj_U_Elem> po_uniforms;
 	po_uniforms.mList[U_MAT_WORLD] = "worldMat";
@@ -32,7 +31,7 @@ void FragLightingView::OnInit() {
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
 			->ImportObj(teapot, 1.0f)
 			->AttachShader(vs, fs, "shader")
-			->AttachTexture(tizenTex, GL_TEXTURE_2D, "s_tex0")
+			->AttachTexture(tizenTex, "s_tex0")
 			->AttachLight(POINT_LT, "point_light_1", lt_uniforms);
 
 }

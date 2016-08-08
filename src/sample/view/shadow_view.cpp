@@ -18,9 +18,9 @@ using namespace glm;
 
 class ShadowRenderer : public BasicRenderer {
 private:
-	Buint mShadowWidth;
-	Buint mShadowHeight;
-	Buint mShadowFbo;
+	GLuint mShadowWidth;
+	GLuint mShadowHeight;
+	GLuint mShadowFbo;
 
 public:
 	ShadowRenderer() :
@@ -33,7 +33,7 @@ public:
 		glDeleteFramebuffers(1, &mShadowFbo);
 	}
 
-	void InitShadow(const Buint &shadowTexId, const Buint &size) {
+	void InitShadow(const GLuint &shadowTexId, const GLuint &size) {
 		GLenum none = GL_NONE;
 
 		mShadowWidth = size;
@@ -131,16 +131,12 @@ void ShadowView::OnInit() {
 	lt_uniforms.mList[U_PL_SPECULAR] = "sourceSpec";
 	lt_uniforms.mList[U_PL_POS] = "lightPos";
 
-	TexContainer shadowTex;
 	string SHADOW_TEX_NAME = "shadowTex";
 	string SHADOW_TEX_U_STR = "s_texShadow";
-	shadowTex.filename = SHADOW_TEX_NAME;
-	shadowTex.pixels = nullptr;
-	shadowTex.width = SHADOW_TEX_SIZE;
-	shadowTex.height = SHADOW_TEX_SIZE;
-	shadowTex.format = GL_DEPTH_COMPONENT;
-	shadowTex.internalFormat = GL_DEPTH_COMPONENT24;
-	shadowTex.dataType = GL_UNSIGNED_INT;
+	TexProp shadowTex(TEX_2D_PTR);
+	shadowTex.SetPointer(nullptr);
+	shadowTex.SetData(SHADOW_TEX_NAME, SHADOW_TEX_SIZE, SHADOW_TEX_SIZE, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT24,
+					  GL_UNSIGNED_INT);
 	shadowTex.SetParam(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	shadowTex.SetParam(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	shadowTex.SetParam(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -153,7 +149,7 @@ void ShadowView::OnInit() {
 			->AttachShader(vs, fs, SH_FRAG_SHADOW)
 			->AttachShader(vsShadow, fsShadow, SH_SHADOW_MAP)
 			->AttachLight(POINT_LT, POINT_LIGHT_1, lt_uniforms)
-			->AttachTexture(shadowTex, GL_TEXTURE_2D, SHADOW_TEX_U_STR)
+			->AttachTexture(shadowTex, SHADOW_TEX_U_STR)
 			->SetPosition(vec3(0, -20.0f, 0));
 	dynamic_cast<PhongObject *>(obj)->SetColor(vec3(0.7));
 
@@ -162,7 +158,7 @@ void ShadowView::OnInit() {
 			->AttachShader(vs, fs, SH_FRAG_SHADOW)
 			->AttachShader(vsShadow, fsShadow, SH_SHADOW_MAP)
 			->AttachLight(POINT_LT, POINT_LIGHT_1, lt_uniforms)
-			->AttachTexture(shadowTex, GL_TEXTURE_2D, SHADOW_TEX_U_STR);
+			->AttachTexture(shadowTex, SHADOW_TEX_U_STR);
 
 	mViewRenderer->GetCamera()->SetEye(45, 45, 45);
 	mViewRenderer->GetCamera()->SetAt(0, 0, 0);

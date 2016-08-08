@@ -191,11 +191,11 @@ void SampleView::SetTouchPoint(float x, float y) const {
 
 void SampleView::TouchOn() const {
 	mViewRenderer->TouchOn();
-	mViewRenderer->OffAutoRotate();
+//	mViewRenderer->OffAutoRotate();
 }
 
 void SampleView::TouchOff() const {
-	mViewRenderer->OnAutoRotate();
+//	mViewRenderer->OnAutoRotate();
 	mViewRenderer->TouchOff();
 }
 

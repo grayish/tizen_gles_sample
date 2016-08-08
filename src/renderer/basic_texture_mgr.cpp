@@ -3,7 +3,7 @@
 #include "basic/basic_utils.h"
 #include "basic/basic_gl_set.h"
 #include "basic/basic_shader.h"
-#include "basic/tex/tex_container.h"
+#include "basic/tex/tex_prop.h"
 #include "basic/tex/basic_texture.h"
 
 BasicTextureMgr::BasicTextureMgr() :
@@ -36,34 +36,16 @@ void BasicTextureMgr::DeleteAll() {
 	mTextureList.clear();
 }
 
-int BasicTextureMgr::SetObjectTexture(BasicObject *obj, const TexContainer &tex, const GLenum &target,
-									  const std::string &uniform_name) {
+int BasicTextureMgr::SetObjectTexture(BasicObject *obj, const TexProp &tex, const std::string &uniform_name) {
 	std::map<std::string, BasicTexture *>::iterator iter_list;
-	iter_list = mTextureList.find(tex.filename);
-
-	BasicTexture *basicTex(nullptr);
-	if (iter_list == mTextureList.end()) {
-		basicTex = new BasicTexture(tex, uniform_name, target);
-		mTextureList[tex.filename] = basicTex;
-	} else {
-		basicTex = mTextureList[tex.filename];
-	}
-
-	mTextureData[obj].push_back(basicTex);
-
-	return mTextureData[obj].size() - 1;
-}
-
-int BasicTextureMgr::SetObjectCubeTex(BasicObject *obj, const TexContainer *tex, const std::string &uniform_name) {
-	std::map<std::string, BasicTexture *>::iterator iter_list;
-	iter_list = mTextureList.find(tex[0].filename);
+	iter_list = mTextureList.find(tex.mName);
 
 	BasicTexture *basicTex(nullptr);
 	if (iter_list == mTextureList.end()) {
 		basicTex = new BasicTexture(tex, uniform_name);
-		mTextureList[tex[0].filename] = basicTex;
+		mTextureList[tex.mName] = basicTex;
 	} else {
-		basicTex = mTextureList[tex[0].filename];
+		basicTex = mTextureList[tex.mName];
 	}
 
 	mTextureData[obj].push_back(basicTex);
@@ -71,7 +53,26 @@ int BasicTextureMgr::SetObjectCubeTex(BasicObject *obj, const TexContainer *tex,
 	return mTextureData[obj].size() - 1;
 }
 
-Buint BasicTextureMgr::GetTextureId(const std::string &tex_str) {
+/*
+int BasicTextureMgr::SetObjectCubeTex(BasicObject *obj, const TexProp *tex, const std::string &uniform_name) {
+	std::map<std::string, BasicTexture *>::iterator iter_list;
+	iter_list = mTextureList.find(tex[0].mName);
+
+	BasicTexture *basicTex(nullptr);
+	if (iter_list == mTextureList.end()) {
+		basicTex = new BasicTexture(tex, uniform_name);
+		mTextureList[tex[0].mName] = basicTex;
+	} else {
+		basicTex = mTextureList[tex[0].mName];
+	}
+
+	mTextureData[obj].push_back(basicTex);
+
+	return mTextureData[obj].size() - 1;
+}
+*/
+
+GLuint BasicTextureMgr::GetTextureId(const std::string &tex_str) {
 	if (mTextureList.find(tex_str) == mTextureList.end()) {
 		LOGE("The texture, %s, doesn't exist!", tex_str.c_str());
 		return 0;

@@ -9,9 +9,8 @@ void NormalMappingView::OnInit() {
 	string fs = File_Loader.ReadTxtFile("shader/view_nor/nor.fs");
 	string teapot = File_Loader.ReadTxtFile("obj3d/teapot");
 
-	TexContainer tex, normal_tex;
-	File_Loader.ReadTexture("tex/tex_c_brick.bmp", tex);
-	File_Loader.ReadTexture("tex/tex_n_brick.bmp", normal_tex);
+	TexProp brick_color(TEX_2D_FILE, "tex/tex_c_brick.bmp");
+	TexProp brick_normal(TEX_2D_FILE, "tex/tex_n_brick.bmp");
 
 	BasicMap<PhongObj_U_Elem> po_uniforms;
 	po_uniforms.mList[U_MAT_WORLD] = "worldMat";
@@ -33,8 +32,8 @@ void NormalMappingView::OnInit() {
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
 			->ImportObj(teapot, 1.0f)
 			->AttachShader(vs, fs, "shader")
-			->AttachTexture(tex, GL_TEXTURE_2D, "s_tex0")
-			->AttachTexture(normal_tex, GL_TEXTURE_2D, "s_texNor")
+			->AttachTexture(brick_color, "s_tex0")
+			->AttachTexture(brick_normal, "s_texNor")
 			->AttachLight(POINT_LT, "point_light_1", lt_uniforms);
 
 }

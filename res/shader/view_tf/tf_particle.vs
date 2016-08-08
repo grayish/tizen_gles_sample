@@ -1,21 +1,21 @@
 #version 300 es
 
 #define NUM_PARTICLES           200
-#define ATTRIBUTE_POSITION      0
-#define ATTRIBUTE_VELOCITY      1
-#define ATTRIBUTE_SIZE          2
-#define ATTRIBUTE_CURTIME       3
-#define ATTRIBUTE_LIFETIME      4
+#define TRANSFORM_ATTRIB_POSITION      0
+#define TRANSFORM_ATTRIB_VELOCITY      1
+#define TRANSFORM_ATTRIB_SIZE          2
+#define TRANSFORM_ATTRIB_CURTIME       3
+#define TRANSFORM_ATTRIB_LIFETIME      4
 
 uniform float u_time;
 uniform float u_emissionRate;
 uniform mediump sampler3D s_noiseTex;
 
-layout(location = ATTRIBUTE_POSITION) in vec2 a_position;
-layout(location = ATTRIBUTE_VELOCITY) in vec2 a_velocity;
-layout(location = ATTRIBUTE_SIZE) in float a_size;
-layout(location = ATTRIBUTE_CURTIME) in float a_curtime;
-layout(location = ATTRIBUTE_LIFETIME) in float a_lifetime;
+layout(location = TRANSFORM_ATTRI_POSITION) in vec2 position;
+layout(location = TRANSFORM_ATTRI_VELOCITY) in vec2 velocity;
+layout(location = TRANSFORM_ATTRI_SIZE) in float size;
+layout(location = TRANSFORM_ATTRI_CURTIME) in float curtime;
+layout(location = TRANSFORM_ATTRI_LIFETIME) in float lifetime;
 
 out vec2 v_position;
 out vec2 v_velocity;
@@ -46,11 +46,11 @@ void main()
   }
   else
   {
-     v_position = a_position;
-     v_velocity = a_velocity;
-     v_size = a_size;
-     v_curtime = a_curtime;
-     v_lifetime = a_lifetime;
+     v_position = position;
+     v_velocity = velocity;
+     v_size = size;
+     v_curtime = curtime;
+     v_lifetime = lifetime;
   }
   gl_Position = vec4( v_position, 0.0, 1.0 );
 }

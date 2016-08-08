@@ -60,11 +60,11 @@ private:
 
 private: // glProgram obj member
 	std::string mName;
-	Buint mProgram;
+	GLuint mProgram;
 	std::map<std::string, AUniformContainer *> mUDataDictionary;
 
 public: // inline getter and setter
-	const Buint GetProgram() const;
+	const GLuint GetProgram() const;
 
 public:
 
@@ -90,7 +90,7 @@ public:
 	 *
 	 * @return the shader object
 	 */
-	Buint CreateProgram(const std::string &vertexSource, const std::string &fragmentSource);
+	GLuint CreateProgram(const std::string &vertexSource, const std::string &fragmentSource);
 
 	/**
 	 * @brief Create shader program with shader source codes
@@ -100,7 +100,7 @@ public:
 	 *
 	 * @return the shader object
 	 */
-	Buint CreateProgram(const char *vertexSource, const char *fragmentSource);
+	GLuint CreateProgram(const char *vertexSource, const char *fragmentSource);
 
 
 	/**
@@ -136,7 +136,7 @@ public:
 	 * @param[in] loc Location of the uniform variable
 	 * @param[in] val GLuint value to be set
 	 */
-	void SetUniform(const int &loc, const Buint &val) const;
+	void SetUniform(const int &loc, const GLuint &val) const;
 
 	/**
 	 * @brief set uniform variable to float value
@@ -216,7 +216,7 @@ public:
 	 */
 	void SetUniform(const int &loc, const glm::mat4 &m) const;
 
-	Bint GetUniformLocation(const std::string &u_str);
+	GLint GetUniformLocation(const std::string &u_str);
 
 private:
 	/**
@@ -227,7 +227,7 @@ private:
 	 *
 	 * @return the shader object
 	 */
-	Buint LoadShader(Benum shaderType, const char *source) const;
+	GLuint LoadShader(GLenum shaderType, const char *source) const;
 
 	/**
 	 * @brief Attach shaders to program set and link the program
@@ -237,11 +237,11 @@ private:
 	 *
 	 * @return the program object
 	 */
-	Buint LinkShaders(int nArgs, ...) const;
+	GLuint LinkShaders(int nArgs, ...) const;
 
 };
 
-inline const Buint BasicShader::GetProgram() const {
+inline const GLuint BasicShader::GetProgram() const {
 	return mProgram;
 }
 

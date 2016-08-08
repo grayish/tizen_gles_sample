@@ -9,6 +9,7 @@
 
 #include "basic/basic_singleton.hpp"
 #include "basic/basic_type.h"
+#include "basic/basic_gl_set.h"
 
 class BasicTexture;
 
@@ -16,7 +17,7 @@ class BasicObject;
 
 class BasicShader;
 
-class TexContainer;
+class TexProp;
 
 class BasicTextureMgr : public BasicSingleton<BasicTextureMgr> {
 private:
@@ -49,17 +50,15 @@ public:
 	 *
 	 * @param[in] obj the pointer of BasicObject
 	 * @param[in] tex data of the texture
-	 * @param[in] target a target of the texture
 	 * @param[in] uniform_name a name of a uniform variable of the texture
 	 */
-	int SetObjectTexture(BasicObject *obj, const TexContainer &tex, const Benum &target,
-						 const std::string &uniform_name);
+	int SetObjectTexture(BasicObject *obj, const TexProp &tex, const std::string &uniform_name);
 
 
-	int SetObjectCubeTex(BasicObject *obj, const TexContainer *cubeTex, const std::string &uniform_name);
+//	int SetObjectCubeTex(BasicObject *obj, const TexProp *cubeTex, const std::string &uniform_name);
 
 
-	Buint GetTextureId(const std::string &tex_str);
+	unsigned int GetTextureId(const std::string &tex_str);
 
 	/**
 	 * @brief Activate all textures of a object

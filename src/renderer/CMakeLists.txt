@@ -3,7 +3,7 @@ include_directories(include)
 set(common_src
         basic_camera.cpp
         basic_log_utils.cpp
-        tex_container.cpp
+        tex_prop.cpp
         basic_timer.cpp
         iml_utils.cpp
         basic_shader.cpp

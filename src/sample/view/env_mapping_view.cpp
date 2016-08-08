@@ -9,13 +9,15 @@ void EnvMappingView::OnInit() {
 	string fs = File_Loader.ReadTxtFile("shader/view_env/env.fs");
 	string teapot = File_Loader.ReadTxtFile("obj3d/teapot");
 
-	TexContainer cubemap[6];
-	File_Loader.ReadTexture("tex/cm_left.bmp", cubemap[0]); // X+
-	File_Loader.ReadTexture("tex/cm_right.bmp", cubemap[1]); // X-
-	File_Loader.ReadTexture("tex/cm_top.bmp", cubemap[2]); // Y+
-	File_Loader.ReadTexture("tex/cm_bottom.bmp", cubemap[3]); // Y-
-	File_Loader.ReadTexture("tex/cm_back.bmp", cubemap[4]); // Z+
-	File_Loader.ReadTexture("tex/cm_front.bmp", cubemap[5]); // Z-
+	TexProp cubemap(TEX_CUBE_FILE);
+	cubemap.SetData("cube_map");
+	cubemap.SetFilter();
+	cubemap.SetFile("tex/cm_left.bmp");// X+
+	cubemap.SetFile("tex/cm_right.bmp");// X-
+	cubemap.SetFile("tex/cm_top.bmp");// Y+
+	cubemap.SetFile("tex/cm_bottom.bmp");// Y-
+	cubemap.SetFile("tex/cm_back.bmp");// Z+
+	cubemap.SetFile("tex/cm_front.bmp");// Z-
 
 	BasicMap<PhongObj_U_Elem> po_uniforms;
 	po_uniforms.mList[U_MAT_WORLD] = "worldMat";
@@ -26,7 +28,7 @@ void EnvMappingView::OnInit() {
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
 			->ImportObj(teapot, 1.0f)
 			->AttachShader(vs, fs, "shader")
-			->AttachCubeTex(cubemap, "s_texCube");
+			->AttachTexture(cubemap, "s_texCube");
 
 }
 

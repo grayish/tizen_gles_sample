@@ -1,38 +1,43 @@
 #include "basic/tex/basic_texture.h"
 
 #include "basic/basic_utils.h"
-#include "basic/tex/tex_container.h"
-#include "basic/basic_gl_set.h"
+#include "basic/tex/tex_prop.h"
+#include "basic/basic_file_loader.h"
 
-BasicTexture::BasicTexture(const TexContainer &tex,
+BasicTexture::BasicTexture(const TexProp &tex,
 						   const std::string &uniform_name,
-						   const GLenum &target,
-						   GLint min_filter, GLint max_filter, GLint warp_s, GLint warp_t) :
-		mName(tex.filename),
-		mTarget(target),
+						   GLint min_filter, GLint mag_filter, GLint warp_s, GLint warp_t) :
+		mName(tex.mName),
+		mTarget(),
 		mUniformName(uniform_name),
 		mMinFilter(min_filter),
-		mMagFilter(max_filter),
+		mMagFilter(mag_filter),
 		mWrap_S(warp_s),
 		mWrap_T(warp_t),
 		mTexId() {
-	Create(tex);
+	Init(tex);
 }
 
-BasicTexture::BasicTexture(const TexContainer *cubeTex,
-						   const std::string &uniform_name,
-						   const GLenum &target,
-						   GLint min_filter, GLint max_filter,
-						   GLint warp_s, GLint warp_t) :
-		mName(cubeTex[0].filename),
-		mTarget(target),
-		mUniformName(uniform_name),
-		mMinFilter(min_filter),
-		mMagFilter(max_filter),
-		mWrap_S(warp_s),
-		mWrap_T(warp_t),
-		mTexId() {
-	CreateCube(cubeTex);
+void BasicTexture::Init(const TexProp &tex) {
+	switch (tex.mType) {
+		case TEX_2D_FILE :
+		case TEX_2D_PTR :
+			mTarget = GL_TEXTURE_2D;
+			break;
+		case TEX_3D_FILE :
+		case TEX_3D_PTR :
+			mTarget = GL_TEXTURE_3D;
+			break;
+		case TEX_CUBE_FILE :
+		case TEX_CUBE_PTR :
+			mTarget = GL_TEXTURE_CUBE_MAP;
+			break;
+		default:
+			break;
+	}
+
+	Create(tex);
+
 }
 
 BasicTexture::~BasicTexture() {
@@ -41,7 +46,7 @@ BasicTexture::~BasicTexture() {
 	check_gl_error("glDeleteTextures");
 }
 
-BasicTexture *BasicTexture::Create(const TexContainer &tex) {
+BasicTexture *BasicTexture::Create(const TexProp &tex) {
 	glGenTextures(1, &mTexId);
 	check_gl_error("glGenTextures");
 
@@ -50,13 +55,8 @@ BasicTexture *BasicTexture::Create(const TexContainer &tex) {
 
 	TexImage(mTarget, tex);
 
-	glTexParameteri(mTarget, GL_TEXTURE_MIN_FILTER, mMinFilter);
-	glTexParameteri(mTarget, GL_TEXTURE_MAG_FILTER, mMagFilter);
-	glTexParameteri(mTarget, GL_TEXTURE_WRAP_S, mWrap_S);
-	glTexParameteri(mTarget, GL_TEXTURE_WRAP_T, mWrap_T);
-
-	TexContainer::ParamDic::const_iterator it = tex.customParam.begin();
-	for (; it != tex.customParam.end(); it++) {
+	TexProp::ParamDic::const_iterator it = tex.mCustomParam.begin();
+	for (; it != tex.mCustomParam.end(); it++) {
 		glTexParameteri(mTarget, it->first, it->second);
 	}
 
@@ -65,39 +65,50 @@ BasicTexture *BasicTexture::Create(const TexContainer &tex) {
 	return this;
 }
 
-BasicTexture *BasicTexture::CreateCube(const TexContainer *tex) {
-	glGenTextures(1, &mTexId);
-	check_gl_error("glGenTextures");
-
-	glBindTexture(mTarget, mTexId);
-	check_gl_error("glBindTexture");
-
-	for (int i = 0; i < 6; i++) {
-		TexImage(static_cast<GLenum>(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i), tex[i]);
-	}
-
-	glTexParameteri(mTarget, GL_TEXTURE_MIN_FILTER, mMinFilter);
-	glTexParameteri(mTarget, GL_TEXTURE_MAG_FILTER, mMagFilter);
-	glTexParameteri(mTarget, GL_TEXTURE_WRAP_S, mWrap_S);
-	glTexParameteri(mTarget, GL_TEXTURE_WRAP_T, mWrap_T);
-
-	TexContainer::ParamDic::const_iterator it = tex[0].customParam.begin();
-	for (; it != tex[0].customParam.end(); it++) {
-		glTexParameteri(mTarget, it->first, it->second);
-	}
-
-	glBindTexture(mTarget, 0);
-
-	return this;
-
-}
-
-void BasicTexture::TexImage(const GLenum &target, const TexContainer &newTex) {
-	glTexImage2D(target, 0, newTex.internalFormat,
-				 newTex.width, newTex.height, 0,
-				 (GLenum) newTex.format, newTex.dataType,
-				 (void *) newTex.pixels);
+void BasicTexture::TexImage2D(const GLenum &target, const TexProp &newTex, void *ptr) {
+	glTexImage2D(target, 0, newTex.mInternalFormat,
+				 newTex.mWidth, newTex.mWidth, 0,
+				 (GLenum) newTex.mFormat, newTex.mDataType, ptr);
 	check_gl_error("glTexImage2D");
+}
+
+void BasicTexture::TexImage3D(const GLenum &target, const TexProp &newTex, void *ptr) {
+	glTexImage3D(target, 0, newTex.mInternalFormat,
+				 newTex.mWidth, newTex.mWidth, newTex.mDepth, 0,
+				 (GLenum) newTex.mFormat, newTex.mDataType, ptr);
+	check_gl_error("glTexImage3D");
+}
+
+
+void BasicTexture::TexImage(const GLenum &target, const TexProp &tex) {
+	switch (tex.mType) {
+		case TEX_2D_FILE :
+			File_Loader.ReadTexImage2D(target, tex.mFiles[0].c_str());
+			break;
+		case TEX_2D_PTR :
+			TexImage2D(target, tex, tex.mPtrs[0]);
+			break;
+		case TEX_CUBE_FILE : {
+			for (unsigned int i = 0; i < 6; i++) {
+				File_Loader.ReadTexImage2D( GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, tex.mFiles[i].c_str());
+			}
+		}
+			break;
+		case TEX_CUBE_PTR : {
+			for (unsigned int i = 0; i < 6; i++) {
+				TexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, tex, tex.mPtrs[i]);
+			}
+		}
+			break;
+		case TEX_3D_FILE:
+			break;
+		case TEX_3D_PTR:
+			break;
+		default:
+			break;
+
+	}
+
 }
 
 

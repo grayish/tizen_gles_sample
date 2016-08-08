@@ -118,7 +118,7 @@ void BasicShader::SetUniform(const int &loc, const glm::mat4 &m) const {
 	check_gl_error("glUniformMatrix4fv");
 }
 
-Bint BasicShader::GetUniformLocation(const std::string &u_str) {
+GLint BasicShader::GetUniformLocation(const std::string &u_str) {
 	return glGetUniformLocation(mProgram, u_str.c_str());
 }
 

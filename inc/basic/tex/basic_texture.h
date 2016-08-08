@@ -4,43 +4,38 @@
 #include <string>
 
 #include "basic/basic_type.h"
+#include "basic/basic_gl_set.h"
 
-class TexContainer;
+class TexProp;
 
 class BasicTexture {
 public:
 	std::string mName;
-	Benum mTarget;
+	GLenum mTarget;
 	std::string mUniformName;
-	Bint mMinFilter;
-	Bint mMagFilter;
-	Bint mWrap_S;
-	Bint mWrap_T;
-	Buint mTexId;
+	GLint mMinFilter;
+	GLint mMagFilter;
+	GLint mWrap_S;
+	GLint mWrap_T;
+	GLuint mTexId;
 
-	BasicTexture(const TexContainer &tex,
+	BasicTexture(const TexProp &tex,
 				 const std::string &uniform_name,
-				 const Benum &target,
-				 Bint min_filter = BGL_LINEAR,
-				 Bint max_filter = BGL_LINEAR,
-				 Bint warp_s = BGL_REPEAT,
-				 Bint warp_t = BGL_REPEAT);
-
-	BasicTexture(const TexContainer *cubeTex,
-				 const std::string &uniform_name,
-				 const Benum &target = BGL_TEXTURE_CUBE_MAP,
-				 Bint min_filter = BGL_LINEAR,
-				 Bint max_filter = BGL_LINEAR,
-				 Bint warp_s = BGL_REPEAT,
-				 Bint warp_t = BGL_REPEAT);
+				 GLint min_filter = GL_LINEAR,
+				 GLint mag_filter = GL_LINEAR,
+				 GLint warp_s = GL_REPEAT,
+				 GLint warp_t = GL_REPEAT);
 
 	virtual ~BasicTexture();
 
-	virtual BasicTexture *Create(const TexContainer &tex);
+	void Init(const TexProp &tex);
+	virtual BasicTexture *Create(const TexProp &tex);
 
-	virtual BasicTexture *CreateCube(const TexContainer *tex);
+	void TexImage(const GLenum &target, const TexProp &tex);
 
-	void TexImage(const Benum &target, const TexContainer &newTex);
+	void TexImage2D(const GLenum &target, const TexProp &newTex, void *ptr);
+
+	void TexImage3D(const GLenum &target, const TexProp &newTex, void *ptr);
 };
 
 #endif //__BASIC_TEXTURE_H__

@@ -5,7 +5,7 @@
 #include "basic/basic_file_loader.h"
 #include "basic/basic_container.h"
 #include "basic/obj/basic_object.h"
-#include "basic/tex/tex_container.h"
+#include "basic/tex/tex_prop.h"
 #include "basic/basic_gl_set.h"
 
 class SampleView {

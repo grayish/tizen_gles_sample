@@ -15,9 +15,9 @@ void TextureArrayView::OnInit() {/*
 
 	string cube = FileLoader.ReadTxtFile("obj3d/cube");
 
-	TexContainer sequences[2];
+	TexProp sequences[2];
 	FileLoader.ReadTexture("tex/tex_c_brick.bmp", sequences[0]);
-	FileLoader.ReadTexture("tex/tex_n_brick.bmp", sequences[1]);
+	FileLoader.ReadTexImage2D("tex/tex_n_brick.bmp", sequences[1]);
 
 	BasicObject* obj;
 	float scale = 1.0f;

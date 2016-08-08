@@ -17,9 +17,9 @@ using namespace glm;
 class DynamicCubeRenderer : public BasicRenderer {
 
 private:
-	Buint mDynCubeSize;
-	Buint mDynCubeRbo;
-	Buint mDynCubeFbos[6];
+	GLuint mDynCubeSize;
+	GLuint mDynCubeRbo;
+	GLuint mDynCubeFbos[6];
 
 public:
 	DynamicCubeRenderer() :
@@ -33,7 +33,7 @@ public:
 		glDeleteFramebuffers(6, mDynCubeFbos);
 	}
 
-	void InitDynamicCubemap(const Buint &cubeTexId, const Buint &size) {
+	void InitDynamicCubemap(const GLuint &cubeTexId, const GLuint &size) {
 		LOGI("cube texture id : %d", cubeTexId);
 		mDynCubeSize = size;
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeTexId);
@@ -139,27 +139,22 @@ void DynEnvMappingView::OnInit() {
 	string nor_vs = File_Loader.ReadTxtFile("shader/view_nor/nor.vs");
 	string nor_fs = File_Loader.ReadTxtFile("shader/view_nor/nor.fs");
 
-	TexContainer textures[7];
-	File_Loader.ReadTexture("tex/tex_skybox.jpg", textures[0]);
-	File_Loader.ReadTexture("tex/tizen_black.png", textures[1]);
-	File_Loader.ReadTexture("tex/textj.png", textures[2]);
-	File_Loader.ReadTexture("tex/tizen.png", textures[3]);
-	File_Loader.ReadTexture("tex/tex_c_brick.bmp", textures[4]);
-	File_Loader.ReadTexture("tex/tex_n_brick.bmp", textures[5]);
-	File_Loader.ReadTexture("tex/tex_checked_tile.jpg", textures[6]);
+	TexProp textures[7] = {
+			TexProp(TEX_2D_FILE, "tex/tex_skybox.jpg"),
+			TexProp(TEX_2D_FILE, "tex/tizen_black.png"),
+			TexProp(TEX_2D_FILE, "tex/textj.png"),
+			TexProp(TEX_2D_FILE, "tex/tizen.png"),
+			TexProp(TEX_2D_FILE, "tex/tex_c_brick.bmp"),
+			TexProp(TEX_2D_FILE, "tex/tex_n_brick.bmp"),
+			TexProp(TEX_2D_FILE, "tex/tex_checked_tile.jpg")
+	};
 
-	TexContainer dynCube[6];
 	string DYN_CUBENAME = "dynCube";
 	unsigned int DYN_CUBE_TEXSIZE = 720;
-	for (int i = 0; i < 6; i++) {
-		dynCube[i].filename = DYN_CUBENAME;
-		dynCube[i].pixels = nullptr;
-		dynCube[i].width = DYN_CUBE_TEXSIZE;
-		dynCube[i].height = DYN_CUBE_TEXSIZE;
-		dynCube[i].format = GL_RGB;
-		dynCube[i].internalFormat = GL_RGB;
-		dynCube[i].dataType = GL_UNSIGNED_BYTE;
-	}
+	TexProp dynCube(TEX_CUBE_PTR);
+	dynCube.SetData(DYN_CUBENAME, DYN_CUBE_TEXSIZE, DYN_CUBE_TEXSIZE, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
+	dynCube.SetFilter();
+	for (int i = 0; i < 6; i++) dynCube.SetPointer(nullptr);
 
 	BasicMap<PhongObj_U_Elem> po_uniforms;
 	po_uniforms.mList[U_MAT_WORLD] = "worldMat";
@@ -185,7 +180,7 @@ void DynEnvMappingView::OnInit() {
 	mViewRenderer->GetNewObject(PHONG_OBJ, "skybox", po_uniforms)
 			->ImportObj(skybox, 2.0f)
 			->AttachShader(tex_vs, tex_fs, SH_TEX)
-			->AttachTexture(textures[0], GL_TEXTURE_2D, "s_tex0")
+			->AttachTexture(textures[0], "s_tex0")
 			->SetPosition(vec3(0));
 
 	// surroundings
@@ -193,25 +188,25 @@ void DynEnvMappingView::OnInit() {
 			->ImportObj(cube, 0.5f)
 			->AttachShader(f_vs, f_fs, SH_FRAG_LT)
 			->AttachLight(POINT_LT, LT_POINT_1, lt_uniforms)
-			->AttachTexture(textures[1], GL_TEXTURE_2D, "s_tex0")
+			->AttachTexture(textures[1], "s_tex0")
 			->SetPosition(vec3(20.0f, 0, 0));
 	mViewRenderer->GetNewObject(PHONG_OBJ, "cube2", po_uniforms)
 			->ImportObj(cube, 0.5f)
 			->AttachShader(SH_FRAG_LT)
 			->AttachLight(LT_POINT_1)
-			->AttachTexture(textures[2], GL_TEXTURE_2D, "s_tex0")
+			->AttachTexture(textures[2], "s_tex0")
 			->SetPosition(vec3(0, 20.0f, 0));
 	mViewRenderer->GetNewObject(PHONG_OBJ, "cube3", po_uniforms)
 			->ImportObj(cube, 0.5f)
 			->AttachShader(SH_FRAG_LT)
 			->AttachLight(LT_POINT_1)
-			->AttachTexture(textures[3], GL_TEXTURE_2D, "s_tex0")
+			->AttachTexture(textures[3], "s_tex0")
 			->SetPosition(vec3(0, 0, 20.0f));
 	mViewRenderer->GetNewObject(PHONG_OBJ, "cube_brick", po_uniforms)
 			->ImportObj(cube, 0.5f)
 			->AttachShader(nor_vs, nor_fs, SH_NOR)
-			->AttachTexture(textures[4], GL_TEXTURE_2D, "s_tex0")
-			->AttachTexture(textures[5], GL_TEXTURE_2D, "s_texNor")
+			->AttachTexture(textures[4], "s_tex0")
+			->AttachTexture(textures[5], "s_texNor")
 			->AttachLight(LT_POINT_1)
 			->SetPosition(vec3(0, 0, -20.0f));
 
@@ -225,14 +220,14 @@ void DynEnvMappingView::OnInit() {
 			->ImportObj(plane, 100.0f)
 			->AttachShader(SH_FRAG_LT)
 			->AttachLight(LT_POINT_1)
-			->AttachTexture(textures[6], GL_TEXTURE_2D, "s_tex0")
+			->AttachTexture(textures[6], "s_tex0")
 			->SetPosition(vec3(0, -20.0f, 0));
 
 	// dynamic obj
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
 			->ImportObj(teapot, 1.0f)
 			->AttachShader(cube_vs, cube_fs, SH_CUBE)
-			->AttachCubeTex(dynCube, "s_texCube");
+			->AttachTexture(dynCube, "s_texCube");
 
 	dynamic_cast<DynamicCubeRenderer *>(mViewRenderer)->InitDynamicCubemap(
 			Texture_Mgr.GetTextureId(DYN_CUBENAME),

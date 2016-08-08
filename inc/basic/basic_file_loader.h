@@ -7,10 +7,9 @@
 
 #include "basic_singleton.hpp"
 
-class TexContainer;
-
 class FileLoader : public BasicSingleton<FileLoader> {
 public:
+
 	/**
 	 * @brief Constructor for the class FileLoader
 	 */
@@ -26,7 +25,7 @@ public:
 	 * @param[in] filename Path for the source file
 	 * @param[out] out Output of TexData
 	 */
-	void ReadTexture(const char *filename, TexContainer &out) const;
+	void ReadTexImage2D(GLenum target, const char *filename) const;
 
 	/**
 	 * @brief Get Content string from the text file

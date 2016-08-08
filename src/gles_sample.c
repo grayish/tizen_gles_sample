@@ -112,6 +112,8 @@ create_main_list(appdata_s *ad) {
 	elm_list_item_append(list, "9. Dynamic Cube mapping", NULL, NULL, list_item_select_cb, ad);
 	elm_list_item_append(list, "10. Shadow mapping", NULL, NULL, list_item_select_cb, ad);
 	elm_list_item_append(list, "11. Transform Feedback", NULL, NULL, list_item_select_cb, ad);
+	elm_list_item_append(list, "12. Mutiple Render Targets", NULL, NULL, list_item_select_cb, ad);
+
 
 	elm_list_go(list);
 

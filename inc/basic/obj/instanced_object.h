@@ -16,15 +16,15 @@ private:
 
 	// vertex data array and indices
 	std::vector<InstVertex> mVertices;
-	std::vector<Bushort> mIndices;
+	std::vector<GLushort> mIndices;
 	std::vector<glm::mat4> mInstPosMat;
 
 	// gl buffer obj and VAO
-	Buint mBufferVertices;
-	Buint mBufferIndices;
-	Buint mBufferInstPos;
+	GLuint mBufferVertices;
+	GLuint mBufferIndices;
+	GLuint mBufferInstPos;
 
-	Buint mVertexArrayObject;
+	GLuint mVertexArrayObject;
 	InstObj_U_Str mUniformList;
 	BasicCamera *mCamera;
 

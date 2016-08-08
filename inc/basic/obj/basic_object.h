@@ -9,7 +9,7 @@
 
 class BasicLight;
 
-class TexContainer;
+class TexProp;
 
 class BasicCamera;
 
@@ -67,9 +67,9 @@ public:
 
 	BasicObject *AttachLight(const std::string &name);
 
-	BasicObject *AttachTexture(const TexContainer &tex, const Benum &target, const std::string &uniform_name);
+	BasicObject *AttachTexture(const TexProp &tex, const std::string &uniform_name);
 
-	BasicObject *AttachCubeTex(const TexContainer *cubeTex, const std::string &uniform_name);
+//	BasicObject *AttachCubeTex(const TexProp *cubeTex, const std::string &uniform_name);
 
 	/**
 	 * @brief set uniform in basic shader
@@ -104,7 +104,7 @@ protected:
 	virtual void ResetAttrib() = 0;
 
 protected: /// gl warpping functions
-	void CreateBuffer(Benum target, Buint *id, Bsizeiptr size, const Bvoid *data, Benum usage);
+	void CreateBuffer(GLenum target, GLuint *id, GLsizeiptr size, const GLvoid *data, GLenum usage);
 
 	/**
 	 * @brief call glVertexAttribPointer with VertexAttrib data.
@@ -113,7 +113,7 @@ protected: /// gl warpping functions
 	 * @param[in] buffer Target of array buffer object
 	 * @param[in] attbs VertexAttrib data to set
 	 */
-	void SetupVertexAttribs(const Buint &buffer, const std::vector<VertexAttrib> &attbs);
+	void SetupVertexAttribs(const GLuint &buffer, const std::vector<VertexAttrib> &attbs);
 
 };
 
