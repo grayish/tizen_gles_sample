@@ -22,7 +22,7 @@ public:
 		if (m_instance) {
 			BasicSingleton<T>* instance = m_instance;
 			m_instance = nullptr;
-			delete m_instance;
+			delete instance;
 		}
 	};
 
@@ -35,7 +35,7 @@ protected:
 	 */
 	BasicSingleton() {};
 
-	virtual ~BasicSingleton() { release_Instance(); };
+	virtual ~BasicSingleton() { m_instance = nullptr; };
 
 };
 

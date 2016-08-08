@@ -9,6 +9,7 @@ BasicLightMgr::BasicLightMgr() :
 }
 
 BasicLightMgr::~BasicLightMgr() {
+	LOGE("MGR destruct");
 	DeleteAll();
 }
 

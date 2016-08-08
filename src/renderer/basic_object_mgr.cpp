@@ -1,6 +1,7 @@
 #include "basic/mgr/basic_object_mgr.h"
 
 #include <algorithm>
+#include "basic/basic_utils.h"
 #include "basic/obj/instanced_object.h"
 #include "basic/obj/phong_object.h"
 
@@ -9,6 +10,7 @@ BasicObjectMgr::BasicObjectMgr() :
 		mFocusObject(nullptr) {}
 
 BasicObjectMgr::~BasicObjectMgr() {
+	LOGE("MGR destruct");
 	DeleteAll();
 }
 

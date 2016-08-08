@@ -35,10 +35,10 @@ BasicRenderer::~BasicRenderer() {
 	LOGI("renderer destructor ");
 	delete mTimer;
 	delete mCamera;
-	Object_Mgr.DeleteAll();
-	Texture_Mgr.DeleteAll();
-	Light_Mgr.DeleteAll();
-	Shader_Mgr.DeleteAll();
+	Object_Mgr.release_Instance();
+	Texture_Mgr.release_Instance();
+	Light_Mgr.release_Instance();
+	Shader_Mgr.release_Instance();
 }
 
 void BasicRenderer::SetStates() const {
