@@ -20,8 +20,9 @@ public:
 
 	static void release_Instance() {
 		if (m_instance) {
-			delete m_instance;
+			BasicSingleton<T>* instance = m_instance;
 			m_instance = nullptr;
+			delete m_instance;
 		}
 	};
 
