@@ -32,7 +32,7 @@ public:
 	/**
 	 * @brief Destructor for the class BasicTextureMgr
 	 */
-	~BasicTextureMgr();
+	virtual ~BasicTextureMgr();
 
 	/**
 	 * @brief Initiate the texture manager

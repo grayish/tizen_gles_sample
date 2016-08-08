@@ -15,7 +15,9 @@ SampleView::SampleView(void *data, bool createDefaultRenderer) :
 }
 
 SampleView::~SampleView() {
+	LOGI_ENTRY;
 	Release();
+	LOGI_EXIT;
 }
 
 void SampleView::Release() {

@@ -29,7 +29,7 @@ public:
 	/**
 	 * @brief Destructor for the class BasicObjectMgr
 	 */
-	~BasicObjectMgr();
+	virtual ~BasicObjectMgr();
 
 	/**
 	 * @brief Initiate all buffers of objects

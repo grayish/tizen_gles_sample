@@ -46,8 +46,8 @@ void FileLoader::ReadTexture(const char *filename, TexContainer &out) const {
 }
 
 std::string FileLoader::ReadTxtFile(const std::string &filename) const {
-
 	std::string path = app_get_resource_path() + filename;
+	LOGI("path %s", path.c_str());
 
 	std::ifstream in(path, std::ios::in | std::ios::binary);
 
@@ -61,7 +61,6 @@ std::string FileLoader::ReadTxtFile(const std::string &filename) const {
 	in.read(&ret.at(0), ret.size());     // Read file to string
 	in.close();
 
-//	log_string(ret.c_str());
 	return ret;
 
 }

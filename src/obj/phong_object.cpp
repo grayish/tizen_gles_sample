@@ -30,9 +30,14 @@ PhongObject::PhongObject(const std::string &name, const ABasicMap *list, BasicCa
 		mCamera(camera) {}
 
 PhongObject::~PhongObject() {
+	LOGI("destruct name[%s]", mName.c_str());
 	glDeleteBuffers(1, &mBufferVertices);
+	check_gl_error("glDeleteTextures");
 	glDeleteBuffers(1, &mBufferIndices);
+	check_gl_error("glDeleteTextures");
 	glDeleteVertexArrays(1, &mVertexArrayObject);
+	check_gl_error("glDeleteVertexArrays");
+
 }
 
 BasicObject *PhongObject::ImportObj(const std::string &objSource, const float &scale) {

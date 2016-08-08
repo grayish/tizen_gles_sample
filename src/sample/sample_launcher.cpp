@@ -21,8 +21,11 @@ SampleLauncher::SampleLauncher() :
 }
 
 SampleLauncher::~SampleLauncher() {
+	LOGE("destruct SampleLauncher");
+	LOGI_ENTRY;
 	if (instance)
 		delete instance;
+	LOGI_EXIT;
 }
 
 SampleLauncher *SampleLauncher::GetInstance() {
@@ -45,6 +48,7 @@ void SampleLauncher::Release() {
 }
 
 Evas_Object *SampleLauncher::InitSampleView(void *data) {
+	LOGI_ENTRY;
 	appdata_s *ad = static_cast<appdata_s *>(data);
 	int sampleNum = ad->cur_sample_num;
 
@@ -95,6 +99,7 @@ Evas_Object *SampleLauncher::InitSampleView(void *data) {
 			break;
 	}
 
+	LOGI_EXIT;
 	return curView->GetGLView();
 }
 

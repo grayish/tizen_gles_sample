@@ -28,9 +28,14 @@ InstObject::InstObject(const std::string &name, const ABasicMap *list, BasicCame
 }
 
 InstObject::~InstObject() {
+	LOGI("destruct name[%s]", mName.c_str());
 	glDeleteBuffers(1, &mBufferVertices);
+	check_gl_error("glDeleteTextures");
 	glDeleteBuffers(1, &mBufferIndices);
+	check_gl_error("glDeleteTextures");
 	glDeleteVertexArrays(1, &mVertexArrayObject);
+	check_gl_error("glDeleteVertexArrays");
+
 }
 
 BasicObject *InstObject::ImportObj(const std::string &objSource, const float &scale) {

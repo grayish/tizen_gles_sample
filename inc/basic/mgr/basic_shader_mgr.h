@@ -25,7 +25,7 @@ private:
 public:
 	BasicShaderMgr();
 
-	~BasicShaderMgr();
+	virtual ~BasicShaderMgr();
 
 	void Init();
 
@@ -43,26 +43,12 @@ public:
 
 	void SetShaderObject(const std::string &sh_name, BasicObject *obj);
 
-	/*template <typename T>
-	BasicObject *SetUniformData(BasicObject *obj, const std::string &u_str, const T &data);*/
-//    void ActiveShader(BasicObject* obj);
 	BasicShader *GetLastShader();
 
 	void DrawAll();
 
 	void SetShaderOnOff(const std::string &sh_name, const bool &onoff);
 };
-
-/*template<typename T>
-BasicObject *BasicShaderMgr::SetUniformData(BasicObject *obj, const std::string &u_str, const T &data) {
-    if(mShaderDic.find(obj) == mShaderDic.end()) {
-        LOGE("BasicShaderMgr::SetUniformData - shader doesn't exist!");
-    } else {
-        mShaderDic[obj]->SetUniformData(u_str, data);
-    }
-
-    return obj;
-}*/
 
 
 #endif //__BASIC_SHADER_MGR_H__

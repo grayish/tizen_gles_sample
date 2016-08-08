@@ -19,7 +19,9 @@ BasicObject::BasicObject(const std::string &name) :
 	mOrientation = quat_cast(mat3(1));
 }
 
-BasicObject::~BasicObject() {}
+BasicObject::~BasicObject() {
+	LOGI("destruct name[%s]", mName.c_str());
+}
 
 BasicObject *
 BasicObject::AttachShader(const std::string &vertexSource, const std::string &fragmentSource, const std::string &name) {

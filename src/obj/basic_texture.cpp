@@ -36,7 +36,9 @@ BasicTexture::BasicTexture(const TexContainer *cubeTex,
 }
 
 BasicTexture::~BasicTexture() {
+	LOGI("destruct name[%s]", mName.c_str());
 	glDeleteTextures(1, &mTexId);
+	check_gl_error("glDeleteTextures");
 }
 
 BasicTexture *BasicTexture::Create(const TexContainer &tex) {

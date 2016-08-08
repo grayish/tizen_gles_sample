@@ -14,6 +14,7 @@ BasicShader::BasicShader(const std::string &name) :
 		mUDataDictionary() {}
 
 BasicShader::~BasicShader() {
+	LOGI("destruct name[%s]", mName.c_str());
 	if (mProgram > 0) {
 		glDeleteProgram(mProgram);
 		check_gl_error("glDeleteProgram");

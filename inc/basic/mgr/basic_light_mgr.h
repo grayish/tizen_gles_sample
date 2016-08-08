@@ -32,7 +32,7 @@ public:
 	/**
 	 * @brief Destructor for the class BasicLightMgr
 	 */
-	~BasicLightMgr();
+	virtual ~BasicLightMgr();
 
 	/**
 	 * @brief Initiate all light objects

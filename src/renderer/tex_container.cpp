@@ -16,7 +16,7 @@ TexContainer::TexContainer() :
 }
 
 TexContainer::~TexContainer() {
-	LOGI("w:h[%d,%d]f[%d]", width, height, format);
+	LOGI("destruct w:h[%d,%d]f[%d]", width, height, format);
 	if (pixels) delete pixels;
 }
 

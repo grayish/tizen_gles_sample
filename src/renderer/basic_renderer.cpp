@@ -32,6 +32,7 @@ BasicRenderer::BasicRenderer() :
 }
 
 BasicRenderer::~BasicRenderer() {
+	LOGI("renderer destructor ");
 	delete mTimer;
 	delete mCamera;
 	Object_Mgr.DeleteAll();
