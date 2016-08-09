@@ -42,6 +42,13 @@ void FileLoader::ReadTexImage2D(GLenum target, const char *filename) const {
 				 (void *) pixels);
 	check_gl_error("glTexImage2D");
 
+	// Tizen internal format error
+	/*glTexImage2D(target, 0, GL_BGRA8_EXT,
+				 w, h, 0,
+				 (GLenum) GL_BGRA_EXT, GL_UNSIGNED_BYTE,
+				 (void *) pixels);
+	check_gl_error("glTexImage2D");*/
+
 	evas_object_del(image);
 	evas_object_del(inline_buffer);
 
