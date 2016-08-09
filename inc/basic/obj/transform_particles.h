@@ -1,9 +1,8 @@
 #ifndef __TRANSFORM_OBJECT_H__
 #define __TRANSFORM_OBJECT_H__
 
-#define NUM_PARTICLES   200
-#define EMISSION_RATE   0.3f
-#define ACCELERATION   -1.0f
+#define NUM_PARTICLES   300
+#define SIM_STEP       0.005f
 
 #include "basic_object.h"
 
@@ -40,10 +39,10 @@ public:
 
 	virtual ~TransformParticles();
 
-	void Attatch_TF_Shader(const std::string &vs, const std::string &fs, const char **varyings,
-						   const std::string &name);
+	void Attatch_TF_Shader(const std::string &vs, const std::string &fs, const char **varyings, int v_cnt,
+							   const std::string &name);
 
-	void UpdateParticles();
+	void UpdateParticles(const glm::vec2 &screen_pt);
 
 
 protected: // override functions

@@ -48,21 +48,18 @@ void TransformParticles::CreateVbo() {
 void TransformParticles::SetupAttribs() {
 
 	std::vector<VertexAttrib> att;
-	att.push_back(VertexAttrib{TRANSFORM_ATTRIB_POSITION, 2, GL_FLOAT,
+	att.push_back(VertexAttrib{TRANSFORM_ATTRIB_POS, 2, GL_FLOAT,
 							   sizeof(Particle),
 							   (void *) offsetof(Particle, pos)});
-	att.push_back(VertexAttrib{TRANSFORM_ATTRIB_VELOCITY, 2, GL_FLOAT,
+	att.push_back(VertexAttrib{TRANSFORM_ATTRIB_COLOR, 3, GL_FLOAT,
 							   sizeof(Particle),
-							   (void *) offsetof(Particle, vel)});
+							   (void *) offsetof(Particle, color)});
 	att.push_back(VertexAttrib{TRANSFORM_ATTRIB_SIZE, 1, GL_FLOAT,
 							   sizeof(Particle),
 							   (void *) offsetof(Particle, size)});
-	att.push_back(VertexAttrib{TRANSFORM_ATTRIB_CURTIME, 1, GL_FLOAT,
+	att.push_back(VertexAttrib{TRANSFORM_ATTRIB_LIFE, 1, GL_FLOAT,
 							   sizeof(Particle),
-							   (void *) offsetof(Particle, curtime)});
-	att.push_back(VertexAttrib{TRANSFORM_ATTRIB_LIFETIME, 1, GL_FLOAT,
-							   sizeof(Particle),
-							   (void *) offsetof(Particle, lifetime)});
+							   (void *) offsetof(Particle, life)});
 	SetupVertexAttribs(mSrcBuffer, att);
 
 }
@@ -89,9 +86,6 @@ void TransformParticles::Draw() {
 }
 
 void TransformParticles::SetShaderUniforms(BasicShader *sh) {
-	sh->SetUniformData(mUniformList[U_TIME], mTime);
-	sh->SetUniformData(mUniformList[U_COLOR], mColor);
-	sh->SetUniformData(mUniformList[U_ACCEL], glm::vec2(0, ACCELERATION));
 	Texture_Mgr.ActiveTextures(sh, this);
 }
 
@@ -99,21 +93,35 @@ void TransformParticles::InitParticle() {
 	mVertices.reserve(NUM_PARTICLES);
 	Particle p = {
 			glm::vec2(0),
-			glm::vec2(0),
-			0, };
+			glm::vec3(0),
+			0, 0};
 	for(int i=0; i<NUM_PARTICLES; i++) {
 		mVertices.push_back(p);
 	}
+
+/*
+	for(int i=0; i<10; i++) {
+		for (int j=0; j<20; j++) {
+			Particle p = {
+					glm::vec2(-1.0f + 0.2f * i, -1.0f + 0.1f * j ),
+					glm::vec2(0),
+					50.0f, 0, 0};
+			mVertices.push_back(p);
+		}
+	}
+*/
+
 }
 
-void TransformParticles::UpdateParticles() {
-	mTime += 0.05f;
-	mTransformShader->SetUniformData(mUniformList[U_EMISSION_RATE], EMISSION_RATE);
-	mTransformShader->SetUniformData(mUniformList[U_TIME], mTime);
+void TransformParticles::UpdateParticles(const glm::vec2 &screen_pt) {
+	mTime += SIM_STEP;
+//	LOGI("screen pt[%f,%f]", screen_pt.x, screen_pt.y);
+	mTransformShader->SetUniformData(mUniformList[U_TF_TOUCH_PT], screen_pt);
+	mTransformShader->SetUniformData(mUniformList[U_TF_TIME], mTime);
+	mTransformShader->SetUniformData(mUniformList[U_TF_STEP], SIM_STEP);
 	Texture_Mgr.ActiveTextures(mTransformShader, this);
 
-	mTransformShader->PassUniforms();
-	mTransformShader->Use();
+	mTransformShader->UseAndPassUniforms();
 
 	SetupAttribs();
 
@@ -133,18 +141,18 @@ void TransformParticles::UpdateParticles() {
 	glUseProgram(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-
 	// swap
 	GLuint temp = mSrcBuffer;
 	mSrcBuffer = mDstBuffer;
 	mDstBuffer = temp;
 }
 
-void TransformParticles::Attatch_TF_Shader(const std::string &vs, const std::string &fs, const char **varyings,
+void TransformParticles::Attatch_TF_Shader(const std::string &vs, const std::string &fs,
+										   const char **varyings, int v_cnt,
 										   const std::string &name) {
 	LOGI_ENTRY;
 	mTransformShader = Shader_Mgr.GetNewShader(vs, fs, name);
-	glTransformFeedbackVaryings(mTransformShader->GetProgram(), 5, varyings, GL_INTERLEAVED_ATTRIBS);
+	glTransformFeedbackVaryings(mTransformShader->GetProgram(), v_cnt, varyings, GL_INTERLEAVED_ATTRIBS);
 	check_gl_error("glTransformFeedbackVaryings");
 
 	glLinkProgram(mTransformShader->GetProgram());

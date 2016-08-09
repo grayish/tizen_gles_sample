@@ -145,6 +145,7 @@ void BasicRenderer::SetViewPort(int w, int h) {
 	LOGI("%d, %d", w, h);
 	mWidth = w;
 	mHeight = h;
+	mTouchPoint = vec2(w/2.0f, h/2.0f);
 	glViewport(0, 0, w, h);
 	check_gl_error("glViewport");
 
@@ -176,5 +177,10 @@ BasicObject *BasicRenderer::GetNewObject(BasicObject_Type type, const std::strin
 void BasicRenderer::SetCurrShader(const std::string &sh_name) {
 	mCurrShader = Shader_Mgr.GetShader(sh_name);
 
+}
+
+glm::vec2 BasicRenderer::GetScreenTouchPoint() const{
+	return glm::vec2(2.0f * mTouchPoint.x / (float)mWidth - 1.0f,
+					 1.0f - 2.0f * mTouchPoint.y / (float)mHeight );
 }
 

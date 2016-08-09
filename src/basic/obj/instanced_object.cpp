@@ -222,9 +222,9 @@ void InstObject::ResetAttrib() {
 }
 
 void InstObject::SetShaderUniforms(BasicShader *sh) {
-	sh->SetUniformData(mUniformList[INST_U_MAT_WORLD], translate(mat4_cast(mOrientation), mPosition));
-	sh->SetUniformData(mUniformList[INST_U_CAMERA_VIEW], mCamera->GetViewMat());
-	sh->SetUniformData(mUniformList[INST_U_CAMERA_PROJ], mCamera->GetPerspectiveMat());
+	sh->SetUniformData(mUniformList[U_INST_MAT_WORLD], translate(mat4_cast(mOrientation), mPosition));
+	sh->SetUniformData(mUniformList[U_INST_CAMERA_VIEW], mCamera->GetViewMat());
+	sh->SetUniformData(mUniformList[U_INST_CAMERA_PROJ], mCamera->GetPerspectiveMat());
 
 }
 

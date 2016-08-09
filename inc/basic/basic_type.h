@@ -10,11 +10,10 @@
 #define BASIC_ATTRIB_TANGENT    3
 #define BASIC_ATTRIB_INSTPOS    5
 
-#define TRANSFORM_ATTRIB_POSITION      0
-#define TRANSFORM_ATTRIB_VELOCITY      1
-#define TRANSFORM_ATTRIB_SIZE          2
-#define TRANSFORM_ATTRIB_CURTIME       3
-#define TRANSFORM_ATTRIB_LIFETIME      4
+#define TRANSFORM_ATTRIB_POS      0
+#define TRANSFORM_ATTRIB_COLOR    1
+#define TRANSFORM_ATTRIB_SIZE     2
+#define TRANSFORM_ATTRIB_LIFE     3
 
 typedef struct _VertexAttrib {
 	GLuint index;
@@ -77,25 +76,23 @@ typedef struct _InstVertex {
 } InstVertex;
 
 typedef enum _InstObj_U_Elem {
-	INST_U_CAMERA_VIEW,
-	INST_U_CAMERA_PROJ,
-	INST_U_MAT_WORLD,
+	U_INST_CAMERA_VIEW,
+	U_INST_CAMERA_PROJ,
+	U_INST_MAT_WORLD,
 } InstObj_U_Elem;
 
 // Transformfeedback
 typedef struct _Particle {
 	glm::vec2 pos;
-	glm::vec2 vel;
+	glm::vec3 color;
 	float size;
-	float curtime;
-	float lifetime;
+	float life;
 } Particle;
 
 typedef enum _TransformObj_U_Elem {
-	U_TIME,
-	U_ACCEL,
-	U_COLOR,
-	U_EMISSION_RATE
+	U_TF_TIME,
+	U_TF_STEP,
+	U_TF_TOUCH_PT
 } TransformObj_U_Elem;
 
 #endif //__BASIC_TYPE_H__

@@ -1,40 +1,23 @@
 #version 300 es
 
-#define TRANSFORM_ATTRIB_POSITION      0
-#define TRANSFORM_ATTRIB_VELOCITY      1
-#define TRANSFORM_ATTRIB_SIZE          2
-#define TRANSFORM_ATTRIB_CURTIME       3
-#define TRANSFORM_ATTRIB_LIFETIME      4
+#define TRANSFORM_ATTRIB_POS      0
+#define TRANSFORM_ATTRIB_COLOR    1
+#define TRANSFORM_ATTRIB_SIZE     2
+#define TRANSFORM_ATTRIB_LIFE     3
 
-layout(location = TRANSFORM_ATTRIB_POSITION) in vec2 position;
-layout(location = TRANSFORM_ATTRIB_VELOCITY) in vec2 velocity;
+#define PARTICLE_LIFT_TIME 0.7
+
+layout(location = TRANSFORM_ATTRIB_POS) in vec2 pos;
+layout(location = TRANSFORM_ATTRIB_COLOR) in vec3 color;
 layout(location = TRANSFORM_ATTRIB_SIZE) in float size;
-layout(location = TRANSFORM_ATTRIB_CURTIME) in float curtime;
-layout(location = TRANSFORM_ATTRIB_LIFETIME) in float lifetime;
+layout(location = TRANSFORM_ATTRIB_LIFE) in float life;
 
-uniform float u_time;
-uniform vec2 u_acceleration;
+out vec4 v_color;
 
 void main()
 {
-	float deltaTime = u_time - curtime;
-			vec2 velocity = velocity + deltaTime * u_acceleration;
-    		vec2 position = position + deltaTime * velocity;
-	if ( deltaTime <= lifetime )
-	{
-		gl_Position = vec4( position, 0.0, 1.0 );
-		gl_PointSize = 200.0;
-
-//		gl_PointSize = size * ( 1.0 - deltaTime / lifetime );
-	}
-	else
-	{
-		gl_Position = vec4( -1000, -1000, 0, 0 );
-		gl_PointSize = 0.0;
-//gl_Position = vec4( 0, 0, 0, 1.0 );
-//gl_PointSize = 20.0;
-	}
-	gl_Position = vec4( 0.0, 0.0, 0, 1.0 );
-	gl_PointSize = position.x;
-
+	gl_Position = vec4( pos , 0.0, 1.0);
+	gl_PointSize = size;
+	float span = life / PARTICLE_LIFT_TIME * 1.72 + 1.0; // x*(e-1)+1
+	v_color = vec4(color, log(span));
 }

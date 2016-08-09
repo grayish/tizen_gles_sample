@@ -178,6 +178,8 @@ public:
 	 */
 	//void SetFocus(BasicObject *obj);
 
+	glm::vec2 GetScreenTouchPoint() const;
+
 
 };
 
