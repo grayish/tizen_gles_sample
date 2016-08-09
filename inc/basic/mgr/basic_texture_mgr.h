@@ -54,10 +54,6 @@ public:
 	 */
 	int SetObjectTexture(BasicObject *obj, const TexProp &tex, const std::string &uniform_name);
 
-
-//	int SetObjectCubeTex(BasicObject *obj, const TexProp *cubeTex, const std::string &uniform_name);
-
-
 	unsigned int GetTextureId(const std::string &tex_str);
 
 	/**
