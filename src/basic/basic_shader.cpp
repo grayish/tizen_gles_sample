@@ -32,9 +32,11 @@ void BasicShader::Use() {
 	check_gl_error("glUseProgram");
 }
 
-void BasicShader::PassUniforms() {
-	typename std::map<std::string, AUniformContainer *>::iterator iter = mUDataDictionary.begin();
+void BasicShader::UseAndPassUniforms() {
+	glUseProgram(mProgram);
+	check_gl_error("glUseProgram");
 
+	typename std::map<std::string, AUniformContainer *>::iterator iter = mUDataDictionary.begin();
 	for (; iter != mUDataDictionary.end(); iter++) {
 		iter->second->Set(this);
 	}

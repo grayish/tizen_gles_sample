@@ -79,11 +79,10 @@ void BasicShaderMgr::DrawObjects(BasicShader *sh) {
 		LOGE("Null pointer input!");
 		return;
 	}
-	sh->Use();
 	std::vector<BasicObject *>::iterator it_obj = mShaderDic[sh].begin();
 	for (; it_obj != mShaderDic[sh].end(); it_obj++) {
 		(*it_obj)->SetShaderUniforms(sh);
-		sh->PassUniforms();
+		sh->UseAndPassUniforms();
 		(*it_obj)->Draw();
 	}
 

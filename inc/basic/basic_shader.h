@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "basic_type.h"
+#include "basic_utils.h"
 
 class BasicShaderMgr;
 
@@ -54,7 +55,8 @@ private:
          * @param[in] shader a pointer of the target shader
          */
 		virtual void Set(BasicShader *shader) {
-			shader->SetUniform(mLocation, mData);
+			if(mLocation >= 0)
+				shader->SetUniform(mLocation, mData);
 		}
 	};
 
@@ -80,7 +82,7 @@ public:
 	 */
 	void Use();
 
-	void PassUniforms();
+	void UseAndPassUniforms();
 
 	/**
 	 * @brief Create shader program with shader source codes
@@ -251,11 +253,11 @@ void BasicShader::SetUniformData(const std::string &name, const T &data) {
 	iter = mUDataDictionary.find(name);
 
 	if (iter == mUDataDictionary.end()) {
-		AUniformContainer *newCon =
-				new UniformContainer<T>(
-						name.c_str(),
-						GetUniformLocation(name),
-						data);
+		GLint loc = GetUniformLocation(name);
+		if(loc < 0) {
+			LOGE("program[%s]: uniform[%s] doesn't exist!", mName.c_str(), name.c_str());
+		}
+		AUniformContainer *newCon = new UniformContainer<T>( name.c_str(), loc, data);
 		mUDataDictionary[name] = newCon;
 	} else {
 		UniformContainer<T> *con = dynamic_cast<UniformContainer<T> *>(mUDataDictionary[name]);
