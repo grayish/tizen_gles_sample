@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <basic/obj/transform_particles.h>
 #include "basic/basic_utils.h"
+#include "basic/obj/material_object.h"
 #include "basic/obj/instanced_object.h"
 #include "basic/obj/phong_object.h"
 
@@ -51,6 +52,11 @@ BasicObject *BasicObjectMgr::GetNewObject(const BasicObject_Type &type, const st
 			break;
 		case TRANSFORM_OBJ :
 			ret = new TransformParticles(name, &map);
+			ret->SetFocus(true);
+			mFocusObject = ret;
+			break;
+		case MATERIAL_OBJ :
+			ret = new MaterialObject(name, &map, camera);
 			ret->SetFocus(true);
 			mFocusObject = ret;
 			break;
