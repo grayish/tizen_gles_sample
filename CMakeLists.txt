@@ -168,6 +168,6 @@ set(SOURCE_FILES
         src/sample/view/mrt_view.cpp
         inc/sample/view/mrt_view.h
         src/basic/obj/material_object.cpp
-        inc/basic/obj/material_object.h)
+        inc/basic/obj/material_object.h inc/basic/obj/simple_object.h)
 
 add_executable(Tizen_GLES_Sample ${SOURCE_FILES})

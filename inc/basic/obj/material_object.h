@@ -17,7 +17,7 @@ private:
 
 	// vertex data array and indices
 	std::vector<MaterialVertex> mVertices;
-	std::vector<GLushort> mIndices;
+	std::vector<GLuint> mIndices;
 
 	// gl buffer obj and VAO
 	GLuint mBufferVertices;
@@ -36,7 +36,7 @@ public:
 
 	virtual BasicObject *ImportObj(const std::string &objFilename, const float &scale);
 
-	void ImporterMtl(const std::string &mtlFilename, std::map<std::string, Material> &mtlItems);
+	void ImporterMtl(const std::string &mtlFilename, std::map<std::string, Material*> &mtlItems);
 
 protected: // override functions
 	virtual void CreateVbo();

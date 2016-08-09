@@ -6,6 +6,7 @@
 #include "basic/obj/material_object.h"
 #include "basic/obj/instanced_object.h"
 #include "basic/obj/phong_object.h"
+#include "basic/obj/simple_object.h"
 
 BasicObjectMgr::BasicObjectMgr() :
 		mObjectList(),
@@ -60,7 +61,11 @@ BasicObject *BasicObjectMgr::GetNewObject(const BasicObject_Type &type, const st
 			ret->SetFocus(true);
 			mFocusObject = ret;
 			break;
-
+		case SIMPLE_OBJ :
+			ret = new SimpleObject(name, &map, camera);
+			ret->SetFocus(true);
+			mFocusObject = ret;
+			break;
 		default:
 			break;
 	}

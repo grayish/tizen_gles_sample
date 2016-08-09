@@ -23,6 +23,7 @@ out vec3 v_Ka;
 out vec3 v_Kd;
 out vec3 v_Ks;
 out vec3 v_Ke;
+out float v_dist;
 
 void main() {
     gl_Position = projMat * viewMat * worldMat * vec4(position, 1.0);
@@ -36,4 +37,5 @@ void main() {
     v_Kd = Kd;
     v_Ks = Ks;
     v_Ke = Ke;
+    v_dist = distance(posWS, lightPos);
 }

@@ -43,7 +43,8 @@ typedef enum _BasicObject_Type {
 	PHONG_OBJ,
 	INST_OBJ,
 	TRANSFORM_OBJ,
-	MATERIAL_OBJ
+	MATERIAL_OBJ,
+	SIMPLE_OBJ
 } BasicObject_Type;
 
 typedef enum _BasicLight_Type {
