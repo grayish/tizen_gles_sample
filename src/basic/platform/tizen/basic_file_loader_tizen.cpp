@@ -2,7 +2,6 @@
 
 #include <app.h>
 #include <Elementary.h>
-#include <fstream>
 
 #include "basic/basic_file_loader.h"
 #include "basic/basic_utils.h"
@@ -48,7 +47,7 @@ void FileLoader::ReadTexImage2D(GLenum target, const char *filename) const {
 
 }
 
-std::string FileLoader::ReadTxtFile(const std::string &filename) const {
+std::string FileLoader::ReadFileToString(const std::string &filename) const {
 	std::string path = app_get_resource_path() + filename;
 	LOGI("path %s", path.c_str());
 
@@ -62,6 +61,15 @@ std::string FileLoader::ReadTxtFile(const std::string &filename) const {
 	ret.resize(in.tellg());            // Resize string to support enough bytes
 	in.seekg(0, std::ios::beg);         // Set get position to beginning
 	in.read(&ret.at(0), ret.size());     // Read file to string
+
+	//test
+	in.seekg(0, std::ios::beg);
+	char buffer[512];
+	while(!in.eof()) {
+		in.getline(buffer, 512);
+		LOGI("getline : %s",buffer);
+	}
+
 	in.close();
 
 	return ret;
@@ -69,4 +77,37 @@ std::string FileLoader::ReadTxtFile(const std::string &filename) const {
 }
 
 
+FileStream::FileStream(const std::string &filename) :
+		mName(filename),
+		mInFile()
+{
+	std::string path = app_get_resource_path() + filename;
+	mInFile.open(path, std::ios::in | std::ios::binary);
+
+	std::string msg = "Failed to open file " + filename;
+	ASSERT(mInFile.is_open() && mInFile.good(), msg.c_str());
+
+	mInFile.seekg(0, std::ios::beg);
+
+}
+
+FileStream::~FileStream() {
+	if(mInFile.is_open()) {
+		mInFile.close();
+	}
+}
+
+bool FileStream::GetLine(char *buf, int size) {
+	do { //skip empty line
+		if(mInFile.eof()) {
+			LOGE("end of file[%s]!", mName.c_str());
+			return false;
+		}
+		mInFile.getline(buf, size);
+	}while(buf[0] == '\0');
+	LOGI("getline %s",buf);
+	return true;
+}
+
 #endif
+

@@ -34,11 +34,9 @@ public:
 
 	virtual ~MaterialObject();
 
-	virtual BasicObject *ImportObj(const std::string &objSource, const float &scale);
+	virtual BasicObject *ImportObj(const std::string &objFilename, const float &scale);
 
-	BasicObject *ImporterScale(char *objSource, const float &scale);
-
-	void ImporterMtl(char *mtlSource, std::map<std::string, Material> &mtlItems);
+	void ImporterMtl(const std::string &mtlFilename, std::map<std::string, Material> &mtlItems);
 
 protected: // override functions
 	virtual void CreateVbo();

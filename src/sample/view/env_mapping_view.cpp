@@ -5,9 +5,8 @@ using namespace std;
 EnvMappingView::EnvMappingView(void *data) : SampleView(data) {}
 
 void EnvMappingView::OnInit() {
-	string vs = File_Loader.ReadTxtFile("shader/view_env/env.vs");
-	string fs = File_Loader.ReadTxtFile("shader/view_env/env.fs");
-	string teapot = File_Loader.ReadTxtFile("obj3d/teapot");
+	string vs = File_Loader.ReadFileToString("shader/view_env/env.vs");
+	string fs = File_Loader.ReadFileToString("shader/view_env/env.fs");
 
 	TexProp cubemap(TEX_CUBE_FILE);
 	cubemap.SetData("cube_map");
@@ -26,7 +25,7 @@ void EnvMappingView::OnInit() {
 	po_uniforms.mList[U_CAMERA_POS] = "eyePos";
 
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
-			->ImportObj(teapot, 1.0f)
+			->ImportObj("obj3d/teapot", 1.0f)
 			->AttachShader(vs, fs, "shader")
 			->AttachTexture(cubemap, "s_texCube");
 

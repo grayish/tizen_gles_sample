@@ -80,7 +80,7 @@ public:
 	/**
  	 * @brief import obj file
  	 */
-	virtual BasicObject *ImportObj(const std::string &objSource, const float &scale) =0 ;
+	virtual BasicObject *ImportObj(const std::string &objFilename, const float &scale) =0 ;
 
 protected:
 	/**

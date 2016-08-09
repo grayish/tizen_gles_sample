@@ -10,6 +10,7 @@
 #include "basic/obj/basic_camera.h"
 #include "basic/basic_shader.h"
 #include "basic/basic_utils.h"
+#include "basic/basic_file_loader.h"
 
 using namespace std;
 using namespace glm;
@@ -40,18 +41,9 @@ PhongObject::~PhongObject() {
 
 }
 
-BasicObject *PhongObject::ImportObj(const std::string &objSource, const float &scale) {
-	char *buffer = new char[objSource.length() + 1];
-	strcpy(buffer, objSource.c_str());
+BasicObject *PhongObject::ImportObj(const std::string &objFilename, const float &scale) {
+	FileStream fs(objFilename);
 
-	BasicObject *ret = ImporterScale(buffer, scale);
-
-	delete buffer;
-
-	return ret;
-}
-
-BasicObject *PhongObject::ImporterScale(char *objSource, const float &scale) {
 	LOGI("%s", mName.c_str());
 
 	vec3 sVec = vec3(scale);
@@ -63,11 +55,10 @@ BasicObject *PhongObject::ImporterScale(char *objSource, const float &scale) {
 	vector<string> strIndexer;
 
 	float x, y, z;
-	char *line, *linePtr;
-	line = util_strtok(objSource, "\r\n", &linePtr);
-	while (line) {
+	char line_buf[512];
+	while (fs.GetLine(line_buf, 512)) {
 		char *word, *wordPtr;
-		word = util_strtok(line, " ", &wordPtr);
+		word = util_strtok(line_buf, " ", &wordPtr);
 
 		switch (word[0]) {
 			case 'v':
@@ -139,13 +130,13 @@ BasicObject *PhongObject::ImporterScale(char *objSource, const float &scale) {
 			default:
 				break;
 		}
-		line = util_strtok(nullptr, "\r\n", &linePtr);
 	}
 	LOGI("vert, idx = %d, %d",mVertices.size(), mIndices.size());
 
 	ComputeTangent();
 
 	return this;
+
 }
 
 void PhongObject::ComputeTangent() {

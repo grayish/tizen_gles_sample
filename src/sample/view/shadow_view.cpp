@@ -103,15 +103,12 @@ ShadowView::ShadowView(void *data) :
 
 void ShadowView::OnInit() {
 	//for generating shadow map
-	string vsShadow = File_Loader.ReadTxtFile("shader/view_shadow2/shadow.vs");
-	string fsShadow = File_Loader.ReadTxtFile("shader/view_shadow2/shadow.fs");
+	string vsShadow = File_Loader.ReadFileToString("shader/view_shadow2/shadow.vs");
+	string fsShadow = File_Loader.ReadFileToString("shader/view_shadow2/shadow.fs");
 
 	//for rendering scene
-	string vs = File_Loader.ReadTxtFile("shader/view_shadow2/pcf_book.vs");
-	string fs = File_Loader.ReadTxtFile("shader/view_shadow2/pcf_book.fs");
-
-	string teapot = File_Loader.ReadTxtFile("obj3d/teapot");
-	string plane = File_Loader.ReadTxtFile("obj3d/plane");
+	string vs = File_Loader.ReadFileToString("shader/view_shadow2/pcf_book.vs");
+	string fs = File_Loader.ReadFileToString("shader/view_shadow2/pcf_book.fs");
 
 	BasicMap<PhongObj_U_Elem> po_uniforms;
 	po_uniforms.mList[U_MAT_WORLD] = "worldMat";
@@ -145,7 +142,7 @@ void ShadowView::OnInit() {
 	shadowTex.SetParam(GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 
 	BasicObject *obj = mViewRenderer->GetNewObject(PHONG_OBJ, "plane", po_uniforms)
-			->ImportObj(plane, 100.0f)
+			->ImportObj("obj3d/plane", 100.0f)
 			->AttachShader(vs, fs, SH_FRAG_SHADOW)
 			->AttachShader(vsShadow, fsShadow, SH_SHADOW_MAP)
 			->AttachLight(POINT_LT, POINT_LIGHT_1, lt_uniforms)
@@ -154,7 +151,7 @@ void ShadowView::OnInit() {
 	dynamic_cast<PhongObject *>(obj)->SetColor(vec3(0.7));
 
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
-			->ImportObj(teapot, 1.0f)
+			->ImportObj("obj3d/teapot", 1.0f)
 			->AttachShader(vs, fs, SH_FRAG_SHADOW)
 			->AttachShader(vsShadow, fsShadow, SH_SHADOW_MAP)
 			->AttachLight(POINT_LT, POINT_LIGHT_1, lt_uniforms)

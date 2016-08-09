@@ -13,8 +13,8 @@ TransformFeedbackView::TransformFeedbackView(void *data) :
 void TransformFeedbackView::OnInit() {
 
 	string DRAW_SH = "tf_draw";
-	string vs = File_Loader.ReadTxtFile("shader/view_tf/tf_draw.vs");
-	string fs = File_Loader.ReadTxtFile("shader/view_tf/tf_draw.fs");
+	string vs = File_Loader.ReadFileToString("shader/view_tf/tf_draw.vs");
+	string fs = File_Loader.ReadFileToString("shader/view_tf/tf_draw.fs");
 
 	BasicMap<TransformObj_U_Elem> tf_uniforms;
 	tf_uniforms.mList[U_TF_TIME] = "u_time";
@@ -29,8 +29,8 @@ void TransformFeedbackView::OnInit() {
 			->AttachTexture(star, "s_tex");
 
 	string PARTICLE_SH = "tf_particle";
-	string vsParticle = File_Loader.ReadTxtFile("shader/view_tf/tf_particle.vs");
-	string fsParticle = File_Loader.ReadTxtFile("shader/view_tf/tf_particle.fs");
+	string vsParticle = File_Loader.ReadFileToString("shader/view_tf/tf_particle.vs");
+	string fsParticle = File_Loader.ReadFileToString("shader/view_tf/tf_particle.fs");
 
 	const char *feedbackVaryings[5] =
 			{

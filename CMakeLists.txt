@@ -92,43 +92,43 @@ include_directories(src/sample)
 add_definitions("-DBASIC_TIZEN")
 
 set(SOURCE_FILES
-    inc/basic/mgr/basic_light_mgr.h
-    inc/basic/mgr/basic_object_mgr.h
-    inc/basic/mgr/basic_shader_mgr.h
-    inc/basic/mgr/basic_texture_mgr.h
-    inc/basic/obj/basic_camera.h
-    inc/basic/obj/basic_light.h
-    inc/basic/obj/basic_object.h
-    inc/basic/obj/basic_pointlight.h
-    inc/basic/obj/basic_timer.h
-    inc/basic/obj/instanced_object.h
-    inc/basic/obj/phong_object.h
+        inc/basic/mgr/basic_light_mgr.h
+        inc/basic/mgr/basic_object_mgr.h
+        inc/basic/mgr/basic_shader_mgr.h
+        inc/basic/mgr/basic_texture_mgr.h
+        inc/basic/obj/basic_camera.h
+        inc/basic/obj/basic_light.h
+        inc/basic/obj/basic_object.h
+        inc/basic/obj/basic_pointlight.h
+        inc/basic/obj/basic_timer.h
+        inc/basic/obj/instanced_object.h
+        inc/basic/obj/phong_object.h
         inc/basic/tex/tex_prop.h
-    inc/basic/tex/basic_texture.h
-    inc/basic/basic_container.h
-    inc/basic/basic_file_loader.h
-    inc/basic/basic_gl_set.h
-    inc/basic/basic_renderer.h
-    inc/basic/basic_shader.h
-    inc/basic/basic_singleton.hpp
-    inc/basic/basic_type.h
-    inc/basic/basic_utils.h
+        inc/basic/tex/basic_texture.h
+        inc/basic/basic_container.h
+        inc/basic/basic_file_loader.h
+        inc/basic/basic_gl_set.h
+        inc/basic/basic_renderer.h
+        inc/basic/basic_shader.h
+        inc/basic/basic_singleton.hpp
+        inc/basic/basic_type.h
+        inc/basic/basic_utils.h
         inc/sample/view/coloring_view.h
         inc/sample/view/dyn_env_mapping_view.h
         inc/sample/view/env_mapping_view.h
         inc/sample/view/frag_lighting_view.h
         inc/sample/view/instance_view.h
-    inc/sample/launcher_interface.h
+        inc/sample/launcher_interface.h
         inc/basic/tex/tex_noise.h
         inc/sample/view/normal_mapping_view.h
-    inc/sample/sample_launcher.h
-    inc/sample/sample_view.h
+        inc/sample/sample_launcher.h
+        inc/sample/sample_view.h
         inc/sample/view/shadow_view.h
         inc/sample/view/texture_array_view.h
         inc/sample/view/texturing_view.h
         inc/sample/view/transformfeedback_view.h
         inc/sample/view/vertex_lighting_view.h
-    inc/gles_sample.h
+        inc/gles_sample.h
         src/basic/obj/basic_light.cpp
         src/basic/obj/basic_object.cpp
         src/basic/tex/basic_texture.cpp
@@ -147,21 +147,27 @@ set(SOURCE_FILES
         src/basic/mgr/basic_texture_mgr.cpp
         src/basic/obj/basic_timer.cpp
         src/basic/basic_utils.cpp
-    src/sample/view/coloring_view.cpp
-    src/sample/view/dyn_env_mapping_view.cpp
-    src/sample/view/env_mapping_view.cpp
-    src/sample/view/frag_lighting_view.cpp
-    src/sample/view/instance_view.cpp
+        src/sample/view/coloring_view.cpp
+        src/sample/view/dyn_env_mapping_view.cpp
+        src/sample/view/env_mapping_view.cpp
+        src/sample/view/frag_lighting_view.cpp
+        src/sample/view/instance_view.cpp
         src/basic/tex/tex_noise.cpp
-    src/sample/view/normal_mapping_view.cpp
-    src/sample/view/shadow_view.cpp
-    src/sample/view/texture_array_view.cpp
-    src/sample/view/texturing_view.cpp
-    src/sample/view/transformfeedback_view.cpp
-    src/sample/view/vertex_lighting_view.cpp
-    src/sample/launcher_interface.cpp
-    src/sample/sample_launcher.cpp
-    src/sample/sample_view.cpp
-    src/gles_sample.c src/basic/obj/transform_particles.cpp inc/basic/obj/transform_particles.h src/sample/view/mrt_view.cpp inc/sample/view/mrt_view.h)
+        src/sample/view/normal_mapping_view.cpp
+        src/sample/view/shadow_view.cpp
+        src/sample/view/texture_array_view.cpp
+        src/sample/view/texturing_view.cpp
+        src/sample/view/transformfeedback_view.cpp
+        src/sample/view/vertex_lighting_view.cpp
+        src/sample/launcher_interface.cpp
+        src/sample/sample_launcher.cpp
+        src/sample/sample_view.cpp
+        src/gles_sample.c
+        src/basic/obj/transform_particles.cpp
+        inc/basic/obj/transform_particles.h
+        src/sample/view/mrt_view.cpp
+        inc/sample/view/mrt_view.h
+        src/basic/obj/material_object.cpp
+        inc/basic/obj/material_object.h)
 
 add_executable(Tizen_GLES_Sample ${SOURCE_FILES})

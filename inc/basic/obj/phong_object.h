@@ -40,9 +40,7 @@ public:
 
 	virtual ~PhongObject();
 
-	virtual BasicObject *ImportObj(const std::string &objSource, const float &scale);
-
-	BasicObject *ImporterScale(char *objSource, const float &scale);
+	virtual BasicObject *ImportObj(const std::string &objFilename, const float &scale);
 
 protected: // override functions
 	virtual void CreateVbo();

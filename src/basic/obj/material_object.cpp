@@ -37,18 +37,9 @@ MaterialObject::~MaterialObject() {
 
 }
 
-BasicObject *MaterialObject::ImportObj(const std::string &objSource, const float &scale) {
-	char *buffer = new char[objSource.length() + 1];
-	strcpy(buffer, objSource.c_str());
+BasicObject *MaterialObject::ImportObj(const std::string &objFilename, const float &scale) {
+	FileStream fs(objFilename);
 
-	BasicObject *ret = ImporterScale(buffer, scale);
-
-	delete buffer;
-
-	return ret;
-}
-
-BasicObject *MaterialObject::ImporterScale(char *objSource, const float &scale) {
 	LOGI("%s", mName.c_str());
 
 	vec3 sVec = vec3(scale);
@@ -63,20 +54,15 @@ BasicObject *MaterialObject::ImporterScale(char *objSource, const float &scale) 
 	std::map<std::string, Material> mtlItems;
 
 	float x, y, z;
-	char *line, *linePtr;
-	line = util_strtok(objSource, "\r\n", &linePtr);
-	while (line) {
+	char line[512];
+	while (fs.GetLine(line, 512)) {
 		char *word, *wordPtr;
 		word = util_strtok(line, " \t", &wordPtr);
 
 		if(!strcmp(word, "mtllib"))
 		{
 			char *mtlPath = util_strtok(nullptr, " \t", &wordPtr);
-			string mtlSource = File_Loader.ReadTxtFile(mtlPath);
-			char *buffer = new char[mtlSource.length() + 1];
-			strcpy(buffer, mtlSource.c_str());
-			ImporterMtl(buffer, mtlItems);
-			delete buffer;
+			ImporterMtl(mtlPath, mtlItems);
 		}
 		else if(!strcmp(word, "usemtl"))
 		{
@@ -151,23 +137,22 @@ BasicObject *MaterialObject::ImporterScale(char *objSource, const float &scale) 
 			default:
 				break;
 		}
-		line = util_strtok(nullptr, "\r\n", &linePtr);
 	}
 	LOGI("vert, idx = %d, %d",mVertices.size(), mIndices.size());
 
 	return this;
 }
 
-void MaterialObject::ImporterMtl(char *mtlSource, std::map<std::string, Material> &mtlItems) {
+void MaterialObject::ImporterMtl(const string &mtlFilename, std::map<std::string, Material> &mtlItems) {
+	FileStream fs("obj3d/chess.mtl");
 	LOGI("%s", mName.c_str());
 
 	char *newmtl;
 	Material mtl;
 
 	float r, g, b;
-	char *line, *linePtr;
-	line = util_strtok(mtlSource, "\r\n", &linePtr);
-	while (line) {
+	char line[512];
+	while (fs.GetLine(line, 512)) {
 		char *word, *wordPtr;
 		word = util_strtok(line, " \t", &wordPtr);
 
@@ -225,7 +210,6 @@ void MaterialObject::ImporterMtl(char *mtlSource, std::map<std::string, Material
 			default:
 				break;
 		}
-		line = util_strtok(nullptr, "\r\n", &linePtr);
 	}
 
 	return;

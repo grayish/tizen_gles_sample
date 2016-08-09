@@ -123,21 +123,17 @@ DynEnvMappingView::DynEnvMappingView(void *data) : SampleView(data, false) {
 }
 
 void DynEnvMappingView::OnInit() {
-	string teapot = File_Loader.ReadTxtFile("obj3d/teapot");
-	string cube = File_Loader.ReadTxtFile("obj3d/cube");
-	string plane = File_Loader.ReadTxtFile("obj3d/plane");
-	string skybox = File_Loader.ReadTxtFile("obj3d/skybox");
 
-	string cube_vs = File_Loader.ReadTxtFile("shader/view_env/env.vs");
-	string cube_fs = File_Loader.ReadTxtFile("shader/view_env/env.fs");
-	string color_vs = File_Loader.ReadTxtFile("shader/view_color/color.vs");
-	string color_fs = File_Loader.ReadTxtFile("shader/view_color/color.fs");
-	string tex_vs = File_Loader.ReadTxtFile("shader/view_tex/tex.vs");
-	string tex_fs = File_Loader.ReadTxtFile("shader/view_tex/tex.fs");
-	string f_vs = File_Loader.ReadTxtFile("shader/view_f_lit/f_lit.vs");
-	string f_fs = File_Loader.ReadTxtFile("shader/view_f_lit/f_lit.fs");
-	string nor_vs = File_Loader.ReadTxtFile("shader/view_nor/nor.vs");
-	string nor_fs = File_Loader.ReadTxtFile("shader/view_nor/nor.fs");
+	string cube_vs = File_Loader.ReadFileToString("shader/view_env/env.vs");
+	string cube_fs = File_Loader.ReadFileToString("shader/view_env/env.fs");
+	string color_vs = File_Loader.ReadFileToString("shader/view_color/color.vs");
+	string color_fs = File_Loader.ReadFileToString("shader/view_color/color.fs");
+	string tex_vs = File_Loader.ReadFileToString("shader/view_tex/tex.vs");
+	string tex_fs = File_Loader.ReadFileToString("shader/view_tex/tex.fs");
+	string f_vs = File_Loader.ReadFileToString("shader/view_f_lit/f_lit.vs");
+	string f_fs = File_Loader.ReadFileToString("shader/view_f_lit/f_lit.fs");
+	string nor_vs = File_Loader.ReadFileToString("shader/view_nor/nor.vs");
+	string nor_fs = File_Loader.ReadFileToString("shader/view_nor/nor.fs");
 
 	TexProp textures[7] = {
 			TexProp(TEX_2D_FILE, "tex/tex_skybox.jpg"),
@@ -178,32 +174,32 @@ void DynEnvMappingView::OnInit() {
 
 	// skybox
 	mViewRenderer->GetNewObject(PHONG_OBJ, "skybox", po_uniforms)
-			->ImportObj(skybox, 2.0f)
+			->ImportObj("obj3d/skybox", 2.0f)
 			->AttachShader(tex_vs, tex_fs, SH_TEX)
 			->AttachTexture(textures[0], "s_tex0")
 			->SetPosition(vec3(0));
 
 	// surroundings
 	mViewRenderer->GetNewObject(PHONG_OBJ, "cube1", po_uniforms)
-			->ImportObj(cube, 0.5f)
+			->ImportObj("obj3d/cube", 0.5f)
 			->AttachShader(f_vs, f_fs, SH_FRAG_LT)
 			->AttachLight(POINT_LT, LT_POINT_1, lt_uniforms)
 			->AttachTexture(textures[1], "s_tex0")
 			->SetPosition(vec3(20.0f, 0, 0));
 	mViewRenderer->GetNewObject(PHONG_OBJ, "cube2", po_uniforms)
-			->ImportObj(cube, 0.5f)
+			->ImportObj("obj3d/cube", 0.5f)
 			->AttachShader(SH_FRAG_LT)
 			->AttachLight(LT_POINT_1)
 			->AttachTexture(textures[2], "s_tex0")
 			->SetPosition(vec3(0, 20.0f, 0));
 	mViewRenderer->GetNewObject(PHONG_OBJ, "cube3", po_uniforms)
-			->ImportObj(cube, 0.5f)
+			->ImportObj("obj3d/cube", 0.5f)
 			->AttachShader(SH_FRAG_LT)
 			->AttachLight(LT_POINT_1)
 			->AttachTexture(textures[3], "s_tex0")
 			->SetPosition(vec3(0, 0, 20.0f));
 	mViewRenderer->GetNewObject(PHONG_OBJ, "cube_brick", po_uniforms)
-			->ImportObj(cube, 0.5f)
+			->ImportObj("obj3d/cube", 0.5f)
 			->AttachShader(nor_vs, nor_fs, SH_NOR)
 			->AttachTexture(textures[4], "s_tex0")
 			->AttachTexture(textures[5], "s_texNor")
@@ -211,13 +207,13 @@ void DynEnvMappingView::OnInit() {
 			->SetPosition(vec3(0, 0, -20.0f));
 
 	mViewRenderer->GetNewObject(PHONG_OBJ, "cube_color", po_uniforms)
-			->ImportObj(cube, 0.5f)
+			->ImportObj("obj3d/cube", 0.5f)
 			->AttachShader(color_vs, color_fs, SH_COLOR)
 			->SetPosition(vec3(-20.0f, 0, 0));
 
 	// ground
 	mViewRenderer->GetNewObject(PHONG_OBJ, "ground", po_uniforms)
-			->ImportObj(plane, 100.0f)
+			->ImportObj("obj3d/plane", 100.0f)
 			->AttachShader(SH_FRAG_LT)
 			->AttachLight(LT_POINT_1)
 			->AttachTexture(textures[6], "s_tex0")
@@ -225,7 +221,7 @@ void DynEnvMappingView::OnInit() {
 
 	// dynamic obj
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
-			->ImportObj(teapot, 1.0f)
+			->ImportObj("obj3d/teapot", 1.0f)
 			->AttachShader(cube_vs, cube_fs, SH_CUBE)
 			->AttachTexture(dynCube, "s_texCube");
 

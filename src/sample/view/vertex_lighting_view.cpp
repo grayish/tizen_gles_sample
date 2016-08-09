@@ -5,9 +5,8 @@ using namespace std;
 VertexLightingView::VertexLightingView(void *data) : SampleView(data) {}
 
 void VertexLightingView::OnInit() {
-	string vs = File_Loader.ReadTxtFile("shader/view_v_lit/v_lit.vs");
-	string fs = File_Loader.ReadTxtFile("shader/view_v_lit/v_lit.fs");
-	string teapot = File_Loader.ReadTxtFile("obj3d/teapot");
+	string vs = File_Loader.ReadFileToString("shader/view_v_lit/v_lit.vs");
+	string fs = File_Loader.ReadFileToString("shader/view_v_lit/v_lit.fs");
 
 	BasicMap<PhongObj_U_Elem> po_uniforms;
 	po_uniforms.mList[U_MAT_WORLD] = "worldMat";
@@ -27,7 +26,7 @@ void VertexLightingView::OnInit() {
 	lt_uniforms.mList[U_PL_POS] = "lightPos";
 
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
-			->ImportObj(teapot, 1.0f)
+			->ImportObj("obj3d/teapot", 1.0f)
 			->AttachShader(vs, fs, "shader")
 			->AttachLight(POINT_LT, "point_light_1", lt_uniforms);
 

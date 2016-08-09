@@ -7,9 +7,8 @@ using namespace std;
 MrtView::MrtView(void *data) : SampleView(data) {}
 
 void MrtView::OnInit() {
-	string vs = File_Loader.ReadTxtFile("shader/view_mrt/mrt.vs");
-	string fs = File_Loader.ReadTxtFile("shader/view_mrt/mrt.fs");
-	string chess = File_Loader.ReadTxtFile("obj3d/chess");
+	string vs = File_Loader.ReadFileToString("shader/view_mrt/mrt.vs");
+	string fs = File_Loader.ReadFileToString("shader/view_mrt/mrt.fs");
 
 	BasicMap<MaterialObj_U_Elem> mo_uniforms;
 	mo_uniforms.mList[MTL_U_MAT_WORLD] = "worldMat";
@@ -25,10 +24,9 @@ void MrtView::OnInit() {
 	lt_uniforms.mList[U_PL_POS] = "lightPos";
 
 	mViewRenderer->GetNewObject(MATERIAL_OBJ, "chess", mo_uniforms)
-			->ImportObj(chess, 1.0f)
+			->ImportObj("obj3d/chess", 1.0f)
 			->AttachShader(vs, fs, "shader")
 			->AttachLight(POINT_LT, "point_light_1", lt_uniforms);
-
 
 	mViewRenderer->OffAutoRotate();
 

@@ -5,9 +5,8 @@ using namespace std;
 FragLightingView::FragLightingView(void *data) : SampleView(data) {}
 
 void FragLightingView::OnInit() {
-	string vs = File_Loader.ReadTxtFile("shader/view_f_lit/f_lit.vs");
-	string fs = File_Loader.ReadTxtFile("shader/view_f_lit/f_lit.fs");
-	string teapot = File_Loader.ReadTxtFile("obj3d/teapot");
+	string vs = File_Loader.ReadFileToString("shader/view_f_lit/f_lit.vs");
+	string fs = File_Loader.ReadFileToString("shader/view_f_lit/f_lit.fs");
 
 	TexProp tizenTex(TEX_2D_FILE, "tex/tizen_black.png");
 
@@ -29,7 +28,7 @@ void FragLightingView::OnInit() {
 	lt_uniforms.mList[U_PL_POS] = "lightPos";
 
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
-			->ImportObj(teapot, 1.0f)
+			->ImportObj("obj3d/teapot", 1.0f)
 			->AttachShader(vs, fs, "shader")
 			->AttachTexture(tizenTex, "s_tex0")
 			->AttachLight(POINT_LT, "point_light_1", lt_uniforms);

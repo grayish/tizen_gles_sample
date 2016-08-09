@@ -13,7 +13,7 @@ void TextureArrayView::OnInit() {/*
 	string vs = FileLoader.ReadTxtFile("shader/view_tex_array/tex_array.vs");
 	string fs = FileLoader.ReadTxtFile("shader/view_tex_array/tex_array.fs");
 
-	string cube = FileLoader.ReadTxtFile("obj3d/cube");
+	string cube = FileLoader.ReadFileToString("obj3d/cube");
 
 	TexProp sequences[2];
 	FileLoader.ReadTexture("tex/tex_c_brick.bmp", sequences[0]);

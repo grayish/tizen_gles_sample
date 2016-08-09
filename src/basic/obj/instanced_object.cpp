@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <algorithm>
+#include "basic/basic_file_loader.h"
 #include "basic/basic_utils.h"
 #include "basic/basic_gl_set.h"
 #include "basic/basic_shader.h"
@@ -38,18 +39,9 @@ InstObject::~InstObject() {
 
 }
 
-BasicObject *InstObject::ImportObj(const std::string &objSource, const float &scale) {
-	char *buffer = new char[objSource.length() + 1];
-	strcpy(buffer, objSource.c_str());
+BasicObject *InstObject::ImportObj(const std::string &objFilename, const float &scale) {
+	FileStream fs(objFilename);
 
-	BasicObject *ret = ImporterScale(buffer, scale);
-
-	delete buffer;
-
-	return ret;
-}
-
-BasicObject *InstObject::ImporterScale(char *objSource, const float &scale) {
 	LOGI("%s", mName.c_str());
 
 	vec3 sVec = vec3(scale);
@@ -61,9 +53,8 @@ BasicObject *InstObject::ImporterScale(char *objSource, const float &scale) {
 	vector<string> strIndexer;
 
 	float x, y, z;
-	char *line, *linePtr;
-	line = util_strtok(objSource, "\r\n", &linePtr);
-	while (line) {
+	char line[512];
+	while (fs.GetLine(line, 512)) {
 		char *word, *wordPtr;
 		word = util_strtok(line, " ", &wordPtr);
 
@@ -120,7 +111,7 @@ BasicObject *InstObject::ImporterScale(char *objSource, const float &scale) {
 						num = util_strtok(word, "/", &numPtr); // position index
 						newVertex.pos = posCoords.at((unsigned int) (atoi(num) - 1));
 						num = util_strtok(nullptr, "/", &numPtr); // texture index
-//                        newVertex.tex = texCoords.at((unsigned int) (atoi(num) - 1));
+						// newVertex.tex = texCoords.at((unsigned int) (atoi(num) - 1));
 						num = util_strtok(nullptr, "/", &numPtr); // normal index
 						newVertex.nor = norCoords.at((unsigned int) (atoi(num) - 1));
 
@@ -137,9 +128,8 @@ BasicObject *InstObject::ImporterScale(char *objSource, const float &scale) {
 			default:
 				break;
 		}
-		line = util_strtok(nullptr, "\r\n", &linePtr);
 	}
-	LOGI("vert, idx = %d, %d",mVertices.size(), mIndices.size());
+	LOGI("vert, idx = %d, %d", mVertices.size(), mIndices.size());
 
 	return this;
 }

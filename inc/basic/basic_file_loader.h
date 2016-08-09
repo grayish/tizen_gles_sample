@@ -4,11 +4,24 @@
 #define File_Loader FileLoader::Inst()
 
 #include <string>
+#include <fstream>
 
 #include "basic_singleton.hpp"
 
+class FileStream {
+private:
+	std::string mName;
+	std::ifstream mInFile;
+
+public:
+	FileStream(const std::string &filename);
+	~FileStream();
+	bool GetLine(char *buf, int size);
+};
+
 class FileLoader : public BasicSingleton<FileLoader> {
 public:
+
 
 	/**
 	 * @brief Constructor for the class FileLoader
@@ -33,7 +46,7 @@ public:
 	 * @param[in] filename Path for the source file
 	 * @param[out] out Output of string
 	 */
-	std::string ReadTxtFile(const std::string &filename) const;
+	std::string ReadFileToString(const std::string &filename) const;
 };
 
 

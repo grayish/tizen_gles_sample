@@ -36,9 +36,7 @@ public:
 
 	virtual ~InstObject();
 
-	virtual BasicObject *ImportObj(const std::string &objSource, const float &scale);
-
-	BasicObject *ImporterScale(char *objSource, const float &scale);
+	virtual BasicObject *ImportObj(const std::string &objFilename, const float &scale);
 
 	void SetInstancing(const int &count, const int &row, const int &column, const float &gridSize);
 

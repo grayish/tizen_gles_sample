@@ -5,9 +5,8 @@ using namespace std;
 NormalMappingView::NormalMappingView(void *data) : SampleView(data) {}
 
 void NormalMappingView::OnInit() {
-	string vs = File_Loader.ReadTxtFile("shader/view_nor/nor.vs");
-	string fs = File_Loader.ReadTxtFile("shader/view_nor/nor.fs");
-	string teapot = File_Loader.ReadTxtFile("obj3d/teapot");
+	string vs = File_Loader.ReadFileToString("shader/view_nor/nor.vs");
+	string fs = File_Loader.ReadFileToString("shader/view_nor/nor.fs");
 
 	TexProp brick_color(TEX_2D_FILE, "tex/tex_c_brick.bmp");
 	TexProp brick_normal(TEX_2D_FILE, "tex/tex_n_brick.bmp");
@@ -30,7 +29,7 @@ void NormalMappingView::OnInit() {
 	lt_uniforms.mList[U_PL_POS] = "lightPos";
 
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
-			->ImportObj(teapot, 1.0f)
+			->ImportObj("obj3d/teapot", 1.0f)
 			->AttachShader(vs, fs, "shader")
 			->AttachTexture(brick_color, "s_tex0")
 			->AttachTexture(brick_normal, "s_texNor")
