@@ -26,7 +26,8 @@ BasicRenderer::BasicRenderer() :
 		mIsAutoRotateEye(true),
 		mIsFill(true),
 		mIsTouchOn(false),
-		mTouchPoint(0) {
+		mTouchPoint(0),
+		mBgColor(0) {
 		mTimer = new BasicTimer();
 		mCamera = new BasicCamera();
 }
@@ -42,8 +43,7 @@ BasicRenderer::~BasicRenderer() {
 }
 
 void BasicRenderer::SetStates() const {
-//	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-	glClearColor(0,0,0,0);
+	glClearColor(mBgColor.x, mBgColor.y, mBgColor.z, 0.0);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 	glEnable(GL_CULL_FACE);

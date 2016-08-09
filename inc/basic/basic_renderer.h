@@ -37,6 +37,7 @@ protected:
 
 	bool mIsTouchOn;
 	glm::vec2 mTouchPoint; // Stores Touch Point x, y determined by scrolling screen
+	glm::vec3 mBgColor;
 
 
 public:
@@ -149,6 +150,8 @@ public: /// inline functions
 	 */
 	void TouchOff();
 
+	void SetBackgroundColor(const glm::vec3& bg_color);
+
 public:
 	/**
 	 * @brief Getter for mWidth
@@ -218,6 +221,10 @@ inline int BasicRenderer::GetWidth() {
 
 inline int BasicRenderer::GetHeight() {
 	return mHeight;
+}
+
+inline void BasicRenderer::SetBackgroundColor(const glm::vec3 &bg_color) {
+	mBgColor = bg_color;
 }
 
 #endif //__BASIC_RENDERER_H__

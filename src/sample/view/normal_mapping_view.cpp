@@ -35,5 +35,6 @@ void NormalMappingView::OnInit() {
 			->AttachTexture(brick_normal, "s_texNor")
 			->AttachLight(POINT_LT, "point_light_1", lt_uniforms);
 
+	mViewRenderer->SetBackgroundColor(glm::vec3(0.1f));
 }
 

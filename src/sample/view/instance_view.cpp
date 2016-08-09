@@ -18,7 +18,7 @@ void InstanceView::OnInit() {
 
 	BasicObject *obj =
 			mViewRenderer->GetNewObject(INST_OBJ, "cube", io_u)
-					->ImportObj("obj3d/sphere", 1.0f)
+					->ImportObj("obj3d/cube", 1.0f)
 					->AttachShader(vs, fs, "inst_shader");
 
 	dynamic_cast<InstObject *>(obj)

@@ -33,5 +33,6 @@ void FragLightingView::OnInit() {
 			->AttachTexture(tizenTex, "s_tex0")
 			->AttachLight(POINT_LT, "point_light_1", lt_uniforms);
 
+	mViewRenderer->SetBackgroundColor(glm::vec3(0.1f));
 }
 
