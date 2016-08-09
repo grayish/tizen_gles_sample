@@ -16,6 +16,8 @@ class BasicObject;
 
 class BasicShader;
 
+class BasicCamera;
+
 class ABasicMap;
 
 class BasicLightMgr : public BasicSingleton<BasicLightMgr> {

@@ -105,7 +105,7 @@ bool FileStream::GetLine(char *buf, int size) {
 		}
 		mInFile.getline(buf, size);
 	}while(buf[0] == '\0');
-	LOGI("getline %s",buf);
+//	LOGI("getline %s",buf);
 	return true;
 }
 

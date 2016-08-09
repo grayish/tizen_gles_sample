@@ -93,7 +93,7 @@ BasicObject *PhongObject::ImportObj(const std::string &objFilename, const float 
 				break;
 
 			case 'f':
-				while ((word = util_strtok(nullptr, " ", &wordPtr))) {
+				while ((word = util_strtok(nullptr, " \n\r", &wordPtr))) {
 					string face = word;
 
 					vector<string>::iterator findIter = find(strIndexer.begin(),

@@ -20,9 +20,9 @@ BasicLight::~BasicLight() {
 
 PointLight::PointLight(const string &name, const ABasicMap *list) :
 		BasicLight(name),
-		mDiff(1.0f),
+		mDiff(0.7f),
 		mSpec(1.0f),
-		mAmbi(0),
+		mAmbi(0.5f),
 		mUniformList(dynamic_cast<const BasicMap<PointLt_U_Elem> *>(list)->mList) {}
 
 PointLight::~PointLight() {}
