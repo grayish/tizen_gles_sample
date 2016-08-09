@@ -16,6 +16,13 @@
 #define TRANSFORM_ATTRIB_CURTIME       3
 #define TRANSFORM_ATTRIB_LIFETIME      4
 
+#define MRT_ATTRIB_POS      0
+#define MRT_ATTRIB_NOR      1
+#define MRT_ATTRIB_KA       2
+#define MRT_ATTRIB_KD       3
+#define MRT_ATTRIB_KS       4
+#define MRT_ATTRIB_KE       5
+
 typedef struct _VertexAttrib {
 	GLuint index;
 	GLint size;
@@ -36,7 +43,8 @@ typedef enum _TexContainer_Type {
 typedef enum _BasicObject_Type {
 	PHONG_OBJ,
 	INST_OBJ,
-	TRANSFORM_OBJ
+	TRANSFORM_OBJ,
+	MATERIAL_OBJ
 } BasicObject_Type;
 
 typedef enum _BasicLight_Type {
@@ -97,5 +105,29 @@ typedef enum _TransformObj_U_Elem {
 	U_COLOR,
 	U_EMISSION_RATE
 } TransformObj_U_Elem;
+
+typedef struct _Material {
+	glm::vec3 ka;
+	glm::vec3 kd;
+	glm::vec3 ks;
+	glm::vec3 ke;
+} Material;
+
+typedef struct _MaterialVertex {
+	glm::vec3 pos;
+	glm::vec3 nor;
+	glm::vec3 ka;
+	glm::vec3 kd;
+	glm::vec3 ks;
+	glm::vec3 ke;
+} MaterialVertex;
+
+typedef enum _MaterialObj_U_Elem {
+	MTL_U_CAMERA_VIEW,
+	MTL_U_CAMERA_PROJ,
+	MTL_U_CAMERA_POS,
+	MTL_U_MAT_WORLD,
+	MTL_U_MAT_SHINESS,
+} MaterialObj_U_Elem;
 
 #endif //__BASIC_TYPE_H__
