@@ -1,4 +1,4 @@
-#include "sample/noise.h"
+#include "basic/tex/tex_noise.h"
 
 #include <stdlib.h>
 #include <cmath>
@@ -137,5 +137,83 @@ float noise3D(float *f) {
 	vz1 = lerp (wy, vy0, vy1);
 
 	return lerp (wz, vz0, vz1);;
+}
+
+void TexNoise::Create3DNoiseTexture(int textureSize, float frequency, GLubyte *targetBuffer) {
+//	std::vector<GLfloat> f_noiseBuffer;
+//	unsigned int totalSize = textureSize * textureSize * textureSize;
+//	f_noiseBuffer.reserve(totalSize);
+//	GLfloat *f_noiseBuffer = new GLfloat(textureSize * textureSize * textureSize);
+	GLfloat *f_noiseBuffer =  ( GLfloat * ) malloc ( sizeof ( GLfloat ) * textureSize * textureSize * textureSize );
+
+	int x, y, z;
+	unsigned long index = 0;
+	float min = 1000;
+	float max = -1000;
+	float range;
+
+	initNoiseTable();
+
+	for (z = 0; z < textureSize; z++) {
+		for (y = 0; y < textureSize; y++) {
+			for (x = 0; x < textureSize; x++) {
+				float noiseVal;
+				float pos[3] = {(float) x / (float) textureSize, (float) y / (float) textureSize,
+								(float) z / (float) textureSize};
+				pos[0] *= frequency;
+				pos[1] *= frequency;
+				pos[2] *= frequency;
+				noiseVal = noise3D(pos);
+
+				if (noiseVal < min) {
+					min = noiseVal;
+				}
+
+				if (noiseVal > max) {
+					max = noiseVal;
+				}
+
+//				f_noiseBuffer.push_back(noiseVal);
+				f_noiseBuffer[index++] = noiseVal;
+			}
+		}
+	}
+
+	// Normalize to the [0, 1] range
+	range = (max - min);
+	index = 0;
+
+	for (z = 0; z < textureSize; z++) {
+		for (y = 0; y < textureSize; y++) {
+			for (x = 0; x < textureSize; x++) {
+				float noiseVal = f_noiseBuffer[index];
+				noiseVal = (noiseVal - min) / range;
+//				targetBuffer[index++] = (GLubyte) (0);
+				targetBuffer[index++] = (GLubyte) (noiseVal * 255.0f);
+			}
+		}
+	}
+
+	free(f_noiseBuffer);
+
+}
+
+TexNoise::TexNoise(const unsigned int size, float freq, const std::string &name) :
+		TexProp(TEX_3D_PTR),
+		mNoiseBuffer(nullptr) {
+	mNoiseBuffer = new GLubyte(size * size * size);
+	mNoiseBuffer =  ( GLubyte * ) malloc ( sizeof ( GLubyte ) * size * size * size );
+	Create3DNoiseTexture(size, freq, mNoiseBuffer);
+	SetDataDepth(name, size, size, size, GL_RED, GL_R8, GL_UNSIGNED_BYTE);
+	SetPointer(mNoiseBuffer);
+	SetParam(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	SetParam(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	SetParam(GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	SetParam(GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	SetParam(GL_TEXTURE_WRAP_R, GL_MIRRORED_REPEAT);
+}
+
+TexNoise::~TexNoise() {
+	free( mNoiseBuffer);
 }
 

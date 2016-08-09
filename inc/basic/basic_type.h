@@ -35,7 +35,8 @@ typedef enum _TexContainer_Type {
 
 typedef enum _BasicObject_Type {
 	PHONG_OBJ,
-	INST_OBJ
+	INST_OBJ,
+	TRANSFORM_OBJ
 } BasicObject_Type;
 
 typedef enum _BasicLight_Type {

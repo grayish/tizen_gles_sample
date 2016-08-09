@@ -103,6 +103,8 @@ void BasicTexture::TexImage(const GLenum &target, const TexProp &tex) {
 		case TEX_3D_FILE:
 			break;
 		case TEX_3D_PTR:
+			TexImage3D(target, tex, tex.mPtrs[0]);
+
 			break;
 		default:
 			break;

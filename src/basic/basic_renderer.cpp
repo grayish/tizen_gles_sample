@@ -42,7 +42,8 @@ BasicRenderer::~BasicRenderer() {
 }
 
 void BasicRenderer::SetStates() const {
-	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+//	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+	glClearColor(0,0,0,0);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 	glEnable(GL_CULL_FACE);

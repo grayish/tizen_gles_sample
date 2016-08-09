@@ -24,8 +24,12 @@ SampleLauncher::SampleLauncher() :
 SampleLauncher::~SampleLauncher() {
 	LOGE("destruct SampleLauncher");
 	LOGI_ENTRY;
-	if (instance)
-		delete instance;
+	if (instance) {
+		SampleLauncher* inst = instance;
+		instance = nullptr;
+		delete inst;
+	}
+
 	LOGI_EXIT;
 }
 

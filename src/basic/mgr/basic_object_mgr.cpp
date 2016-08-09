@@ -1,6 +1,7 @@
 #include "basic/mgr/basic_object_mgr.h"
 
 #include <algorithm>
+#include <basic/obj/transform_particles.h>
 #include "basic/basic_utils.h"
 #include "basic/obj/instanced_object.h"
 #include "basic/obj/phong_object.h"
@@ -45,6 +46,11 @@ BasicObject *BasicObjectMgr::GetNewObject(const BasicObject_Type &type, const st
 			break;
 		case INST_OBJ :
 			ret = new InstObject(name, &map, camera);
+			ret->SetFocus(true);
+			mFocusObject = ret;
+			break;
+		case TRANSFORM_OBJ :
+			ret = new TransformParticles(name, &map);
 			ret->SetFocus(true);
 			mFocusObject = ret;
 			break;

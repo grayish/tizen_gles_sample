@@ -41,7 +41,7 @@ public:
 	/**
 	 * @brief Destructor for the class TexData
 	 */
-	~TexProp();
+	virtual ~TexProp();
 
 	/**
 	 * @brief Set texture data
@@ -54,6 +54,12 @@ public:
 				 unsigned int w = 0, unsigned int h = 0,
 				 int fm = GL_RGBA, int in_fm = GL_RGBA,
 				 GLenum data_type = GL_UNSIGNED_BYTE);
+
+	void
+	SetDataDepth(const std::string &name,
+				 unsigned int w, unsigned int h, unsigned int d,
+				 int fm, int in_fm, GLenum data_type);
+
 
 	void SetFile(const std::string &filename);
 	void SetPointer(void *ptr);

@@ -47,6 +47,18 @@ void TexProp::SetData(const std::string &name, unsigned int w, unsigned int h, i
 	mDataType = data_type;
 }
 
+void TexProp::SetDataDepth(const std::string &name, unsigned int w, unsigned int h, unsigned int d, int fm, int in_fm,
+						   GLenum data_type) {
+	LOGI("w:h[%d,%d]fm[%d]", w, h, fm);
+	mName = name;
+	mWidth = w;
+	mHeight = h;
+	mFormat = fm;
+	mDepth = d;
+	mInternalFormat = in_fm;
+	mDataType = data_type;
+}
+
 void TexProp::SetParam(GLenum texParam, GLint val) {
 	mCustomParam[texParam] = val;
 }

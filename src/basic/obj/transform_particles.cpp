@@ -1,10 +1,11 @@
 #include "basic/obj/transform_particles.h"
 
 #include "basic/basic_utils.h"
-#include "basic/basic_gl_set.h"
 
 #include "basic/basic_shader.h"
+#include "basic/basic_container.h"
 #include "basic/mgr/basic_texture_mgr.h"
+#include "basic/mgr/basic_shader_mgr.h"
 
 
 TransformParticles::TransformParticles(const std::string &name, const ABasicMap *list) :
@@ -14,14 +15,19 @@ TransformParticles::TransformParticles(const std::string &name, const ABasicMap 
 	mBufferVertices{0,},
 	mSrcBuffer(0),
 	mDstBuffer(0),
-	mUniformList(),
-	mSync()
+	mUniformList(dynamic_cast<const BasicMap<TransformObj_U_Elem> *>(list)->mList),
+	mSync(),
+	mTime(0),
+	mTransformShader(nullptr)
 {
-
+	InitParticle();
 }
 
 TransformParticles::~TransformParticles() {
 	LOGI("destruct name[%s]", mName.c_str());
+	glDeleteBuffers(2, mBufferVertices);
+	check_gl_error("glDeleteBuffers");
+
 
 }
 
@@ -66,9 +72,13 @@ void TransformParticles::ResetAttrib() {
 }
 
 void TransformParticles::Draw() {
+//	UpdateParticles(mTransformShader);
+
 	SetupAttribs();
 
-	// Block the GL server until transform feedback results are completed
+	glEnable ( GL_BLEND );
+	glBlendFunc ( GL_SRC_ALPHA, GL_ONE );
+
 	glWaitSync ( mSync, 0, GL_TIMEOUT_IGNORED );
 	glDeleteSync ( mSync );
 
@@ -79,7 +89,6 @@ void TransformParticles::Draw() {
 }
 
 void TransformParticles::SetShaderUniforms(BasicShader *sh) {
-	sh->SetUniformData(mUniformList[U_EMISSION_RATE], EMISSION_RATE);
 	sh->SetUniformData(mUniformList[U_TIME], mTime);
 	sh->SetUniformData(mUniformList[U_COLOR], mColor);
 	sh->SetUniformData(mUniformList[U_ACCEL], glm::vec2(0, ACCELERATION));
@@ -97,12 +106,14 @@ void TransformParticles::InitParticle() {
 	}
 }
 
+void TransformParticles::UpdateParticles() {
+	mTime += 0.05f;
+	mTransformShader->SetUniformData(mUniformList[U_EMISSION_RATE], EMISSION_RATE);
+	mTransformShader->SetUniformData(mUniformList[U_TIME], mTime);
+	Texture_Mgr.ActiveTextures(mTransformShader, this);
 
-
-void TransformParticles::UpdateParticles(BasicShader *sh) {
-	SetShaderUniforms(sh);
-	sh->PassUniforms();
-	sh->Use();
+	mTransformShader->PassUniforms();
+	mTransformShader->Use();
 
 	SetupAttribs();
 
@@ -119,9 +130,29 @@ void TransformParticles::UpdateParticles(BasicShader *sh) {
 
 	glDisable ( GL_RASTERIZER_DISCARD );
 	glBindBufferBase ( GL_TRANSFORM_FEEDBACK_BUFFER, 0, 0 );
+	glUseProgram(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
 	// swap
 	GLuint temp = mSrcBuffer;
 	mSrcBuffer = mDstBuffer;
 	mDstBuffer = temp;
+}
+
+void TransformParticles::Attatch_TF_Shader(const std::string &vs, const std::string &fs, const char **varyings,
+										   const std::string &name) {
+	LOGI_ENTRY;
+	mTransformShader = Shader_Mgr.GetNewShader(vs, fs, name);
+	glTransformFeedbackVaryings(mTransformShader->GetProgram(), 5, varyings, GL_INTERLEAVED_ATTRIBS);
+	check_gl_error("glTransformFeedbackVaryings");
+
+	glLinkProgram(mTransformShader->GetProgram());
+	check_gl_error("glLinkProgram");
+	LOGI_EXIT;
+
+}
+
+BasicObject *TransformParticles::ImportObj(const std::string &objSource, const float &scale) {
+	return nullptr;
 }

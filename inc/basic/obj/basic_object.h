@@ -80,7 +80,7 @@ public:
 	/**
  	 * @brief import obj file
  	 */
-	virtual BasicObject *ImportObj(const std::string &objSource, const float &scale) = 0;
+	virtual BasicObject *ImportObj(const std::string &objSource, const float &scale) =0 ;
 
 protected:
 	/**
@@ -141,6 +141,7 @@ inline void BasicObject::Select(const bool &isSelected) {
 inline void BasicObject::SetVisible(const bool &isVisible) {
 	mIsVisible = isVisible;
 }
+
 
 
 #endif //__BASIC_OBJECT_H__

@@ -11,11 +11,11 @@ uniform float u_time;
 uniform float u_emissionRate;
 uniform mediump sampler3D s_noiseTex;
 
-layout(location = TRANSFORM_ATTRI_POSITION) in vec2 position;
-layout(location = TRANSFORM_ATTRI_VELOCITY) in vec2 velocity;
-layout(location = TRANSFORM_ATTRI_SIZE) in float size;
-layout(location = TRANSFORM_ATTRI_CURTIME) in float curtime;
-layout(location = TRANSFORM_ATTRI_LIFETIME) in float lifetime;
+layout(location = TRANSFORM_ATTRIB_POSITION) in vec2 position;
+layout(location = TRANSFORM_ATTRIB_VELOCITY) in vec2 velocity;
+layout(location = TRANSFORM_ATTRIB_SIZE) in float size;
+layout(location = TRANSFORM_ATTRIB_CURTIME) in float curtime;
+layout(location = TRANSFORM_ATTRIB_LIFETIME) in float lifetime;
 
 out vec2 v_position;
 out vec2 v_velocity;
@@ -34,7 +34,7 @@ float randomValue( inout float seed )
 void main()
 {
   float seed = u_time;
-  float lifetime = a_curtime - u_time;
+  float lifetime = curtime - u_time;
   if( lifetime <= 0.0 && randomValue(seed) < u_emissionRate )
   {
      v_position = vec2( 0.0, -1.0 );

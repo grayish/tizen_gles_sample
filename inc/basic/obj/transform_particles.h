@@ -29,6 +29,7 @@ private:
 	TransformObj_U_Str mUniformList;
 	GLsync mSync;
 	float mTime;
+	BasicShader* mTransformShader;
 
 public: //Getter Setter
 
@@ -39,7 +40,11 @@ public:
 
 	virtual ~TransformParticles();
 
-	void UpdateParticles(BasicShader *sh);
+	void Attatch_TF_Shader(const std::string &vs, const std::string &fs, const char **varyings,
+						   const std::string &name);
+
+	void UpdateParticles();
+
 
 protected: // override functions
 	virtual void CreateVbo();
@@ -51,6 +56,8 @@ protected: // override functions
 	virtual void Draw();
 
 	virtual void SetShaderUniforms(BasicShader *sh);
+
+	virtual BasicObject *ImportObj(const std::string &objSource, const float &scale);
 
 private:
 	void InitParticle();

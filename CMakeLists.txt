@@ -119,7 +119,7 @@ set(SOURCE_FILES
         inc/sample/view/frag_lighting_view.h
         inc/sample/view/instance_view.h
     inc/sample/launcher_interface.h
-    inc/sample/noise.h
+        inc/basic/tex/tex_noise.h
         inc/sample/view/normal_mapping_view.h
     inc/sample/sample_launcher.h
     inc/sample/sample_view.h
@@ -129,30 +129,30 @@ set(SOURCE_FILES
         inc/sample/view/transformfeedback_view.h
         inc/sample/view/vertex_lighting_view.h
     inc/gles_sample.h
-    src/obj/basic_light.cpp
-    src/obj/basic_object.cpp
-    src/obj/basic_texture.cpp
-    src/obj/instanced_object.cpp
-    src/obj/phong_object.cpp
-    src/renderer/platform/tizen/basic_file_loader_tizen.cpp
-    src/renderer/platform/win/basic_file_loader_win.cpp
-    src/renderer/basic_camera.cpp
-    src/renderer/basic_light_mgr.cpp
-    src/renderer/basic_object_mgr.cpp
-    src/renderer/basic_pointlight.cpp
-    src/renderer/basic_renderer.cpp
-        src/renderer/basic_shader.cpp
-    src/renderer/basic_shader_mgr.cpp
-        src/renderer/tex_prop.cpp
-    src/renderer/basic_texture_mgr.cpp
-    src/renderer/basic_timer.cpp
-    src/renderer/basic_utils.cpp
+        src/basic/obj/basic_light.cpp
+        src/basic/obj/basic_object.cpp
+        src/basic/tex/basic_texture.cpp
+        src/basic/obj/instanced_object.cpp
+        src/basic/obj/phong_object.cpp
+        src/basic/platform/tizen/basic_file_loader_tizen.cpp
+        src/basic/platform/win/basic_file_loader_win.cpp
+        src/basic/obj/basic_camera.cpp
+        src/basic/mgr/basic_light_mgr.cpp
+        src/basic/mgr/basic_object_mgr.cpp
+        src/basic/obj/basic_pointlight.cpp
+        src/basic/basic_renderer.cpp
+        src/basic/basic_shader.cpp
+        src/basic/mgr/basic_shader_mgr.cpp
+        src/basic/tex/tex_prop.cpp
+        src/basic/mgr/basic_texture_mgr.cpp
+        src/basic/obj/basic_timer.cpp
+        src/basic/basic_utils.cpp
     src/sample/view/coloring_view.cpp
     src/sample/view/dyn_env_mapping_view.cpp
     src/sample/view/env_mapping_view.cpp
     src/sample/view/frag_lighting_view.cpp
     src/sample/view/instance_view.cpp
-        src/sample/noise.cpp
+        src/basic/tex/tex_noise.cpp
     src/sample/view/normal_mapping_view.cpp
     src/sample/view/shadow_view.cpp
     src/sample/view/texture_array_view.cpp
@@ -162,6 +162,6 @@ set(SOURCE_FILES
     src/sample/launcher_interface.cpp
     src/sample/sample_launcher.cpp
     src/sample/sample_view.cpp
-    src/gles_sample.c src/obj/transform_particles.cpp inc/basic/obj/transform_particles.h src/sample/view/mrt_view.cpp inc/sample/view/mrt_view.h)
+    src/gles_sample.c src/basic/obj/transform_particles.cpp inc/basic/obj/transform_particles.h src/sample/view/mrt_view.cpp inc/sample/view/mrt_view.h)
 
 add_executable(Tizen_GLES_Sample ${SOURCE_FILES})
