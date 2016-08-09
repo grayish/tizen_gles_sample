@@ -32,6 +32,9 @@ void BasicTexture::Init(const TexProp &tex) {
 		case TEX_CUBE_PTR :
 			mTarget = GL_TEXTURE_CUBE_MAP;
 			break;
+		case TEX_2D_ARRAY_FILE :
+			mTarget = GL_TEXTURE_2D_ARRAY;
+			break;
 		default:
 			break;
 	}
@@ -104,6 +107,11 @@ void BasicTexture::TexImage(const GLenum &target, const TexProp &tex) {
 			break;
 		case TEX_3D_PTR:
 			TexImage3D(target, tex, tex.mPtrs[0]);
+
+			break;
+
+		case TEX_2D_ARRAY_FILE:
+
 
 			break;
 		default:

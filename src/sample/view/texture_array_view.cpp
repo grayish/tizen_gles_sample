@@ -7,30 +7,29 @@ using namespace std;
 TextureArrayView::TextureArrayView(void *data) : SampleView(data) {
 }
 
-#define FileLoader FileLoader::Inst()
+void TextureArrayView::OnInit() {
+	string vs = File_Loader.ReadFileToString("shader/view_tex_array/tex_array.vs");
+	string fs = File_Loader.ReadFileToString("shader/view_tex_array/tex_array.fs");
 
-void TextureArrayView::OnInit() {/*
-	string vs = FileLoader.ReadTxtFile("shader/view_tex_array/tex_array.vs");
-	string fs = FileLoader.ReadTxtFile("shader/view_tex_array/tex_array.fs");
+	BasicMap<PhongObj_U_Elem> po_uniforms;
+	po_uniforms.mList[U_MAT_WORLD] = "worldMat";
+	po_uniforms.mList[U_CAMERA_VIEW] = "viewMat";
+	po_uniforms.mList[U_CAMERA_PROJ] = "projMat";
+	po_uniforms.mList[U_CAMERA_POS] = "eyePos";
 
-	string cube = FileLoader.ReadFileToString("obj3d/cube");
+	TexProp texArray(TEX_2D_ARRAY_FILE);
+	texArray.SetData("tex_array");
+	texArray.SetFile("tex/tizen_black.png");
+	texArray.SetFile("tex/tizen_noalpha.png");
+	texArray.SetFilter();
 
-	TexProp sequences[2];
-	FileLoader.ReadTexture("tex/tex_c_brick.bmp", sequences[0]);
-	FileLoader.ReadTexImage2D("tex/tex_n_brick.bmp", sequences[1]);
+	mViewRenderer->GetNewObject(PHONG_OBJ, "cube", po_uniforms)
+			->ImportObj("obj3d/cube", 1.0f)
+			->AttachShader(vs, fs, "sh_tex_array")
+			->AttachTexture(texArray, "s_texArray");
 
-	BasicObject* obj;
-	float scale = 1.0f;
+	mViewRenderer->SetBackgroundColor(glm::vec3(0.1f));
 
-	obj = mViewRenderer->SetNewModel(cube, scale);
-	obj->AttachShader(vs, fs);
-	obj->SetTexArray(sequences, 2);
 
-	mViewRenderer->Initialize();
-
-	//mViewRenderer->OffAutoRotate();
-	mViewRenderer->GetCamera()->SetEye(25, 25, 25);
-	mViewRenderer->GetCamera()->SetAt(0, 0, 0);
-	mViewRenderer->SetFocus(obj);*/
 }
 
