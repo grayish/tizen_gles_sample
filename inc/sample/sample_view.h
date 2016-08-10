@@ -19,6 +19,9 @@ protected:
 public:
 	/**
 	 * @brief Constructor for the class SampleView
+	 *
+	 * @param[in] data Data for GLView
+	 * @param[in] createDefaultRenderer Determine to create a new renderer object
 	 */
 	SampleView(void *data, bool createDefaultRenderer = true);
 

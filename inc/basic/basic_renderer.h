@@ -150,6 +150,11 @@ public: /// inline functions
 	 */
 	void TouchOff();
 
+	/**
+	 * @brief Set the background color
+	 *
+	 * @param[in] bg_color a color to be set
+	 */
 	void SetBackgroundColor(const glm::vec3& bg_color);
 
 public:
@@ -181,6 +186,11 @@ public:
 	 */
 	//void SetFocus(BasicObject *obj);
 
+	/**
+	 * @brief Get the point of the screen touched
+	 *
+	 * @return a coordinate of the touch point
+	 */
 	glm::vec2 GetScreenTouchPoint() const;
 
 

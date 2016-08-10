@@ -5,8 +5,16 @@
 
 class FragLightingView : public SampleView {
 public:
+	/**
+	 * @brief Constructor for the class FragLightingView
+	 *
+	 * @param[in] data Data for GLView
+	 */
 	FragLightingView(void *data);
 
+	/**
+	 * @brief Init function for the class FragLightingView
+	 */
 	void OnInit() override;
 };
 

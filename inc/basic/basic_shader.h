@@ -15,8 +15,14 @@ class BasicShader {
 private:
 	class AUniformContainer {
 	public:
+		/**
+		 * @brief Constructor for the class AUniformContainer
+		 */
 		AUniformContainer() {}
 
+		/**
+		 * @brief Destructor for the class AUniformContainer
+		 */
 		virtual ~AUniformContainer() {}
 
 		virtual void Set(BasicShader *shader) = 0;

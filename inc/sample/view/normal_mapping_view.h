@@ -5,8 +5,16 @@
 
 class NormalMappingView : public SampleView {
 public:
+	/**
+	 * @brief Constructor for the class NormalMappingView
+	 *
+	 * @param[in] data Data for GLView
+	 */
 	NormalMappingView(void *data);
 
+	/**
+	 * @brief Init function for the class NormalMappingView
+	 */
 	virtual void OnInit() override;
 
 };

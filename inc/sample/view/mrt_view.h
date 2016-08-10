@@ -5,8 +5,16 @@
 
 class MrtView : public SampleView {
 public:
+	/**
+	 * @brief Constructor for the class MrtView
+	 *
+	 * @param[in] data Data for GLView
+	 */
 	MrtView(void *data);
 
+	/**
+	 * @brief Init function for the class MrtView
+	 */
 	virtual void OnInit() override;
 
 };

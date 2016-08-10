@@ -5,8 +5,16 @@
 
 class InstanceView : public SampleView {
 public:
+	/**
+	 * @brief Constructor for the class InstanceView
+	 *
+	 * @param[in] data Data for GLView
+	 */
 	InstanceView(void *data);
 
+	/**
+	 * @brief Init function for the class InstanceView
+	 */
 	void OnInit() override;
 
 };

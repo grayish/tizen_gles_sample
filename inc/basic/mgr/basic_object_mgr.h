@@ -37,7 +37,7 @@ public:
 	void InitAllObjectsBuffers();
 
 	/**
-	 * @brief
+	 * @brief Set camera of objects to input camera
 	 *
 	 * @param[in] pointer of BasicCamera
 	 */

@@ -5,8 +5,16 @@
 
 class DynEnvMappingView : public SampleView {
 public:
+	/**
+	 * @brief Constructor for the class DynEnvMappingView
+	 *
+	 * @param[in] data Data for GLView
+	 */
 	DynEnvMappingView(void *data);
 
+	/**
+	 * @brief Init function for the class DynEnvMappingView
+	 */
 	void OnInit() override;
 
 };

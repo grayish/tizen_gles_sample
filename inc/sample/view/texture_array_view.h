@@ -5,8 +5,16 @@
 
 class TextureArrayView : public SampleView {
 public:
+	/**
+	 * @brief Constructor for the class TextureArrayView
+	 *
+	 * @param[in] data Data for GLView
+	 */
 	explicit TextureArrayView(void *data);
 
+	/**
+	 * @brief Init function for the class TextureArrayView
+	 */
 	void OnInit() override;
 };
 

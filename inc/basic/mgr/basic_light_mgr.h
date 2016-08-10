@@ -56,6 +56,13 @@ public:
 	 */
 	BasicLight *GetNewLight(const BasicLight_Type &type, const std::string &name, const ABasicMap &map);
 
+	/**
+	 * @brief Get a light object
+	 *
+	 * @param[in] lt_name a name specified for the light object
+	 *
+	 * @return a pointer of the light object
+	 */
 	BasicLight *GetLight(const std::string &lt_name);
 
 	/**

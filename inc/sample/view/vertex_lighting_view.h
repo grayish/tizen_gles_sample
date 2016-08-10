@@ -5,8 +5,16 @@
 
 class VertexLightingView : public SampleView {
 public:
+	/**
+	 * @brief Constructor for the class VertexLightingView
+	 *
+	 * @param[in] data Data for GLView
+	 */
 	VertexLightingView(void *data);
 
+	/**
+	 * @brief Init function for the class VertexLightingView
+	 */
 	void OnInit() override;
 
 };

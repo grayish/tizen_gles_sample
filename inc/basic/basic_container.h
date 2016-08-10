@@ -6,8 +6,14 @@
 
 class ABasicMap {
 public:
+	/**
+	 * @brief Constructor for the class ABasicMap
+	 */
 	ABasicMap() {}
 
+	/**
+	 * @brief Destructor for the class ABasicMap
+	 */
 	virtual ~ABasicMap() {}
 };
 
@@ -16,8 +22,14 @@ class BasicMap : public ABasicMap {
 public:
 	std::map<Enum_T, std::string> mList;
 
+	/**
+	 * @brief Constructor for the class BasicMap
+	 */
 	BasicMap() : mList() {}
 
+	/**
+	 * @brief Destructor for the class BasicMap
+	 */
 	virtual ~BasicMap() {}
 };
 

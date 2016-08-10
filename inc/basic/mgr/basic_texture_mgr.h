@@ -36,7 +36,7 @@ public:
 	virtual ~BasicTextureMgr();
 
 	/**
-	 * @brief Initiate the texture manager
+	 * @brief Initiate a texture manager
 	 */
 	void Init();
 
@@ -54,15 +54,26 @@ public:
 	 */
 	int SetObjectTexture(BasicObject *obj, const TexProp &tex, const std::string &uniform_name);
 
+	/**
+	 * @brief Set ID of a texture
+	 *
+	 * @param[in] tex_str a name of the texture
+	 */
 	unsigned int GetTextureId(const std::string &tex_str);
 
 	/**
-	 * @brief Activate all textures of a object
-	 *
+	 * @brief Activate all textures of a object for a shader
+	 **
+	 * @param[in] sh a pointer of the shader
 	 * @param[in] obj a pointer of the object
 	 */
 	void ActiveTextures(BasicShader *sh, BasicObject *obj);
 
+	/**
+	 * @brief Deactivate all textures of a object
+	 **
+	 * @param[in] obj a pointer of the object
+	 */
 	void DeactiveTextures(BasicObject *obj);
 };
 

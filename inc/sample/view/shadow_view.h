@@ -6,8 +6,16 @@
 class ShadowView : public SampleView {
 private:
 public:
+	/**
+	 * @brief Constructor for the class ShadowView
+	 *
+	 * @param[in] data Data for GLView
+	 */
 	ShadowView(void *data);
 
+	/**
+	 * @brief Init function for the class ShadowView
+	 */
 	void OnInit() override;
 
 };

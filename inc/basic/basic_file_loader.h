@@ -14,20 +14,38 @@ private:
 	std::ifstream mInFile;
 
 public:
+	/**
+	 * @brief Constructor for the class FileStream
+	 *
+	 * @param[in] filename a file name to open
+	 */
 	FileStream(const std::string &filename);
+
+	/**
+	 * @brief Destructor for the class FileStream
+	 */
 	~FileStream();
+
+	/**
+	 * @brief Get a line of string from a file
+	 *
+	 * @param[in] buf a buffer to be written as the line
+	 * @param[in] size the size of the buffer
+	 */
 	bool GetLine(char *buf, int size);
 };
 
 class FileLoader : public BasicSingleton<FileLoader> {
 public:
 
-
 	/**
 	 * @brief Constructor for the class FileLoader
 	 */
 	FileLoader() {}
 
+	/**
+	 * @brief Destructor for the class FileLoader
+	 */
 	virtual ~FileLoader() {}
 
 	void Release() {}
