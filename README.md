@@ -15,11 +15,11 @@ The callback functions for GLView (init_gl, draw_gl, etc.) invoke renderer funct
 7. Instanced Rendering
 9. Dynamic Cube Mapping
 10. Shadow Mapping
+11. Transform Feedback
+12. Multiple Render Targets(MRT)
 
 ## Work in Progress
 8. 2D Array Texturing
-11. Transform Feedback
-12. Multiple Render Targets(MRT)
 
 ##Library
 This project used 
