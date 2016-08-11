@@ -37,7 +37,7 @@ TexProp::~TexProp() {
 	LOGI("destruct w:h[%d,%d]f[%d]", mWidth, mHeight, mFormat);
 }
 
-void TexProp::SetData(const std::string &name, unsigned int w, unsigned int h, int fm, int in_fm, GLenum data_type) {
+void TexProp::SetData(const std::string &name, GLsizei w, GLsizei h, GLenum fm, GLint in_fm, GLenum data_type) {
 	LOGI("w:h[%d,%d]fm[%d]", w, h, fm);
 	mName = name;
 	mWidth = w;
@@ -47,7 +47,7 @@ void TexProp::SetData(const std::string &name, unsigned int w, unsigned int h, i
 	mDataType = data_type;
 }
 
-void TexProp::SetDataDepth(const std::string &name, unsigned int w, unsigned int h, unsigned int d, int fm, int in_fm,
+void TexProp::SetDataDepth(const std::string &name, GLsizei w, GLsizei h, GLsizei d, GLenum fm, int in_fm,
 						   GLenum data_type) {
 	LOGI("w:h[%d,%d]fm[%d]", w, h, fm);
 	mName = name;

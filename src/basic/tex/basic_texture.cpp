@@ -71,14 +71,14 @@ BasicTexture *BasicTexture::Create(const TexProp &tex) {
 void BasicTexture::TexImage2D(const GLenum &target, const TexProp &newTex, void *ptr) {
 	glTexImage2D(target, 0, newTex.mInternalFormat,
 				 newTex.mWidth, newTex.mWidth, 0,
-				 (GLenum) newTex.mFormat, newTex.mDataType, ptr);
+				 newTex.mFormat, newTex.mDataType, ptr);
 	check_gl_error("glTexImage2D");
 }
 
 void BasicTexture::TexImage3D(const GLenum &target, const TexProp &newTex, void *ptr) {
 	glTexImage3D(target, 0, newTex.mInternalFormat,
 				 newTex.mWidth, newTex.mWidth, newTex.mDepth, 0,
-				 (GLenum) newTex.mFormat, newTex.mDataType, ptr);
+				 newTex.mFormat, newTex.mDataType, ptr);
 	check_gl_error("glTexImage3D");
 }
 

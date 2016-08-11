@@ -23,10 +23,10 @@ private:
 	TexContainer_Type mType;
 	FileList mFiles;
 	PtrList mPtrs;
-	GLuint mWidth;
-	GLuint mHeight;
-	GLuint mDepth;
-	GLint mFormat;
+	GLsizei mWidth;
+	GLsizei mHeight;
+	GLsizei mDepth;
+	GLenum mFormat;
 	GLint mInternalFormat;
 	GLenum mDataType;
 	ParamDic mCustomParam;
@@ -51,14 +51,14 @@ public:
 	 * @param[in] fm Format of the texture
 	 */
 	void SetData(const std::string &name,
-				 unsigned int w = 0, unsigned int h = 0,
-				 int fm = GL_RGBA, int in_fm = GL_RGBA,
+				 GLsizei w = 0, GLsizei h = 0,
+				 GLenum fm = GL_RGBA, GLint in_fm = GL_RGBA,
 				 GLenum data_type = GL_UNSIGNED_BYTE);
 
 	void
 	SetDataDepth(const std::string &name,
-				 unsigned int w, unsigned int h, unsigned int d,
-				 int fm, int in_fm, GLenum data_type);
+				 GLsizei w, GLsizei h, GLsizei d,
+				 GLenum fm, int in_fm, GLenum data_type);
 
 
 	void SetFile(const std::string &filename);
