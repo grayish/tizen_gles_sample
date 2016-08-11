@@ -8,6 +8,8 @@
 
 #include "basic_singleton.hpp"
 
+class TexProp;
+
 class FileStream {
 private:
 	std::string mName;
@@ -57,6 +59,14 @@ public:
 	 * @param[out] out Output of TexData
 	 */
 	void ReadTexImage2D(GLenum target, const char *filename) const;
+
+	/**
+	 * @brief Get TexData from the image file
+	 *
+	 * @param[in] filename Path for the source file
+	 * @param[out] out Output of TexData
+	 */
+	void ReadTexArray(GLenum target, const TexProp& tex) const;
 
 	/**
 	 * @brief Get Content string from the text file

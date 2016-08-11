@@ -16,6 +16,8 @@ public:
 	 * @brief Init function for the class TextureArrayView
 	 */
 	void OnInit() override;
+
+	void OnStep() override;
 };
 
 

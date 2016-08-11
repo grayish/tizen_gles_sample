@@ -188,3 +188,6 @@ glm::vec2 BasicRenderer::GetScreenTouchPoint() const{
 					 1.0f - 2.0f * mTouchPoint.y / (float)mHeight );
 }
 
+bool BasicRenderer::GetTouch() const {
+	return mIsTouchOn;
+}

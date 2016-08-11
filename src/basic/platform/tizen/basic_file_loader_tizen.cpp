@@ -54,6 +54,62 @@ void FileLoader::ReadTexImage2D(GLenum target, const char *filename) const {
 
 }
 
+void FileLoader::ReadTexArray(GLenum target, const TexProp &tex) const {
+
+	Evas_Object *parent = SampleLauncher::GetInstance()->GetParent();
+
+	int w(0), h(0);
+	int layers = tex.mFiles.size();
+	int surface_w, surface_h;
+	evas_object_geometry_get(parent, NULL, NULL, &surface_w, &surface_h);
+
+	Evas_Object *inline_buffer = elm_win_add(parent, "Img Read", ELM_WIN_INLINED_IMAGE);
+	evas_object_move(inline_buffer, 0, 0);
+	evas_object_resize(inline_buffer, surface_w, surface_h);
+	evas_object_show(inline_buffer);
+
+	Evas *canvas = evas_object_evas_get(inline_buffer);
+
+	GLubyte *array_pixels = nullptr;
+	for(int idx = 0; idx < layers; idx++) {
+		Evas_Object *image = evas_object_image_add(canvas);
+		char path[200];
+		LOGI("file name[%s]", tex.mFiles[idx].c_str());
+		sprintf(path, "%s%s", app_get_resource_path(), tex.mFiles[idx].c_str());
+		evas_object_image_file_set(image, path, NULL);
+		evas_object_image_size_get(image, &w, &h);
+		evas_object_image_fill_set(image, 0, 0, w, h);
+		evas_object_image_filled_set(image, EINA_TRUE);
+		evas_object_resize(image, w, h);
+		evas_object_show(image);
+
+		elm_win_render(inline_buffer);
+
+		int size = w * h;
+		if(idx == 0) {
+//			array_pixels = new GLubyte[4 * size * layers];
+			LOGI("arrra create size[%d]", 4 * size * layers );
+		}
+
+//		GLubyte *pixels = static_cast<GLubyte *>(evas_object_image_data_get(image, EINA_FALSE));
+//		memcpy(array_pixels, pixels,  4 * size * sizeof(GLubyte));
+
+		evas_object_del(image);
+	}
+//	array_pixels = (GLubyte *) malloc (4 * w * h * layers * sizeof(GLubyte));
+//			new GLubyte[4 * w * h * layers];
+//	memset(array_pixels, 255, 4 * w * h * layers * sizeof(GLubyte));
+
+
+//	glTexImage3D(target, 0, GL_BGRA_EXT, w, h, layers, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, array_pixels);
+	check_gl_error("glTexImage3D");
+
+//	free(array_pixels);
+//	delete array_pixels;
+	evas_object_del(inline_buffer);
+
+}
+
 std::string FileLoader::ReadFileToString(const std::string &filename) const {
 	std::string path = app_get_resource_path() + filename;
 	LOGI("path %s", path.c_str());

@@ -13,18 +13,10 @@ public:
 	std::string mName;
 	GLenum mTarget;
 	std::string mUniformName;
-	GLint mMinFilter;
-	GLint mMagFilter;
-	GLint mWrap_S;
-	GLint mWrap_T;
 	GLuint mTexId;
 
 	BasicTexture(const TexProp &tex,
-				 const std::string &uniform_name,
-				 GLint min_filter = GL_LINEAR,
-				 GLint mag_filter = GL_LINEAR,
-				 GLint warp_s = GL_REPEAT,
-				 GLint warp_t = GL_REPEAT);
+				 const std::string &uniform_name);
 
 	virtual ~BasicTexture();
 

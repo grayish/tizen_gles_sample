@@ -9,10 +9,12 @@
 
 class BasicTexture;
 class BasicTextureMgr;
+class FileLoader;
 
 class TexProp {
 	friend class BasicTexture;
 	friend class BasicTextureMgr;
+	friend class FileLoader;
 public:
 	typedef std::vector<std::string> FileList;
 	typedef std::vector<void *> PtrList;

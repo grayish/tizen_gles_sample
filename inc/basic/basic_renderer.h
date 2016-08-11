@@ -198,7 +198,7 @@ public:
 	 */
 	glm::vec2 GetScreenTouchPoint() const;
 
-
+	bool GetTouch() const;
 };
 
 inline BasicCamera *BasicRenderer::GetCamera() {

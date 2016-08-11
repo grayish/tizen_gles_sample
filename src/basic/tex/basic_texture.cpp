@@ -4,16 +4,10 @@
 #include "basic/tex/tex_prop.h"
 #include "basic/basic_file_loader.h"
 
-BasicTexture::BasicTexture(const TexProp &tex,
-						   const std::string &uniform_name,
-						   GLint min_filter, GLint mag_filter, GLint warp_s, GLint warp_t) :
+BasicTexture::BasicTexture(const TexProp &tex, const std::string &uniform_name) :
 		mName(tex.mName),
 		mTarget(),
 		mUniformName(uniform_name),
-		mMinFilter(min_filter),
-		mMagFilter(mag_filter),
-		mWrap_S(warp_s),
-		mWrap_T(warp_t),
 		mTexId() {
 	Init(tex);
 }
@@ -107,12 +101,27 @@ void BasicTexture::TexImage(const GLenum &target, const TexProp &tex) {
 			break;
 		case TEX_3D_PTR:
 			TexImage3D(target, tex, tex.mPtrs[0]);
-
 			break;
 
-		case TEX_2D_ARRAY_FILE:
+		case TEX_2D_ARRAY_FILE: {
+			GLubyte texels[32] =
+					{
+							//Texels for first image.
+							0,   0,   0,   255,
+							255, 0,   0,   255,
+							0,   255, 0,   255,
+							0,   0,   255, 255,
+							//Texels for second image.
+							255, 255, 255, 255,
+							255, 255,   0, 255,
+							0,   255, 255, 255,
+							255, 0,   255, 255,
+					};
 
+			glTexImage3D(mTarget, 0, GL_RGBA8, 2, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, texels);
 
+//			File_Loader.ReadTexArray(mTarget, tex);
+		}
 			break;
 		default:
 			break;
