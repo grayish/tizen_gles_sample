@@ -38,7 +38,7 @@ void FileLoader::ReadTexImage2D(GLenum target, const char *filename) const {
 
 	glTexImage2D(target, 0, GL_BGRA_EXT,
 				 w, h, 0,
-				 (GLenum) GL_BGRA_EXT, GL_UNSIGNED_BYTE,
+				 GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 				 (void *) pixels);
 	check_gl_error("glTexImage2D");
 
@@ -72,9 +72,9 @@ std::string FileLoader::ReadFileToString(const std::string &filename) const {
 	//test
 	in.seekg(0, std::ios::beg);
 	char buffer[512];
-	while(!in.eof()) {
+	while (!in.eof()) {
 		in.getline(buffer, 512);
-		LOGI("getline : %s",buffer);
+		LOGI("getline : %s", buffer);
 	}
 
 	in.close();
@@ -86,8 +86,7 @@ std::string FileLoader::ReadFileToString(const std::string &filename) const {
 
 FileStream::FileStream(const std::string &filename) :
 		mName(filename),
-		mInFile()
-{
+		mInFile() {
 	std::string path = app_get_resource_path() + filename;
 	mInFile.open(path, std::ios::in | std::ios::binary);
 
@@ -99,19 +98,19 @@ FileStream::FileStream(const std::string &filename) :
 }
 
 FileStream::~FileStream() {
-	if(mInFile.is_open()) {
+	if (mInFile.is_open()) {
 		mInFile.close();
 	}
 }
 
 bool FileStream::GetLine(char *buf, int size) {
 	do { //skip empty line
-		if(mInFile.eof()) {
-			LOGE("end of file[%s]!", mName.c_str());
+		if (mInFile.eof()) {
+			LOGI("end of file[%s]", mName.c_str());
 			return false;
 		}
 		mInFile.getline(buf, size);
-	}while(buf[0] == '\0');
+	} while (buf[0] == '\0');
 //	LOGI("getline %s",buf);
 	return true;
 }
