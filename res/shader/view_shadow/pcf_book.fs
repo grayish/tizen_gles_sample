@@ -1,6 +1,7 @@
 #version 300 es
 
 precision mediump float;
+precision mediump sampler2DShadow;
 
 uniform sampler2DShadow s_texShadow; // shadow sampler
 

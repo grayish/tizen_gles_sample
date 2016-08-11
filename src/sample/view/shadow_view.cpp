@@ -103,12 +103,12 @@ ShadowView::ShadowView(void *data) :
 
 void ShadowView::OnInit() {
 	//for generating shadow map
-	string vsShadow = File_Loader.ReadFileToString("shader/view_shadow2/shadow.vs");
-	string fsShadow = File_Loader.ReadFileToString("shader/view_shadow2/shadow.fs");
+	string vsShadow = File_Loader.ReadFileToString("shader/view_shadow/shadow.vs");
+	string fsShadow = File_Loader.ReadFileToString("shader/view_shadow/shadow.fs");
 
 	//for rendering scene
-	string vs = File_Loader.ReadFileToString("shader/view_shadow2/pcf_book.vs");
-	string fs = File_Loader.ReadFileToString("shader/view_shadow2/pcf_book.fs");
+	string vs = File_Loader.ReadFileToString("shader/view_shadow/pcf_book.vs");
+	string fs = File_Loader.ReadFileToString("shader/view_shadow/pcf_book.fs");
 
 	BasicMap<PhongObj_U_Elem> po_uniforms;
 	po_uniforms.mList[U_MAT_WORLD] = "worldMat";

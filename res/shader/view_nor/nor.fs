@@ -47,7 +47,7 @@ void main() {
 	Light source =
 		Light(normalize(v_lightDirTS), sourceDiff, sourceSpec, sourceAmbi);
 
-	vec3 tanNor = normalize(texture2D(s_texNor, v_texCoord).xyz * 2.0 - vec3(1.0));
+	vec3 tanNor = normalize(texture(s_texNor, v_texCoord).xyz * 2.0 - vec3(1.0));
     vec3 color =
     	phongLight(normalize(v_viewTS), tanNor, material, source);
 
