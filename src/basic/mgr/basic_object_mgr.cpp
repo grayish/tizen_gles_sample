@@ -13,7 +13,7 @@ BasicObjectMgr::BasicObjectMgr() :
 		mFocusObject(nullptr) {}
 
 BasicObjectMgr::~BasicObjectMgr() {
-	LOGE("MGR destruct");
+	LOGI("MGR destruct");
 	DeleteAll();
 }
 

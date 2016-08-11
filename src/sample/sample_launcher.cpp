@@ -22,15 +22,12 @@ SampleLauncher::SampleLauncher() :
 }
 
 SampleLauncher::~SampleLauncher() {
-	LOGE("destruct SampleLauncher");
-	LOGI_ENTRY;
+	LOGI("destruct SampleLauncher");
 	if (instance) {
 		SampleLauncher* inst = instance;
 		instance = nullptr;
 		delete inst;
 	}
-
-	LOGI_EXIT;
 }
 
 SampleLauncher *SampleLauncher::GetInstance() {

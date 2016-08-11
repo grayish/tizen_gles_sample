@@ -11,7 +11,7 @@ BasicShaderMgr::BasicShaderMgr() :
 }
 
 BasicShaderMgr::~BasicShaderMgr() {
-	LOGE("MGR destruct");
+	LOGI("MGR destruct");
 	DeleteAll();
 }
 

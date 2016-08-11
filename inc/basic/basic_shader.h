@@ -261,7 +261,7 @@ void BasicShader::SetUniformData(const std::string &name, const T &data) {
 	if (iter == mUDataDictionary.end()) {
 		GLint loc = GetUniformLocation(name);
 		if(loc < 0) {
-			LOGE("program[%s]: uniform[%s] doesn't exist!", mName.c_str(), name.c_str());
+			LOGI("program[%s]: uniform[%s] doesn't exist!", mName.c_str(), name.c_str());
 		}
 		AUniformContainer *newCon = new UniformContainer<T>( name.c_str(), loc, data);
 		mUDataDictionary[name] = newCon;

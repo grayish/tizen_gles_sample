@@ -13,7 +13,7 @@ BasicTextureMgr::BasicTextureMgr() :
 }
 
 BasicTextureMgr::~BasicTextureMgr() {
-	LOGE("MGR destruct");
+	LOGI("MGR destruct");
 	DeleteAll();
 }
 
