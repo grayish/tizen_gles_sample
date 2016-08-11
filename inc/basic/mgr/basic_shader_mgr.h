@@ -19,8 +19,8 @@ private:
 	typedef std::map<std::string, ShPair> ShList;
 	typedef std::map<BasicShader *, std::vector<BasicObject *>> ShDictionary;
 
-	ShList mShmShaderDicaderList;
-	ShDictionary ;
+	ShList mShaderList;
+	ShDictionary mShaderDic;
 
 public:
 	/**
