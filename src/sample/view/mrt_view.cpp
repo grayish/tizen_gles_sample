@@ -1,16 +1,15 @@
 #include "sample/view/mrt_view.h"
 
-#include "basic/obj/basic_camera.h"
-#include "basic/obj/basic_light.h"
-#include "basic/obj/simple_object.h"
 #include "basic/mgr/basic_light_mgr.h"
 #include "basic/mgr/basic_texture_mgr.h"
 #include "basic/mgr/basic_shader_mgr.h"
 
-using namespace std;
+#include "basic/obj/basic_camera.h"
+#include "basic/obj/basic_light.h"
+#include "basic/obj/simple_object.h"
 
-#define MRT_WIDTH 480
-#define MRT_HEIGHT 688
+
+using namespace std;
 
 #define SH_MRT "sh_mrt"
 #define SH_DRAW "sh_draw"
@@ -21,12 +20,9 @@ private:
 	GLuint mRenderBuffer;
 
 public:
-
-
 	MrtRenderer() :
 			mMrtFbo(0),
-			mRenderBuffer(0)
-	{}
+			mRenderBuffer(0), BasicRenderer() {}
 
 	virtual ~MrtRenderer() {}
 
@@ -36,7 +32,7 @@ public:
 		check_gl_error("glGenRenderbuffers");
 		glBindRenderbuffer(GL_RENDERBUFFER, mRenderBuffer);
 		check_gl_error("glBindRenderbuffer");
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, MRT_WIDTH, MRT_HEIGHT);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, mWidth, mHeight);
 		check_gl_error("glRenderbufferStorage");
 
 		glGenFramebuffers(1, &mMrtFbo);
@@ -126,23 +122,25 @@ void MrtView::OnInit() {
 
 	mViewRenderer->GetCamera()->SetEye(glm::vec3(-15, 15, 15));
 
+	int w = mViewRenderer->GetWidth();
+	int h = mViewRenderer->GetHeight();
 	TexProp texDiff(TEX_2D_PTR);
-	texDiff.SetData("tex_diff", MRT_WIDTH, MRT_HEIGHT, GL_RGB, GL_RGB8, GL_UNSIGNED_BYTE);
+	texDiff.SetData("tex_diff", w, h, GL_RGB, GL_RGB8, GL_UNSIGNED_BYTE);
 	texDiff.SetPointer(nullptr);
 	texDiff.SetFilter();
 
 	TexProp texDraw(TEX_2D_PTR);
-	texDraw.SetData("tex_draw", MRT_WIDTH, MRT_HEIGHT, GL_RGB, GL_RGB8, GL_UNSIGNED_BYTE);
+	texDraw.SetData("tex_draw", w, h, GL_RGB, GL_RGB8, GL_UNSIGNED_BYTE);
 	texDraw.SetPointer(nullptr);
 	texDraw.SetFilter();
 
 	TexProp texAmbi(TEX_2D_PTR);
-	texAmbi.SetData("tex_ambi", MRT_WIDTH, MRT_HEIGHT, GL_RGB, GL_RGB8, GL_UNSIGNED_BYTE);
+	texAmbi.SetData("tex_ambi", w, h, GL_RGB, GL_RGB8, GL_UNSIGNED_BYTE);
 	texAmbi.SetPointer(nullptr);
 	texAmbi.SetFilter();
 
 	TexProp texAttn(TEX_2D_PTR);
-	texAttn.SetData("tex_attn", MRT_WIDTH, MRT_HEIGHT, GL_RGB, GL_RGB8, GL_UNSIGNED_BYTE);
+	texAttn.SetData("tex_attn", w, h, GL_RGB, GL_RGB8, GL_UNSIGNED_BYTE);
 	texAttn.SetPointer(nullptr);
 	texAttn.SetFilter();
 
