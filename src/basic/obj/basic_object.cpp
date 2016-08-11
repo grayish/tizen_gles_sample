@@ -50,13 +50,6 @@ BasicObject::AttachTexture(const TexProp &tex, const std::string &uniform_name) 
 	return this;
 }
 
-/*
-BasicObject *BasicObject::AttachCubeTex(const TexProp *cubeTex, const std::string &uniform_name) {
-	Texture_Mgr.SetObjectCubeTex(this, cubeTex, uniform_name);
-	return this;
-}
-*/
-
 void BasicObject::CreateBuffer(GLenum target, GLuint *id, GLsizeiptr size, const GLvoid *data, GLenum usage) {
 	glGenBuffers(1, id);
 	check_gl_error("glGenBuffers");

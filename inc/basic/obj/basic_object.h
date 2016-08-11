@@ -69,8 +69,6 @@ public:
 
 	BasicObject *AttachTexture(const TexProp &tex, const std::string &uniform_name);
 
-//	BasicObject *AttachCubeTex(const TexProp *cubeTex, const std::string &uniform_name);
-
 	/**
 	 * @brief set uniform in basic shader
 	 */
