@@ -7,15 +7,14 @@
 
 BasicShaderMgr::BasicShaderMgr() :
 		mShaderList(),
-		mShaderDic() {
-}
+		mShaderDic() {}
 
 BasicShaderMgr::~BasicShaderMgr() {
 	LOGI("MGR destruct");
 	DeleteAll();
 }
 
-void BasicShaderMgr::Init() {
+void BasicShaderMgr::Setup() {
 
 }
 

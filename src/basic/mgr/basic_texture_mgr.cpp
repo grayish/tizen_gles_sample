@@ -9,7 +9,6 @@
 BasicTextureMgr::BasicTextureMgr() :
 		mTextureList(),
 		mTextureData() {
-	Init();
 }
 
 BasicTextureMgr::~BasicTextureMgr() {
@@ -17,7 +16,7 @@ BasicTextureMgr::~BasicTextureMgr() {
 	DeleteAll();
 }
 
-void BasicTextureMgr::Init() {
+void BasicTextureMgr::Setup() {
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	check_gl_error("glPixelStorei");
 }

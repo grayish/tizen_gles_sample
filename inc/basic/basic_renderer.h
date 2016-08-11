@@ -27,8 +27,8 @@ protected:
 	BasicCamera *mCamera;
 	BasicShader *mCurrShader;
 
-	int mWidth;
-	int mHeight;
+	GLsizei mWidth;
+	GLsizei mHeight;
 	double mDeltaTime;
 	double mTotalTime;
 
@@ -75,7 +75,12 @@ public:
 	/**
      * @brief Initialize renderer
      */
-	virtual void Initialize();
+	void Initialize();
+
+	/**
+	 * @brief Setup gl states and managers
+	 */
+	void Setup();
 
 	/**
 	 * @brief Render objects in the scene
@@ -155,7 +160,7 @@ public: /// inline functions
 	 *
 	 * @param[in] bg_color a color to be set
 	 */
-	void SetBackgroundColor(const glm::vec3& bg_color);
+	void SetBackgroundColor(const glm::vec3 &bg_color);
 
 public:
 	/**

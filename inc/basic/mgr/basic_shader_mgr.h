@@ -34,9 +34,9 @@ public:
 	virtual ~BasicShaderMgr();
 
 	/**
-	 * @brief Initiate a shader manager
+	 * @brief Setup a shader manager
 	 */
-	void Init();
+	void Setup();
 
 	/**
 	 * @brief Delete all mapped components

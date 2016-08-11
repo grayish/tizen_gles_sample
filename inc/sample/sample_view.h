@@ -45,7 +45,7 @@ public:
 	/**
 	 * @brief Initialize SampleView and mViewRenderer
 	 */
-	void Initialize();
+	void Initialize(int w, int h);
 
 	/**
 	 * @brief Abstract function called every frame

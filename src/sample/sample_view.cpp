@@ -78,13 +78,16 @@ draw_glview(Evas_Object *obj) {
 static void
 init_glview(Evas_Object *obj) {
 	LOGI_ENTRY;
+	appdata_s *ad = static_cast<appdata_s *>(evas_object_data_get(obj, "ad"));
 	SampleView *sv = static_cast<SampleView *>(evas_object_data_get(obj, "sv"));
+	elm_glview_size_get(obj, &ad->glview_w, &ad->glview_h);
+	LOGI("w,h[%d,%d]",ad->glview_w, ad->glview_h);
 	if (sv == nullptr) {
 		LOGE("[sv] has null ptr!");
 		return;
 	}
 
-	sv->Initialize();
+	sv->Initialize(ad->glview_w, ad->glview_h);
 	LOGI_EXIT;
 }
 
@@ -176,9 +179,11 @@ void SampleView::OnWindowUpdate(int w, int h) const {
 	mViewRenderer->SetViewPort(w, h);
 }
 
-void SampleView::Initialize() {
-	this->OnInit();
+void SampleView::Initialize(int w, int h) {
 	mViewRenderer->Initialize();
+	mViewRenderer->SetViewPort(w, h);
+	this->OnInit();
+	mViewRenderer->Setup();
 }
 
 void SampleView::OnStep() {

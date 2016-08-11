@@ -36,9 +36,9 @@ public:
 	virtual ~BasicTextureMgr();
 
 	/**
-	 * @brief Initiate a texture manager
+	 * @brief Setup a texture manager
 	 */
-	void Init();
+	void Setup();
 
 	/**
 	 * @brief Delete all mapped item of texture data

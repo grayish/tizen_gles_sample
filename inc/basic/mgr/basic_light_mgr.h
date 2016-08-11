@@ -37,9 +37,9 @@ public:
 	virtual ~BasicLightMgr();
 
 	/**
-	 * @brief Initiate all light objects
+	 * @brief Setup all light objects
 	 */
-	void Init();
+	void Setup();
 
 	/**
 	 * @brief Delete all mapped light objects

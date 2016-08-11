@@ -32,9 +32,9 @@ public:
 	virtual ~BasicObjectMgr();
 
 	/**
-	 * @brief Initiate all buffers of objects
+	 * @brief Setup all buffers of objects
 	 */
-	void InitAllObjectsBuffers();
+	void SetupBufferObjects();
 
 	/**
 	 * @brief Set camera of objects to input camera

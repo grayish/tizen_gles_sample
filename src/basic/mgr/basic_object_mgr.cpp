@@ -17,7 +17,7 @@ BasicObjectMgr::~BasicObjectMgr() {
 	DeleteAll();
 }
 
-void BasicObjectMgr::InitAllObjectsBuffers() {
+void BasicObjectMgr::SetupBufferObjects() {
 	std::map<std::string, BasicObject *>::iterator iter = mObjectList.begin();
 	for (; iter != mObjectList.end(); iter++) {
 		iter->second->CreateVbo();

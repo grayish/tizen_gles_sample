@@ -132,10 +132,14 @@ void BasicRenderer::Initialize() {
 	LOGI("BasicRenderer is initialized.");
 	LogInfo();
 	mTimer->InitTimer();
+}
+
+void BasicRenderer::Setup() {
 	SetStates();
-	Object_Mgr.InitAllObjectsBuffers();
-	Texture_Mgr.Init();
-	Light_Mgr.Init();
+	Object_Mgr.SetupBufferObjects();
+	Texture_Mgr.Setup();
+	Light_Mgr.Setup();
+	Shader_Mgr.Setup();
 	if (!mCurrShader) {
 		mCurrShader = Shader_Mgr.GetLastShader();
 	}
@@ -146,7 +150,7 @@ void BasicRenderer::SetViewPort(int w, int h) {
 	mWidth = w;
 	mHeight = h;
 	mTouchPoint = vec2(w/2.0f, h/2.0f);
-	glViewport(0, 0, w, h);
+	glViewport(0, 0, mWidth, mHeight);
 	check_gl_error("glViewport");
 
 	mCamera->ComputePerspective(radians(60.0f), w, h);

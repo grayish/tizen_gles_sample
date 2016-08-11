@@ -4,16 +4,14 @@
 
 BasicLightMgr::BasicLightMgr() :
 		mLightList(),
-		mLightData() {
-	Init();
-}
+		mLightData() {}
 
 BasicLightMgr::~BasicLightMgr() {
 	LOGI("MGR destruct");
 	DeleteAll();
 }
 
-void BasicLightMgr::Init() {
+void BasicLightMgr::Setup() {
 
 }
 
