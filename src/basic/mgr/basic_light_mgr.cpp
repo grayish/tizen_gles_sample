@@ -35,7 +35,7 @@ BasicLight *BasicLightMgr::GetNewLight(const BasicLight_Type &type, const std::s
 	BasicLight *ret = nullptr;
 
 	if (mLightList.find(name) != mLightList.end()) {
-		LOGE("The name, %s, is already exist!", name.c_str());
+		LOGI("The name, %s, is already exist. The old one will be used.", name.c_str());
 		ret = mLightList.find(name)->second;
 		return ret;
 	}

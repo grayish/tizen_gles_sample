@@ -37,7 +37,7 @@ BasicShaderMgr::GetNewShader(const std::string &vert_sh, const std::string &frag
 	BasicShader *ret = nullptr;
 
 	if (mShaderList.find(name) != mShaderList.end()) {
-		LOGE("The name, %s, is already exist!", name.c_str());
+		LOGI("The name, %s, is already exist. The old one will be used.", name.c_str());
 		return mShaderList[name].first;
 	}
 
