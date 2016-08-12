@@ -42,7 +42,7 @@ BasicObject *MaterialObject::ImportObj(const std::string &objFilename, const flo
 
 	LOGI("%s", mName.c_str());
 
-	const char* delim = " \n\r\t";
+	const char *delim = " \n\r\t";
 
 	vec3 sVec = vec3(scale);
 
@@ -55,7 +55,7 @@ BasicObject *MaterialObject::ImportObj(const std::string &objFilename, const flo
 
 	string newmtl;
 	Material *mtl;
-	std::map<std::string, Material*> mtlItems;
+	std::map<std::string, Material *> mtlItems;
 
 	float x, y, z;
 	char line[512];
@@ -65,24 +65,22 @@ BasicObject *MaterialObject::ImportObj(const std::string &objFilename, const flo
 		if (!word)
 			continue;
 
-		if(word && !strcmp(word, "mtllib"))
-		{
+		if (word && !strcmp(word, "mtllib")) {
 			char *mtlPath = util_strtok(nullptr, delim, &wordPtr);
 			ImporterMtl(mtlPath, mtlItems);
 		}
-		else if(word && !strcmp(word, "usemtl"))
-		{
+		else if (word && !strcmp(word, "usemtl")) {
 			newmtl = util_strtok(nullptr, delim, &wordPtr);
-			if(mtlItems.find(newmtl) == mtlItems.end()) {
+			if (mtlItems.find(newmtl) == mtlItems.end()) {
 				LOGE("newmtl[%s] doesn't exist!", newmtl.c_str());
 			}
 			mtl = mtlItems[newmtl];
 			LOGI("%s,ka[%f,%f,%f],kd[%f,%f,%f],ks[%f,%f,%f],ke[%f,%f,%f]",
 				 newmtl.c_str(),
-				 mtl->ka.x,mtl->ka.y, mtl->ka.z,
-				 mtl->kd.x,mtl->kd.y, mtl->kd.z,
-				 mtl->ks.x,mtl->ks.y, mtl->ks.z,
-				 mtl->ke.x,mtl->ke.y, mtl->ke.z);
+				 mtl->ka.x, mtl->ka.y, mtl->ka.z,
+				 mtl->kd.x, mtl->kd.y, mtl->kd.z,
+				 mtl->ks.x, mtl->ks.y, mtl->ks.z,
+				 mtl->ke.x, mtl->ke.y, mtl->ke.z);
 		}
 
 		switch (word[0]) {
@@ -155,7 +153,7 @@ BasicObject *MaterialObject::ImportObj(const std::string &objFilename, const flo
 
 			case '#':
 				word = util_strtok(nullptr, delim, &wordPtr);
-				if(word && !strcmp(word, "object")) {
+				if (word && !strcmp(word, "object")) {
 					posOffset += posCoords.size();
 					norOffset += norCoords.size();
 					posCoords.clear();
@@ -171,45 +169,43 @@ BasicObject *MaterialObject::ImportObj(const std::string &objFilename, const flo
 				break;
 		}
 	}
-	LOGI("vert, idx = %d, %d",mVertices.size(), mIndices.size());
+	LOGI("vert, idx = %d, %d", mVertices.size(), mIndices.size());
 
-	std::map<std::string, Material*>::iterator it =  mtlItems.begin();
-	for(; it != mtlItems.end(); it++) {
+	std::map<std::string, Material *>::iterator it = mtlItems.begin();
+	for (; it != mtlItems.end(); it++) {
 		delete it->second;
 	}
 
 	return this;
 }
 
-void MaterialObject::ImporterMtl(const string &mtlFilename, std::map<std::string, Material*> &mtlItems) {
+void MaterialObject::ImporterMtl(const string &mtlFilename, std::map<std::string, Material *> &mtlItems) {
 	FileStream fs(mtlFilename);
 	LOGI("%s", mName.c_str());
 
 	string newmtl;
-	Material* mtl;
-	
-	const char* delim = " \n\r\t"; 
+
+	const char *delim = " \n\r\t";
 
 	float r, g, b;
 	char line[512];
 	while (fs.GetLine(line, 512)) {
 		char *word, *wordPtr;
 		word = util_strtok(line, delim, &wordPtr);
-		if(!word)
+		if (!word)
 			continue;
 
-		if(word && !strcmp(word, "newmtl"))
-		{
+		if (word && !strcmp(word, "newmtl")) {
 			newmtl = util_strtok(nullptr, delim, &wordPtr);
 			mtlItems[newmtl] = new Material();
 			LOGI("newmtl[%s]", newmtl.c_str());
 		}
 
 		switch (word[0]) {
-		// Ka, Kd, Ks, Ke: color
-		// Ns: Specular exponent (0~1000)
-		// d: desolve == 1-Tr
-		// Tr: Transparent
+			// Ka, Kd, Ks, Ke: color
+			// Ns: Specular exponent (0~1000)
+			// d: desolve == 1-Tr
+			// Tr: Transparent
 			case 'K':
 				switch (word[1]) {
 					case 'a': //ambient color

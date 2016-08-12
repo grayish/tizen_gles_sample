@@ -21,13 +21,13 @@ private:
 
 public:
 	MrtRenderer() :
+			BasicRenderer(),
 			mMrtFbo(0),
-			mRenderBuffer(0), BasicRenderer() {}
+			mRenderBuffer(0) {}
 
 	virtual ~MrtRenderer() {}
 
-	void InitFbo(GLuint* texIds) {
-		GLenum none = GL_NONE;
+	void InitFbo(GLuint *texIds) {
 		glGenRenderbuffers(1, &mRenderBuffer);
 		check_gl_error("glGenRenderbuffers");
 		glBindRenderbuffer(GL_RENDERBUFFER, mRenderBuffer);
@@ -43,18 +43,18 @@ public:
 
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mRenderBuffer);
 
-		for(unsigned int i=0; i<4 ;i++) {
+		for (unsigned int i = 0; i < 4; i++) {
 			glBindTexture(GL_TEXTURE_2D, texIds[i]);
 			glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER,
 								   GL_COLOR_ATTACHMENT0 + i,
-								GL_TEXTURE_2D, texIds[i], 0);
+								   GL_TEXTURE_2D, texIds[i], 0);
 			glBindTexture(GL_TEXTURE_2D, 0);
 			check_gl_error("glFramebufferTexture2D");
 
 		}
-		LOGI("texid [%d, %d, %d, %d]", texIds[0],texIds[1],texIds[2],texIds[3]);
+		LOGI("texid [%d, %d, %d, %d]", texIds[0], texIds[1], texIds[2], texIds[3]);
 
-		GLenum DrawBuffers[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
+		GLenum DrawBuffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3};
 		glDrawBuffers(4, DrawBuffers);
 
 		// Check FBO is ready to draw
@@ -84,7 +84,6 @@ public:
 
 
 };
-
 
 
 MrtView::MrtView(void *data) : SampleView(data, false) {
@@ -169,7 +168,7 @@ void MrtView::OnInit() {
 	texIds[1] = Texture_Mgr.GetTextureId("tex_draw");
 	texIds[2] = Texture_Mgr.GetTextureId("tex_ambi");
 	texIds[3] = Texture_Mgr.GetTextureId("tex_attn");
-	LOGI("texid [%d, %d, %d, %d]", texIds[0],texIds[1],texIds[2],texIds[3]);
+	LOGI("texid [%d, %d, %d, %d]", texIds[0], texIds[1], texIds[2], texIds[3]);
 
 	mViewRenderer->SetCurrShader(SH_DRAW);
 
