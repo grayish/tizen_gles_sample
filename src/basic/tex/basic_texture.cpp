@@ -27,6 +27,7 @@ void BasicTexture::Init(const TexProp &tex) {
 			mTarget = GL_TEXTURE_CUBE_MAP;
 			break;
 		case TEX_2D_ARRAY_FILE :
+		case TEX_2D_ARRAY_PTR :
 			mTarget = GL_TEXTURE_2D_ARRAY;
 			break;
 		default:
@@ -104,24 +105,12 @@ void BasicTexture::TexImage(const GLenum &target, const TexProp &tex) {
 			break;
 
 		case TEX_2D_ARRAY_FILE: {
-			GLubyte texels[32] =
-					{
-							//Texels for first image.
-							0,   0,   0,   255,
-							255, 0,   0,   255,
-							0,   255, 0,   255,
-							0,   0,   255, 255,
-							//Texels for second image.
-							255, 255, 255, 255,
-							255, 255,   0, 255,
-							0,   255, 255, 255,
-							255, 0,   255, 255,
-					};
-
-			glTexImage3D(mTarget, 0, GL_RGBA8, 2, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, texels);
-
-//			File_Loader.ReadTexArray(mTarget, tex);
+			File_Loader.ReadTexArray(mTarget, tex);
 		}
+			break;
+
+		case TEX_2D_ARRAY_PTR :
+			TexImage3D(target, tex, tex.mPtrs[0]);
 			break;
 		default:
 			break;

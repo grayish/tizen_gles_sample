@@ -18,10 +18,23 @@ void TextureArrayView::OnInit() {
 	po_uniforms.mList[U_CAMERA_PROJ] = "projMat";
 	po_uniforms.mList[U_CAMERA_POS] = "eyePos";
 
-	TexProp texArray(TEX_2D_ARRAY_FILE);
-	texArray.SetData("tex_array");
-//	texArray.SetFile("tex/sequence0.bmp");
-//	texArray.SetFile("tex/sequence1.bmp");
+	GLubyte texels[32] =
+			{
+					//Texels for first image.
+					0,   0,   0,   255,
+					255, 0,   0,   255,
+					0,   255, 0,   255,
+					0,   0,   255, 255,
+					//Texels for second image.
+					255, 255, 255, 255,
+					255, 255,   0, 255,
+					0,   255, 255, 255,
+					255, 0,   255, 255,
+			};
+
+	TexProp texArray(TEX_2D_ARRAY_PTR);
+	texArray.SetPointer(texels);
+	texArray.SetDataDepth("tex_array", 2, 2, 2, GL_RGBA, GL_RGBA8, GL_UNSIGNED_BYTE);
 	texArray.SetParam(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	texArray.SetParam(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	texArray.SetParam(GL_TEXTURE_MIN_FILTER, GL_NEAREST);

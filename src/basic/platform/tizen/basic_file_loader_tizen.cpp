@@ -56,6 +56,13 @@ void FileLoader::ReadTexImage2D(GLenum target, const char *filename) const {
 
 void FileLoader::ReadTexArray(GLenum target, const TexProp &tex) const {
 
+	// it works
+	/*GLubyte *texels = (GLubyte *) malloc (4 * 2 * 2 * 2 * sizeof(GLubyte));
+	memset(texels, 255, 4 * 2 * 2 * 2 * sizeof(GLubyte));
+	glTexImage3D(target, 0, GL_RGBA8, 2, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, texels);
+	free(texels);
+	check_gl_error("glTexImage3D");*/
+
 	Evas_Object *parent = SampleLauncher::GetInstance()->GetParent();
 
 	int w(0), h(0);
@@ -70,7 +77,6 @@ void FileLoader::ReadTexArray(GLenum target, const TexProp &tex) const {
 
 	Evas *canvas = evas_object_evas_get(inline_buffer);
 
-	GLubyte *array_pixels = nullptr;
 	for(int idx = 0; idx < layers; idx++) {
 		Evas_Object *image = evas_object_image_add(canvas);
 		char path[200];
@@ -85,28 +91,30 @@ void FileLoader::ReadTexArray(GLenum target, const TexProp &tex) const {
 
 		elm_win_render(inline_buffer);
 
-		int size = w * h;
+/*		int size = w * h;
 		if(idx == 0) {
-//			array_pixels = new GLubyte[4 * size * layers];
+			array_pixels = new GLubyte[4 * size * layers];
 			LOGI("arrra create size[%d]", 4 * size * layers );
-		}
+		}*/
 
-//		GLubyte *pixels = static_cast<GLubyte *>(evas_object_image_data_get(image, EINA_FALSE));
-//		memcpy(array_pixels, pixels,  4 * size * sizeof(GLubyte));
+/*		GLubyte *pixels = static_cast<GLubyte *>(evas_object_image_data_get(image, EINA_FALSE));
+		memcpy(array_pixels, pixels,  4 * size * sizeof(GLubyte));*/
 
 		evas_object_del(image);
 	}
-//	array_pixels = (GLubyte *) malloc (4 * w * h * layers * sizeof(GLubyte));
-//			new GLubyte[4 * w * h * layers];
-//	memset(array_pixels, 255, 4 * w * h * layers * sizeof(GLubyte));
 
+//	glTexImage3D(target, 0, GL_RGBA8, w, h, layers, 0, GL_RGBA, GL_UNSIGNED_BYTE, array_pixels);
+//	check_gl_error("glTexImage3D");
 
-//	glTexImage3D(target, 0, GL_BGRA_EXT, w, h, layers, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, array_pixels);
-	check_gl_error("glTexImage3D");
-
-//	free(array_pixels);
-//	delete array_pixels;
 	evas_object_del(inline_buffer);
+
+	// it doesn't work
+	/*GLubyte *texels = (GLubyte *) malloc (4 * 2 * 2 * 2 * sizeof(GLubyte));
+	memset(texels, 255, 4 * 2 * 2 * 2 * sizeof(GLubyte));
+	glTexImage3D(target, 0, GL_RGBA8, 2, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, texels);
+	free(texels);
+	check_gl_error("glTexImage3D");*/
+
 
 }
 

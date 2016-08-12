@@ -34,6 +34,7 @@ typedef enum _TexContainer_Type {
 	TEX_2D_FILE,
 	TEX_2D_PTR,
 	TEX_2D_ARRAY_FILE,
+	TEX_2D_ARRAY_PTR,
 	TEX_3D_FILE,
 	TEX_3D_PTR,
 	TEX_CUBE_FILE,
