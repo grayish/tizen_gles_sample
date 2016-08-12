@@ -24,10 +24,13 @@ void EnvMappingView::OnInit() {
 	po_uniforms.mList[U_CAMERA_PROJ] = "projMat";
 	po_uniforms.mList[U_CAMERA_POS] = "eyePos";
 
+	TexProp tizen(TEX_2D_FILE, "tex/tizen.png");
+
 	mViewRenderer->GetNewObject(PHONG_OBJ, "teapot", po_uniforms)
 			->ImportObj("obj3d/teapot", 1.0f)
 			->AttachShader(vs, fs, "shader")
-			->AttachTexture(cubemap, "s_texCube");
+			->AttachTexture(cubemap, "s_texCube")
+			->AttachTexture(tizen, "s_tex0");
 
 }
 
