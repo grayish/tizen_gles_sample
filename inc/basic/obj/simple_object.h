@@ -23,29 +23,51 @@ private:
 	GLuint mBufferVertices;
 
 public:
+	/**
+	 * @brief Constructor for the class SimpleObject
+	 *
+	 * @param[in] name a name of the object
+	 * @param[in] list a map of uniforms for the object
+	 * @param[in] camera a camera to be used for the object
+	 */
 	SimpleObject(const std::string &name, const ABasicMap *list, BasicCamera *camera) :
 			BasicObject(name),
 			mVertices(),
 			mBufferVertices(0)
 	{ }
 
+	/**
+	 * @brief Destructor for the class SimpleObject
+	 */
 	virtual ~SimpleObject() {
 		LOGI("destruct name[%s]", mName.c_str());
 		glDeleteBuffers(1, &mBufferVertices);
 		check_gl_error("glDeleteBuffers");
 	}
 
+	/**
+ 	 * @brief Import an obj file
+ 	 *
+	 * @param[in] objFilename a name of the obj file
+	 * @param[in] scale a scale factor
+ 	 */
 	virtual BasicObject *ImportObj(const std::string &objFilename, const float &scale) {
 		return nullptr;
 	}
 
 protected:
+	/**
+	 * @brief Create buffer objects and bind buffer data
+	 */
 	virtual void CreateVbo() {
 		CreateBuffer(GL_ARRAY_BUFFER, &mBufferVertices,
 					 (GLsizeiptr) mVertices.size() * sizeof(SimpleVertex),
 					 &(mVertices.at(0)), GL_STATIC_DRAW);
 	}
 
+	/**
+	 * @brief Enable vertex attribute pointers and active textures for drawing, binding data for each vertex
+	 */
 	virtual void SetupAttribs() {
 		std::vector<VertexAttrib> att;
 		att.push_back(VertexAttrib{BASIC_ATTRIB_POS, 2, GL_FLOAT,
@@ -59,10 +81,16 @@ protected:
 
 	}
 
+	/**
+	 * @brief Disable vertex attributes and clean up bindings
+	 */
 	virtual void ResetAttrib() {
 
 	}
 
+	/**
+	 * @brief Draw the object with the attached shader
+	 */
 	virtual void Draw() {
 		SetupAttribs();
 
@@ -72,11 +100,21 @@ protected:
 
 	}
 
+	/**
+	 * @brief Set uniforms for a shader
+	 *
+	 * @param[in] sh a pointer of the shader
+	 */
 	virtual void SetShaderUniforms(BasicShader *sh) {
 		Texture_Mgr.ActiveTextures(sh, this);
 	}
 
 public:
+	/**
+	 * @brief Init function of SimpleObject
+	 *
+	 * @param[in] offset something useless
+	 */
 	void Init(const glm::vec2& offset) {
 		mVertices.push_back(
 				SimpleVertex { glm::vec2(0.0, 0.0) + offset, glm::vec2(0.0, 0.0) } );

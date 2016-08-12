@@ -31,28 +31,74 @@ private:
 	BasicCamera *mCamera;
 
 public: //Getter Setter
+	/**
+ 	 * @brief Scale an object
+ 	 *
+	 * @param[in] scale a scale factor
+ 	 */
 	PhongObject *SetScale(const float &scale);
 
+	/**
+ 	 * @brief color an object
+ 	 *
+	 * @param[in] col a color to be set
+ 	 */
 	PhongObject *SetColor(const glm::vec3 &col);
 
 public:
+	/**
+	 * @brief Constructor for the class PhongObject
+	 *
+	 * @param[in] name a name of the object
+	 * @param[in] list a map of uniforms for the object
+	 * @param[in] camera a camera to be used for the object
+	 */
 	PhongObject(const std::string &name, const ABasicMap *list, BasicCamera *camera);
 
+	/**
+	 * @brief Destructor for the class PhongObject
+	 */
 	virtual ~PhongObject();
 
+	/**
+ 	 * @brief Import an obj file
+ 	 *
+	 * @param[in] objFilename a name of the obj file
+	 * @param[in] scale a scale factor
+ 	 */
 	virtual BasicObject *ImportObj(const std::string &objFilename, const float &scale);
 
 protected: // override functions
+	/**
+	 * @brief Create buffer objects and bind buffer data
+	 */
 	virtual void CreateVbo();
 
+	/**
+	 * @brief Enable vertex attribute pointers and active textures for drawing, binding data for each vertex
+	 */
 	virtual void SetupAttribs();
 
+	/**
+	 * @brief Disable vertex attributes and clean up bindings
+	 */
 	virtual void ResetAttrib();
 
+	/**
+	 * @brief Draw the object with the attached shader
+	 */
 	virtual void Draw();
 
+	/**
+	 * @brief Set uniforms for a shader
+	 *
+	 * @param[in] sh a pointer of the shader
+	 */
 	virtual void SetShaderUniforms(BasicShader *sh);
 
+	/**
+	 * @brief Compute tangent vectors for TBN matrix
+	 */
 	void ComputeTangent();
 };
 
