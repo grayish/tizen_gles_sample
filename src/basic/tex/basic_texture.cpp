@@ -109,8 +109,27 @@ void BasicTexture::TexImage(const GLenum &target, const TexProp &tex) {
 		}
 			break;
 
-		case TEX_2D_ARRAY_PTR :
-			TexImage3D(target, tex, tex.mPtrs[0]);
+		case TEX_2D_ARRAY_PTR : {
+			GLubyte texels[32] =
+					{
+							//Texels for first image.
+							0,   0,   0,   255,
+							255, 0,   0,   255,
+							0,   255, 0,   255,
+							0,   0,   255, 255,
+							//Texels for second image.
+							255, 255, 255, 255,
+							255, 255,   0, 255,
+							0,   255, 255, 255,
+							255, 0,   255, 255,
+					};
+//			glTexStorage3D(mTarget, 1, GL_BGRA8_EXT, 2, 2, 2); // ERROR!
+			glTexStorage3D(mTarget, 1, GL_BGRA_EXT, 2, 2, 2);
+			check_gl_error("glTexStorage3D");
+			glTexSubImage3D(mTarget, 0, 0, 0, 0, 2, 2, 2, GL_BGRA_EXT, GL_UNSIGNED_BYTE, texels); // ERROR!
+			check_gl_error("glTexSubImage3D");
+//			TexImage3D(target, tex, tex.mPtrs[0]);
+		}
 			break;
 		default:
 			break;
