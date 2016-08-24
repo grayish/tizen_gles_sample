@@ -18,6 +18,5 @@ void main() {
 	vec4 envColor = texture(s_texCube, reflec);
 
 	fragColor = envColor;
-//	fragColor = vec4(reflec, 1.0);
 
 }
